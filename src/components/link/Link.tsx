@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
-enum LinkColor {
-    WHITE = 'white',
-    BLACK = 'black'
+type LinkColor = 'white' | 'black'
+
+export enum LinkType {
+    Default = 'DEFAULT',
+    Button = 'BUTTON'
 }
 
 export interface Props {
@@ -15,9 +17,11 @@ export interface Props {
 type PropsStyle = Pick<Props, 'color'>
 
 const Default = styled(NavLink)<PropsStyle>`
+    display: block;
+    white-space: nowrap;
     text-decoration: none;
     color: ${ props => 
-        props.color === LinkColor.WHITE? 'var(--white)' : 'var(--black)'
+        props.color === 'white' ? 'var(--white)' : 'var(--black)'
     };
 
     &.active, &:hover {
@@ -27,7 +31,9 @@ const Default = styled(NavLink)<PropsStyle>`
 
 const Button = styled(Default)`
     padding: 10px 10px;
-    border: var(--border-width) solid var(--black);
+    border: var(--border-width) solid ${ props => 
+        props.color === 'white' ? 'var(--white)' : 'var(--black)'
+    };
 
     &.active, &:hover {
         border-color: var(--yellow-main);
