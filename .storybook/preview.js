@@ -1,4 +1,5 @@
 import GlobalStyle from '../src/GlobalStyle'
+import StorybookStyle from './StorybookStyle'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -15,6 +16,7 @@ export const decorators = [
     return (
       <>
         <GlobalStyle/>
+        <StorybookStyle/>
         <Story/>
       </>
     )
