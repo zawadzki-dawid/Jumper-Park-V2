@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export type IconName = 'icon-arrow' | 'icon-arrow-medium' | 'icon-arrow-big'
+export type IconName = 
+| 'icon-arrow' 
+| 'icon-arrow-medium' 
+| 'icon-arrow-big'
+| 'icon-hamburger'
 
 export interface Props {
     image: IconName,
