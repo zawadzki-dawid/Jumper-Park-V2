@@ -1,90 +1,88 @@
-import { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import { useState, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 // Components
 import Icon from '../icon/Icon' 
 
 type Question = {
-    question: string,
+    question: string
     answer: string
 }
 
 export interface Props {
-    section: string,
+    section: string
     questions: Question[] 
 }
 
-interface DropdownProps {
-    dropdownHeight: number,
+interface QuestionProps {
     isOpen: boolean
 }
 
-const QuestionDropdown = styled.div<DropdownProps>`
-    > button {
-        display: flex;
-        background: none;
-        border: none;
-        border-bottom: var(--border-width) solid var(--black);
-        width: 100%;
-        padding: 10px 0px;
-        justify-content: space-between;
+interface DropdownProps {
+    height: number
+}
 
-        &:hover {
-            cursor: pointer;
+const StyledQuestion = styled.div<QuestionProps>`
+    button {
+        width: 100%;
+        display: flex;
+        padding: 10px 0px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: var(--border-width) solid var(--black);
+
+
+        h3 {
+
         }
 
-        > i {
+        i {
             transform: ${ props => props.isOpen ? 'rotateZ(180deg)' : 'rotateZ(0deg)' };
             transition: transform 300ms;
         }
     }
+`
 
-    > div {
-        overflow-y: hidden;
+const StyledDropdown = styled.div<DropdownProps>`
+    max-height: 0px;
+    overflow-y: hidden;
+
+    &.dropdown-enter, &.dropdown-exit-done {
         max-height: 0px;
-
-        &.dropdown-enter, &.dropdown-exit-done {
-            max-height: 0px;
-        }
-
-        &.dropdown-enter-active {
-            max-height: ${ props => props.dropdownHeight }px;
-            transition: max-height 300ms ease;
-        }
-
-        &.dropdown-enter-done {
-            max-height: fit-content;
-        }
-
-        &.dropdown-exit {
-            max-height: ${ props => props.dropdownHeight }px;
-        }
-
-        &.dropdown-exit-active, &.dropdown-exit-done {
-            max-height: 0px;
-            transition: max-height 300ms ease;
-        }
-
-        > ul {
-            list-style-type: none;
-            padding-top: 20px;
-            grid-template-columns: 1fr;
-            display: grid;
-            row-gap: 20px;
-
-            li {
-                h4 {
-                    margin-bottom: 5px;
-                }
-            }
-        }
     }
 
-    @media only screen and (min-width: 800px) {
-        > div > ul {
-            grid-template-columns: 1fr 1fr;
+    &.dropdown-enter-active {
+        max-height: ${ props => props.height }px;
+        transition: max-height 300ms ease;
+    }
+
+    &.dropdown-enter-done {
+        max-height: fit-content;
+    }
+
+    &.dropdown-exit {
+        max-height: ${ props => props.height }px;
+    }
+
+    &.dropdown-exit-active, &.dropdown-exit-done {
+        max-height: 0px;
+        transition: max-height 300ms ease;
+    }
+
+    ul {
+        display: grid;
+        row-gap: 20px;
+        padding-top: 20px;
+        grid-template-columns: 1fr;
+
+        @media only screen and (min-width: 800px) {
             gap: 20px 20px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        p {
+            margin-top: 5px;
         }
     }
 `
@@ -100,64 +98,60 @@ export default ({
     // Ref
     const dropdownRef = useRef<HTMLUListElement | null>(null)
 
-    // Effects
-    useEffect(() => {
-        if (dropdownRef.current === null) {
+    // Method
+    const onButtonClick = () => {
+        if (!dropdownRef.current) {
             return
-        } 
+        }
 
         setDropdownHeight(dropdownRef.current.clientHeight)
-    }, [dropdownRef.current])
+        setIsOpen(!isOpen)
+    }
 
     return (
-        <QuestionDropdown
-            dropdownHeight={dropdownHeight}
+        <StyledQuestion
             isOpen={isOpen}
         >
             <button
-                onClick={() => {
-                    setIsOpen(!isOpen)
-                }}
+                onClick={onButtonClick}
             >
                 <h3>
                     { section }
                 </h3>
                 <Icon
-                    image={'icon-arrow'}
                     width={20}
                     height={20}
+                    image={'icon-arrow'}
                 />
             </button>
             <CSSTransition
-                timeout={300}
                 in={isOpen}
+                timeout={300}
                 classNames={'dropdown'}
             >
-                <div>
+                <StyledDropdown
+                    height={dropdownHeight}
+                >
                     <ul
                         ref={dropdownRef}
                     >
-                        {
-                            questions.map((data, index) => {
-                                const { question, answer } = data
-
-                                return (
-                                    <li
-                                        key={index}
-                                    >
-                                        <h4>
-                                            { question }
-                                        </h4>
-                                        <p>
-                                            { answer }
-                                        </p>
-                                    </li>
-                                )
-                            })
-                        }
+                    {
+                        questions.map((data, index) =>
+                            <li
+                                key={index}
+                            >
+                                <h4>
+                                    { data.question }
+                                </h4>
+                                <p>
+                                    { data.answer }
+                                </p>
+                            </li>
+                        )
+                    }
                     </ul>
-                </div>
+                </StyledDropdown>
             </CSSTransition>
-        </QuestionDropdown>
+        </StyledQuestion>
     )
 }
