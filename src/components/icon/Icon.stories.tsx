@@ -21,28 +21,38 @@ export default {
 
 export const Arrow = (args: Props) => {
     return (
-        <Icon
-            {...args}
-        />
+        <div
+            style={{
+                width: '20px',
+                height: '20px'
+            }}
+        >
+            <Icon
+                {...args}
+            />
+        </div>
     )
 }
 
 Arrow.args = {
     image: 'icon-arrow',
-    width: 20,
-    height: 20
 }
 
 export const ArrowMedium = (args: Props) => {
     return (
-        <Icon
-            {...args}
-        />
+        <div
+            style={{
+                width: '30px',
+                height: '30px'
+            }}
+        >
+            <Icon
+                {...args}
+            />
+        </div>
     )
 }
 
 ArrowMedium.args = {
-    image: 'icon-arrow-medium',
-    width: 30,
-    height: 30
+    image: 'icon-arrow-medium'
 }

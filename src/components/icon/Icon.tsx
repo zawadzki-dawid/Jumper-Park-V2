@@ -7,31 +7,27 @@ export type IconName =
 | 'icon-hamburger'
 
 export interface Props {
-    image: IconName,
-    width: number,
-    height: number
+    image: IconName
 }
 
 const iconsPath = '/assets/icons'
 
-const Icon = styled.i<Props>`
-    background-image: url(${ props => `${iconsPath}/${props.image}.svg` });
+const Icon = styled.span<Props>`
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-size: contain;
     background-repeat: no-repeat;
-    background-size: ${ props => `${props.width}px ${props.height}px` };
-    width: ${ props => `${props.width}px` };
-    height: ${ props => `${props.height}px` };
+    background-position: center center;
+    background-image: url(${ props => `${iconsPath}/${props.image}.svg` });
 `
 
 export default ({
-    image,
-    width,
-    height
+    image
 }: Props) => {
     return (
         <Icon
             image={image}
-            width={width}
-            height={height}
         />
     )
 }
