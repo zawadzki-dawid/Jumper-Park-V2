@@ -9,16 +9,16 @@ export enum LinkType {
 }
 
 export interface Props {
-    to: string,
+    path: string,
     text: string,
     color: LinkColor
 }
 
-type PropsStyle = Pick<Props, 'color'>
+type LinkProps = Pick<Props, 'color'>
 
-const Default = styled(NavLink)<PropsStyle>`
-    display: block;
+const Default = styled(NavLink)<LinkProps>`
     white-space: nowrap;
+    display: inline-block;
     text-decoration: none;
     color: ${ props => 
         props.color === 'white' ? 'var(--white)' : 'var(--black)'
@@ -29,11 +29,23 @@ const Default = styled(NavLink)<PropsStyle>`
     }
 `
 
-const Button = styled(Default)`
-    padding: 10px 10px;
+const Button = styled(NavLink)`
+    padding: 10px 15px;
+    white-space: nowrap;
+    display: inline-block;
+    text-decoration: none;
+
     border: var(--border-width) solid ${ props => 
         props.color === 'white' ? 'var(--white)' : 'var(--black)'
     };
+
+    color: ${ props => 
+        props.color === 'white' ? 'var(--white)' : 'var(--black)'
+    };
+
+    &.active, &:hover {
+        color: var(--yellow-main);
+    }
 
     &.active, &:hover {
         border-color: var(--yellow-main);
@@ -41,13 +53,13 @@ const Button = styled(Default)`
 `
 
 export const LinkDefault = ({
-    to,
+    path,
     text,
     color
 }: Props) => {
     return (
         <Default
-            to={to}
+            to={path}
             color={color}
         >
             { text }
@@ -56,13 +68,13 @@ export const LinkDefault = ({
 }
 
 export const LinkButton = ({
-    to,
+    path,
     text,
     color
 }: Props) => {
     return (
         <Button
-            to={to}
+            to={path}
             color={color}
         >
             { text }

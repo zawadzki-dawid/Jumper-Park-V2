@@ -38,7 +38,7 @@ export const Default = (args: Props) => {
 }
 
 Default.args = {
-    to: '/example',
+    path: '/example',
     text: 'Wycieczka szkolna',
     color: 'white'
 }
@@ -62,7 +62,7 @@ export const Button = (args: Props) => {
 }
 
 Button.args = {
-    to: '/example',
+    path: '/example',
     text: 'Kup bilet',
     color: 'black'
 }
