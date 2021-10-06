@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import styled from 'styled-components'
+import { useMemo, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 // Components
@@ -8,7 +8,7 @@ import Icon from '../icon/Icon'
 import { LinkDefault, LinkButton, LinkType } from '../link/Link'
 
 type MenuLink = {
-    to: string,
+    path: string,
     text: string,
     type: LinkType
 }
@@ -17,166 +17,171 @@ export interface Props {
     links: MenuLink[]
 }
 
-const Navbar = styled.nav`
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
+interface PropsMobile {
+    headerHeight: number
+}
+
+const Header = styled.header`
+    height: 100%;
+    position: relative;
+    background-color: var(--black);
 
     > div {
-        background-color: var(--black);
-        padding: 0 15px 0 10px;
-        flex: 0 1 80px;
+        height: 100%;
         display: flex;
         align-items: center;
+        padding: 0 20px 0 15px;
         justify-content: space-between;
-
-        > ul {
-            display: none;
-        } 
-    }
-
-    ul {
-        list-style-type: none;
-    }
-
-    > ul {
-        flex: 1 1 auto;
-        background-color: var(--black);
-
-        li {
-            width: fit-content;
-            margin-top: 30px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        &.menu-enter, &.menu-exit-done {
-            transform: translateX(100%);
-        }
-
-        &.menu-enter-active {
-            transform: translateX(0);
-            transition: transform 300ms;
-        }
-
-        &.menu-exit, &.menu-enter-done {
-            transform: translateX(0);
-        }
-
-        &.menu-exit-active, &.menu-exit-done {
-            transform: translateX(100%);
-            transition: transform 300ms;
-        }
-    }
-
-    @media only screen and (min-width: 1250px) {
-        > div > ul {
-            display: flex;
-            align-items: center;
-
-            li:not(:last-child) {
-                margin-right: 20px;
-            }
-        }
-
-        > ul {
-            display: none;
-        }
     }
 `
 
 const Hamburger = styled.button`
     display: flex;
-    flex-direction: column;
-    background: none;
-    border: none;
     color: var(--white);
     align-items: center;
+    flex-direction: column;
 
-    &:hover {
-        cursor: pointer;
+    div {
+        width: 25px;
+        height: 25px;
     }
 
-    @media only screen and (min-width: 1250px) {
+    @media only screen and (min-width: 1000px) {
         display: none;
     }
 `
 
-const MenuList = ({
-    links
-}: Props) => {
-    return (
-        <ul>
-            {
-                links.map((link, index) => {
-                    const { type, ...rest } = link 
-            
-                    return (
-                        <li
-                            key={index}
-                        >
-                            {
-                                type === LinkType.Default ?
-                                (
-                                    <LinkDefault
-                                        color={'white'}
-                                        { ...rest }
-                                    />
-                                ) :
-                                (
-                                    <LinkButton
-                                        color={'white'}
-                                        { ...rest }
-                                    />
-                                )
-                            }
-                        </li>
-                    )
-                })
-            }
-        </ul>
-    )
-}
+const MenuMobile = styled.nav<PropsMobile>`
+    width: 100%;
+    position: absolute;
+    background-color: var(--black);
+    height: calc(100vh - ${ props => `${props.headerHeight}px` });
+
+    &.menu-enter, &.menu-exit-done {
+        transform: translateX(100%);
+    }
+
+    &.menu-enter-active {
+        transform: translateX(0);
+        transition: transform 300ms;
+    }
+
+    &.menu-exit, &.menu-enter-done {
+        transform: translateX(0);
+    }
+
+    &.menu-exit-active, &.menu-exit-done {
+        transform: translateX(100%);
+        transition: transform 300ms;
+    }
+
+    ul {
+        li {
+            display: flex;
+            margin-top: 30px;
+            justify-content: center;
+        }
+    }
+
+    @media only screen and (min-width: 1000px) {
+        display: none;
+    }
+`
+
+const MenuDesktop = styled.nav`
+    display: none;
+
+    ul {
+        display: flex;
+        align-items: center;
+
+        li:not(:last-of-type) {
+            margin-right: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 1000px) {
+        display: block;
+    }
+`
 
 export default ({
     links
 }: Props) => {
     // State
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [headerHeight, setHeaderHeight] = useState<number>(0)
+
+    // Ref
+    const headerRef = useRef<HTMLElement | null>(null)
+
+    // Method
+    const onHamburgerClick = () => {
+        if (!headerRef.current) {
+            return
+        }
+        setHeaderHeight(headerRef.current.clientHeight)
+        setIsOpen(!isOpen)
+    }
+
+    const menuLinks = useMemo(() => links.map((link, index) => (
+        <li
+            key={index}
+        >
+        {
+            link.type === LinkType.Default ? (
+                <LinkDefault
+                    color={'white'}
+                    path={link.path}
+                    text={link.text}
+                />
+            ) : (
+                <LinkButton
+                    color={'white'}
+                    path={link.path}
+                    text={link.text}
+                />
+            )
+        }
+        </li>
+    )), [links])
 
     return (
-        <Navbar>
+        <Header
+            ref={headerRef}
+        >
             <div>
                 <Logo/>
                 <Hamburger
-                    onClick={() => {
-                        setIsOpen(!isOpen)
-                    }}
+                    onClick={onHamburgerClick}
                 >
-                    <Icon
-                        image={'icon-hamburger'}
-                        height={20}
-                        width={20}
-                    />
+                    <div>
+                        <Icon
+                            image={'icon-hamburger'}
+                        />
+                    </div>
                     Menu
                 </Hamburger>
-                <MenuList
-                    links={links}
-                />
+                <MenuDesktop>
+                    <ul>
+                        { menuLinks }
+                    </ul>
+                </MenuDesktop>
             </div>
             <CSSTransition
-                timeout={300}
                 in={isOpen}
+                timeout={300}
                 classNames={'menu'}
                 unmountOnExit={true}
             >
-                <MenuList
-                    links={links}
-                />
+                <MenuMobile
+                    headerHeight={headerHeight}
+                >
+                    <ul>
+                        { menuLinks }
+                    </ul>
+                </MenuMobile>
             </CSSTransition>
-        </Navbar>
+        </Header>
     )
 }

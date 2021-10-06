@@ -1,6 +1,6 @@
-import { StyledComponent } from 'styled-components'
 import { LinkType } from '../link/Link'
 import Navbar, { Props } from './Navbar'
+import { StyledComponent } from 'styled-components'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 export default {
@@ -8,17 +8,17 @@ export default {
     args: {
         links: [
             {
-                to: '/exmaple',
+                path: '/exmaple',
                 text: 'Wycieczka szkolna',
                 type: LinkType.Default
             },
             {
-                to: '/exmaple',
+                path: '/exmaple',
                 text: 'Wycieczka szkolna',
                 type: LinkType.Default
             },
             {
-                to: '/exmaple',
+                path: '/exmaple',
                 text: 'Kup bilet',
                 type: LinkType.Button
             }
@@ -30,10 +30,19 @@ export default {
                 <div
                     style={{
                         height: '150vh',
-                        position: 'relative'
+                        display: 'flex',
+                        overflowX: 'hidden',
+                        position: 'relative',
+                        flexDirection: 'column'
                     }}
                 >
-                    <Story/>
+                    <div
+                        style={{
+                            height: '80px'
+                        }}
+                    >
+                        <Story/>
+                    </div>
                 </div>
             </Router>
         )
