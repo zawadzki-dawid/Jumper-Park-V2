@@ -6,8 +6,8 @@ import { CSSTransition } from 'react-transition-group'
 import Icon from '../icon/Icon' 
 
 type Question = {
-    question: string
     answer: string
+    question: string
 }
 
 export interface Props {
@@ -15,60 +15,33 @@ export interface Props {
     questions: Question[] 
 }
 
-interface QuestionProps {
+interface ButtonProps {
     isOpen: boolean
 }
 
 interface DropdownProps {
-    height: number
+    dropdownHeight: number
 }
 
-const StyledQuestion = styled.div<QuestionProps>`
-    button {
-        width: 100%;
-        display: flex;
-        padding: 10px 0px;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: var(--border-width) solid var(--black);
+const Button = styled.button<ButtonProps>`
+    width: 100%;
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: var(--border-width) solid var(--black);
 
-
-        h3 {
-
-        }
-
-        i {
-            transform: ${ props => props.isOpen ? 'rotateZ(180deg)' : 'rotateZ(0deg)' };
-            transition: transform 300ms;
-        }
+    div {
+        width: 20px;
+        height: 20px;
+        transition: transform 300ms;
+        transform: ${ props => props.isOpen ? 'rotateZ(180deg)' : 'rotateZ(0deg)' };
     }
 `
 
-const StyledDropdown = styled.div<DropdownProps>`
+const Dropdown = styled.div<DropdownProps>`
     max-height: 0px;
     overflow-y: hidden;
-
-    &.dropdown-enter, &.dropdown-exit-done {
-        max-height: 0px;
-    }
-
-    &.dropdown-enter-active {
-        max-height: ${ props => props.height }px;
-        transition: max-height 300ms ease;
-    }
-
-    &.dropdown-enter-done {
-        max-height: fit-content;
-    }
-
-    &.dropdown-exit {
-        max-height: ${ props => props.height }px;
-    }
-
-    &.dropdown-exit-active, &.dropdown-exit-done {
-        max-height: 0px;
-        transition: max-height 300ms ease;
-    }
 
     ul {
         display: grid;
@@ -80,10 +53,32 @@ const StyledDropdown = styled.div<DropdownProps>`
             gap: 20px 20px;
             grid-template-columns: 1fr 1fr;
         }
+    }
 
-        p {
-            margin-top: 5px;
-        }
+    p {
+        margin-top: 5px;
+    }
+
+    &.dropdown-enter, &.dropdown-exit-done {
+        max-height: 0px;
+    }
+
+    &.dropdown-enter-active {
+        max-height: ${ props => props.dropdownHeight }px;
+        transition: max-height 300ms ease;
+    }
+
+    &.dropdown-enter-done {
+        max-height: fit-content;
+    }
+
+    &.dropdown-exit {
+        max-height: ${ props => props.dropdownHeight }px;
+    }
+
+    &.dropdown-exit-active, &.dropdown-exit-done {
+        max-height: 0px;
+        transition: max-height 300ms ease;
     }
 `
 
@@ -109,28 +104,27 @@ export default ({
     }
 
     return (
-        <StyledQuestion
-            isOpen={isOpen}
-        >
-            <button
+        <div>
+            <Button
+                isOpen={isOpen}
                 onClick={onButtonClick}
             >
                 <h3>
                     { section }
                 </h3>
-                <Icon
-                    width={20}
-                    height={20}
-                    image={'icon-arrow'}
-                />
-            </button>
+                <div>
+                    <Icon
+                        image={'icon-arrow'}
+                    />
+                </div>
+            </Button>
             <CSSTransition
                 in={isOpen}
                 timeout={300}
                 classNames={'dropdown'}
             >
-                <StyledDropdown
-                    height={dropdownHeight}
+                <Dropdown
+                    dropdownHeight={dropdownHeight}
                 >
                     <ul
                         ref={dropdownRef}
@@ -150,8 +144,8 @@ export default ({
                         )
                     }
                     </ul>
-                </StyledDropdown>
+                </Dropdown>
             </CSSTransition>
-        </StyledQuestion>
+        </div>
     )
 }
