@@ -5,6 +5,8 @@ export type IconName =
 | 'icon-arrow-medium' 
 | 'icon-arrow-big'
 | 'icon-hamburger'
+| 'icon-document'
+| 'icon-download'
 
 export interface Props {
     image: IconName
