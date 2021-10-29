@@ -13,14 +13,16 @@ export default createGlobalStyle`
         --black: rgb(0, 0, 0);
         --yellow-main: rgb(249, 212, 35);
         --orange-main: rgb(248, 54, 0);
+        --image-loader-gradient: linear-gradient(270deg, rgb(245, 245, 245), rgb(220, 220, 220));
         --shadow-color: rgba(0, 0, 41, 0.2);
         --border-width: 2px;
         --nav-mobile-height: 80px;
         --footer-mobile-height: 80px;
         --gradient-main: linear-gradient(to right, var(--yellow-main), var(--orange-main));
         --link-font-size: 1.6rem;
+        --default-font-size: 1.6rem;
         --heading-font-size: 1.8rem;
-        --asterix-font-size: 1.3rem;
+        --small-font-size: 1.4rem;
     }
 
     ul {
