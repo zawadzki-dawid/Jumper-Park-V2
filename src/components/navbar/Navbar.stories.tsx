@@ -1,4 +1,3 @@
-import { LinkType } from '../link/Link'
 import Navbar, { Props } from './Navbar'
 import { StyledComponent } from 'styled-components'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -8,19 +7,19 @@ export default {
     args: {
         links: [
             {
+                type: 'Link',
                 path: '/exmaple',
-                text: 'Wycieczka szkolna',
-                type: LinkType.Default
+                text: 'Wycieczka szkolna'
             },
             {
+                type: 'Link',
                 path: '/exmaple',
-                text: 'Wycieczka szkolna',
-                type: LinkType.Default
+                text: 'Wycieczka szkolna'
             },
             {
+                type: 'Button',
                 path: '/exmaple',
-                text: 'Kup bilet',
-                type: LinkType.Button
+                text: 'Kup bilet'
             }
         ]
     },

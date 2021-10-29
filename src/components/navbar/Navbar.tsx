@@ -5,12 +5,12 @@ import { CSSTransition } from 'react-transition-group'
 // Components
 import Logo from '../logo/Logo'
 import Icon from '../icon/Icon'
-import { LinkDefault, LinkButton, LinkType } from '../link/Link'
+import { Type, Link, Button } from '../link/Link'
 
 type MenuLink = {
     path: string,
     text: string,
-    type: LinkType
+    type: Type
 }
 
 export interface Props {
@@ -23,13 +23,14 @@ interface PropsMobile {
 
 const Header = styled.header`
     height: 100%;
+    display: flex;
     position: relative;
+    align-items: center;
     background-color: var(--black);
 
     > div {
-        height: 100%;
+        width: 100%;
         display: flex;
-        align-items: center;
         padding: 0 20px 0 15px;
         justify-content: space-between;
     }
@@ -42,8 +43,7 @@ const Hamburger = styled.button`
     flex-direction: column;
 
     div {
-        width: 25px;
-        height: 25px;
+        height: 30px;
     }
 
     @media only screen and (min-width: 1000px) {
@@ -52,6 +52,7 @@ const Hamburger = styled.button`
 `
 
 const MenuMobile = styled.nav<PropsMobile>`
+    top: 100%;
     width: 100%;
     position: absolute;
     background-color: var(--black);
@@ -124,21 +125,24 @@ export default ({
         setIsOpen(!isOpen)
     }
 
+    const onLinkClick = () => {
+        setIsOpen(false)
+    }
+
     const menuLinks = useMemo(() => links.map((link, index) => (
         <li
             key={index}
+            onClick={onLinkClick}
         >
         {
-            link.type === LinkType.Default ? (
-                <LinkDefault
-                    color={'white'}
-                    path={link.path}
+            link.type === Type.Link ? (
+                <Link
+                    to={link.path}
                     text={link.text}
                 />
             ) : (
-                <LinkButton
-                    color={'white'}
-                    path={link.path}
+                <Button
+                    to={link.path}
                     text={link.text}
                 />
             )
@@ -153,11 +157,12 @@ export default ({
             <div>
                 <Logo/>
                 <Hamburger
+                    type={'button'}
                     onClick={onHamburgerClick}
                 >
                     <div>
                         <Icon
-                            image={'icon-hamburger'}
+                            image={'hamburger'}
                         />
                     </div>
                     Menu
