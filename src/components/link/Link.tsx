@@ -1,161 +1,110 @@
-import styled, { css } from 'styled-components'
 import { NavLink } from 'react-router-dom'
-
-// Components
-import Icon from '../icon/Icon'
+import styled, { css } from 'styled-components'
 
 type LinkColor = 'white' | 'black'
-
-export enum LinkType {
-    Default = 'DEFAULT',
-    Button = 'BUTTON'
-}
+type HoverType =  'yellow' | 'default' | 'gradient'
 
 export interface Props {
-    path: string,
-    text: string,
+    to: string
+    text: string
+    color?: LinkColor
+    hover?: HoverType
+}
+
+interface PropsBase {
     color: LinkColor
+    hover: HoverType
 }
 
-export interface PropsDownload extends Omit<Props, 'path'> {
-    filename: string
-}
-
-export interface PropsDocument extends Omit<Props, 'path'> {
-    document: string
-}
-
-type LinkProps = Pick<Props, 'color'>
-
-const BaseStyles = css<LinkProps>`
+const Base = css<PropsBase>`
+    text-decoration: none;
     font-size: var(--link-font-size);
+    color: ${ props => props.color === 'white' ? 'var(--white)' : 'var(--black)' };
 
-    color: ${ props => 
-        props.color === 'white' ? 'var(--white)' : 'var(--black)'
-    };
-
-    &.active, &:hover {
-        color: var(--yellow-main);
+    // Default hover
+    &:hover, &.active {
+        ${ props => props.hover === 'default' && 'color: var(--yellow-main)' };
     }
 `
 
-const IconStyles = css`
-    display: grid;
-    gap: 10px;
-`
+// Link
 
-// Default link
-
-const Default = styled(NavLink)<LinkProps>`
-    ${BaseStyles}
+const LinkStyled = styled(NavLink)`
+    ${Base}
     white-space: nowrap;
     display: inline-block;
-    text-decoration: none;
 `
 
-export const LinkDefault = ({
-    path,
+export const Link = ({
+    to,
     text,
-    color
+    color = 'white',
+    hover = 'default'
 }: Props) => {
     return (
-        <Default
-            to={path}
+        <LinkStyled
+            to={to}
             color={color}
+            hover={hover}
         >
             { text }
-        </Default>
+        </LinkStyled>
     )
 }
 
-// Button link
+// Button
 
-export const LinkButton = ({
-    path,
-    text,
-    color
-}: Props) => {
-    return (
-        <Button
-            to={path}
-            color={color}
-        >
-            { text }
-        </Button>
-    )
-}
-
-const Button = styled(NavLink)`
-    ${BaseStyles}
+const ButtonStyled = styled(NavLink)`
+    ${Base}
     padding: 10px 15px;
-    white-space: nowrap;
-    display: inline-block;
-    text-decoration: none;
+    border: var(--border-width) solid ${ props => props.color === 'white' ? 'var(--white)' : 'var(--black)' };
 
-    border: var(--border-width) solid ${ props => 
-        props.color === 'white' ? 'var(--white)' : 'var(--black)'
-    };
-
-    &.active, &:hover {
-        border-color: var(--yellow-main);
+    &:hover, &.active {
+        ${ props => props.hover === 'default' && 'border: var(--border-width) solid var(--yellow-main)' };
     }
 `
 
-// Download link
-
-const Download = styled.a`
-    ${BaseStyles}
-    ${IconStyles}
-    align-items: center;
-    grid-template-rows: 45px;
-    grid-template-columns: 45px auto;
-`
-
-export const LinkDownload = ({
+export const Button = ({
+    to,
     text,
-    color,
-    filename
-}: PropsDownload) => {
+    color = 'white',
+    hover = 'default'
+}: Props) => {
     return (
-        <Download
+        <ButtonStyled
+            to={to}
             color={color}
-            href={filename}
-            download={text}
+            hover={hover}
         >
-            <Icon
-                image={'icon-download'}
-            />
-            { text }
-        </Download>
+            { text }    
+        </ButtonStyled>
     )
 }
 
-// Document link
+// Fitted
 
-const Document = styled.a`
-    ${BaseStyles}
-    ${IconStyles}
-    text-align: center;
-    justify-items: center;
-    grid-template-rows: 45px auto;
+const FittedStyled = styled(NavLink)`
+    ${Base}
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
-export const LinkDocument = ({
+export const Fitted = ({
+    to,
     text,
-    color,
-    document
-}: PropsDocument) => {
+    color = 'white',
+    hover = 'default'
+}: Props) => {
     return (
-        <Document
+        <FittedStyled
+            to={to}
             color={color}
-            href={document}
-            target={'_blank'}
-            rel={'noreferrer'}
+            hover={hover}
         >
-            <Icon
-                image={'icon-document'}
-            />
             { text }
-        </Document>
+        </FittedStyled>
     )
 }
