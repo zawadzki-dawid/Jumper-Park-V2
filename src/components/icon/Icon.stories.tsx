@@ -19,12 +19,12 @@ export default {
     ]
 }
 
-export const Arrow = (args: Props) => {
+export const Hamburger = (args: Props) => {
     return (
         <div
             style={{
-                width: '20px',
-                height: '20px'
+                height: '40px',
+                backgroundColor: 'black'
             }}
         >
             <Icon
@@ -34,15 +34,14 @@ export const Arrow = (args: Props) => {
     )
 }
 
-Arrow.args = {
-    image: 'icon-arrow',
+Hamburger.args = {
+    image: 'hamburger',
 }
 
-export const ArrowMedium = (args: Props) => {
+export const Document = (args: Props) => {
     return (
         <div
             style={{
-                width: '30px',
                 height: '30px'
             }}
         >
@@ -53,6 +52,6 @@ export const ArrowMedium = (args: Props) => {
     )
 }
 
-ArrowMedium.args = {
-    image: 'icon-arrow-medium'
+Document.args = {
+    image: 'document'
 }

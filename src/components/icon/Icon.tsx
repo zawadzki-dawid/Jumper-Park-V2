@@ -1,27 +1,20 @@
 import styled from 'styled-components'
 
-export type IconName = 
-| 'icon-arrow' 
-| 'icon-arrow-medium' 
-| 'icon-arrow-big'
-| 'icon-hamburger'
-| 'icon-document'
-| 'icon-download'
+// Assets
+import Document from '../../assets/icons/icon-document.svg'
+import Hamburger from '../../assets/icons/icon-hamburger.svg'
 
-export interface Props {
-    image: IconName
+const icon = {
+    document: Document,
+    hamburger: Hamburger
 }
 
-const iconsPath = '/assets/icons'
+export interface Props {
+    image: keyof typeof icon
+}
 
-const Icon = styled.span<Props>`
-    width: 100%;
+const Icon = styled.img`
     height: 100%;
-    display: block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url(${ props => `${iconsPath}/${props.image}.svg` });
 `
 
 export default ({
@@ -29,7 +22,9 @@ export default ({
 }: Props) => {
     return (
         <Icon
-            image={image}
+            alt={''}
+            role={'img'}
+            src={icon[image]}
         />
     )
 }
