@@ -2,16 +2,20 @@ import styled from 'styled-components'
 import { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
-const CARD_HEIGHT = 80
+// Components
+import LazyImage from '../lazy-image/LazyImage'
+
+const CARD_HEIGHT = 100
 
 export interface Props {
+    alt: string
     date: string
     title: string
+    image: string
     content: string
 }
 
-interface ContentProps {
-    cardHeight: number
+interface TextProps {
     contentHeight: number
 }
 
@@ -19,27 +23,57 @@ const Card = styled.div`
     box-shadow: 0 3px 8px var(--shadow-color);
 
     > div {
-        padding: 20px;
+        display: grid;
+        padding: 25px;
+        grid-template-columns: 1fr;
+    }
+
+    @media only screen and (min-width: 1000px) {
+        > div {
+            column-gap: 25px;
+            grid-template-columns: minmax(auto, 200px) 1fr;
+        }
+    }
+`
+
+const Image = styled.div`
+    display: none;
+    overflow: hidden;
+
+    @media only screen and (min-width: 1000px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 `
 
 const Wrapper = styled.div`
-    > h3 {
-        margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+`
+
+const Content = styled.div`
+    > p {
+        font-size: var(--small-font-size);
     }
 
-    > button {
-        margin-top: 10px;
+    h3 {
+        margin-top: 15px;
+        font-size: var(--default-font-size);
     }
 `
 
-const Content = styled.div<ContentProps>`
-    height: 80px;
-    margin-top: 5px;
+const Text = styled.div<TextProps>`
     overflow-y: hidden;
+    height: ${ CARD_HEIGHT }px;
+
+    p {
+        margin-top: 10px;
+        font-size: var(--default-font-size);
+    }
 
     &.card-enter, &.card-exit-done {
-        height: ${ props => props.cardHeight }px;
+        height: ${ CARD_HEIGHT }px;
     }
 
     &.card-enter-active {
@@ -56,14 +90,33 @@ const Content = styled.div<ContentProps>`
     }
 
     &.card-exit-active, &.card-exit-done {
-        height: ${ props => props.cardHeight }px;
+        height: ${ CARD_HEIGHT }px;
         transition: height 300ms ease;
     }
 `
 
+const Button = styled.button`
+    font-weight: 500;
+    width: fit-content;
+    color: var(--orange-main);
+    padding: 15px 15px 0 15px;
+    transform: translateX(-15px);
+    font-size: var(--small-font-size);
+
+    &::after {
+        width: 100%;
+        content: '';
+        display: block;
+        height: var(--border-width);
+        background-color: var(--orange-main);
+    }
+`
+
 export default ({
+    alt,
     date,
     title,
+    image,
     content
 }: Props) => {
     // State
@@ -72,22 +125,32 @@ export default ({
     const [contentHeight, setContentHeight] = useState<number>(0)
 
     // Ref
-    const wrapperRef = useRef<HTMLDivElement | null>(null)
-    const contentRef = useRef<HTMLParagraphElement | null>(null)
+    const imageRef = useRef<HTMLDivElement | null>(null)
+    const contentRef = useRef<HTMLDivElement | null>(null)
+    const textRef = useRef<HTMLParagraphElement | null>(null)
 
     // Effect
     useEffect(() => {        
-        if (!contentRef.current) {
+        if (!textRef.current) {
             return
         }
 
         setOverflow(doesOverflow())
         const observer = new ResizeObserver(onResize)
-        observer.observe(contentRef.current)
+        observer.observe(textRef.current)
 
         return () => {
             observer.disconnect()
         }
+    }, [])
+
+    useEffect(() => {
+        if (!(contentRef.current && imageRef.current)) {
+            return
+        }
+
+        const height = contentRef.current.clientHeight
+        imageRef.current.style.height = `${height}px`;
     }, [])
 
     // Method
@@ -97,60 +160,70 @@ export default ({
         })
     }
 
-    const onButton = () => {
-        if (!contentRef.current) {
-            return
-        }
-
-        setContentHeight(contentRef.current.clientHeight)
-        setIsOpen(!isOpen)
-    }
-
     const doesOverflow = (): boolean => {
-        if (!(wrapperRef.current && contentRef.current)) {
+        if (!(contentRef.current && textRef.current)) {
             return false
         }
 
-        return contentRef.current.clientHeight > CARD_HEIGHT
+        return textRef.current.clientHeight > CARD_HEIGHT
+    }
+
+    const onButton = () => {
+        if (!textRef.current) {
+            return
+        }
+
+        setContentHeight(textRef.current.clientHeight)
+        setIsOpen(!isOpen)
     }
 
     return (
         <Card>
             <div>
+                <Image
+                    ref={imageRef}
+                >
+                    <LazyImage
+                        alt={alt}
+                        image={image}
+                    />
+                </Image>
                 <Wrapper>
-                    <p>
-                        { date }
-                    </p>
-                    <h3>
-                        { title }
-                    </h3>
-                    <CSSTransition
-                        in={isOpen}
-                        timeout={300}
-                        classNames={'card'}
+                    <Content
+                        ref={contentRef}
                     >
-                        <Content
-                            ref={wrapperRef}
-                            cardHeight={CARD_HEIGHT}
-                            contentHeight={contentHeight}
+                        <p>
+                            { date }
+                        </p>
+                        <h3>
+                            { title }
+                        </h3>
+                        <CSSTransition
+                            in={isOpen}
+                            timeout={300}
+                            classNames={'card'}
                         >
-                            <p
-                                ref={contentRef}
+                            <Text
+                                contentHeight={contentHeight}
                             >
-                                { content }
-                            </p>
-                        </Content>
-                    </CSSTransition>
+                                <p
+                                    ref={textRef}
+                                >
+                                    { content }
+                                </p>
+                            </Text>
+                        </CSSTransition>
+                    </Content>
                     {
                         overflow && (
-                            <button
+                            <Button
                                 type={'button'}
                                 onClick={onButton}
                             >
                                 {
                                     isOpen ? 'Zwiń' : 'Rozwiń'
                                 }
-                            </button>
+                            </Button>
                         )
                     }
                 </Wrapper>
