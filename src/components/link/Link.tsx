@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
+export enum Type {
+    Link = 'Link',
+    Button = 'Button',
+    Fitted = 'Fitted'
+}
+
 type LinkColor = 'white' | 'black'
 type HoverType =  'yellow' | 'default' | 'gradient'
 
