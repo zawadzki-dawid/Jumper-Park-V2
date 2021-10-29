@@ -26,14 +26,13 @@ interface DropdownProps {
 const Button = styled.button<ButtonProps>`
     width: 100%;
     display: flex;
-    padding: 10px 0;
+    padding: 8px 0;
     align-items: center;
     justify-content: space-between;
     border-bottom: var(--border-width) solid var(--black);
 
     div {
-        width: 20px;
-        height: 20px;
+        height: 26px;
         transition: transform 300ms;
         transform: ${ props => props.isOpen ? 'rotateZ(180deg)' : 'rotateZ(0deg)' };
     }
@@ -114,7 +113,7 @@ export default ({
                 </h3>
                 <div>
                     <Icon
-                        image={'icon-arrow'}
+                        image={'arrow'}
                     />
                 </div>
             </Button>
