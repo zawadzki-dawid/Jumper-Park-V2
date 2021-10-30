@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Base = css`
-    height: 100%;
     display: grid;
     color: var(--black);
     font-size: var(--default-font-size);
@@ -43,9 +42,11 @@ export const Statue = ({
             target={'_blank'}
             rel={'noreferrer'}
         >
-            <Icon
-                image={'document'}
-            />
+            <div>
+                <Icon
+                    image={'document'}
+                />
+            </div>
             {
                 text
             }
@@ -62,6 +63,7 @@ export interface PropsAgreement extends Props {
 
 const AgreementStyled = styled.a`
     ${Base};
+    height: 100%;
     column-gap: 8px;
     align-items: center;
     text-decoration: none;
