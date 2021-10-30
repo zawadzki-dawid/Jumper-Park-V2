@@ -31,7 +31,8 @@ const Card = styled.div`
     @media only screen and (min-width: 1000px) {
         > div {
             column-gap: 25px;
-            grid-template-columns: minmax(auto, 200px) 1fr;
+            padding: 30px 200px 30px 30px;
+            grid-template-columns: auto 1fr;
         }
     }
 `
@@ -69,6 +70,7 @@ const Text = styled.div<TextProps>`
 
     p {
         margin-top: 10px;
+        word-break: break-all;
         font-size: var(--default-font-size);
     }
 
