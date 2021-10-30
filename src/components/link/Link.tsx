@@ -63,6 +63,7 @@ export const Link = ({
 const ButtonStyled = styled(NavLink)`
     ${Base}
     padding: 10px 15px;
+    display: inline-block;
     border: var(--border-width) solid ${ props => props.color === 'white' ? 'var(--white)' : 'var(--black)' };
 
     &:hover, &.active {
@@ -94,6 +95,7 @@ const FittedStyled = styled(NavLink)`
     width: 100%;
     height: 100%;
     display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
 `
