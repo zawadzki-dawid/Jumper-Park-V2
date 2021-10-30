@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Base = css`
-    display: grid;
     color: var(--black);
     font-size: var(--default-font-size);
 
@@ -27,9 +26,11 @@ export interface PropsStatue extends Props {
 const StatueStyled = styled.a`
     ${Base};
     row-gap: 7px;
+    display: flex;
+    text-align: center;
     justify-items: center;
+    flex-direction: column;
     text-decoration: underline;
-    grid-template-rows: 1fr auto;
 `
 
 export const Statue = ({
@@ -64,6 +65,7 @@ export interface PropsAgreement extends Props {
 const AgreementStyled = styled.a`
     ${Base};
     height: 100%;
+    display: grid;
     column-gap: 8px;
     align-items: center;
     text-decoration: none;
