@@ -1,18 +1,8 @@
 import { StyledComponent } from 'styled-components'
 import { BrowserRouter as Router } from 'react-router-dom'
-import SectionRouter, { Props, SectionInfo } from './SectionRouter'
+import SectionRouter, { Props } from './SectionRouter'
 
 const SECTION_MAIN_LOCATION = ''
-
-const SectionExample = <T,>({
-    name
-}: SectionInfo<T>) => {
-    return (
-        <div>
-            { name }
-        </div>
-    )
-}
 
 export default {
     title: 'Components/SectionRouter',
@@ -35,7 +25,6 @@ export default {
                 path: 'akrokidsss'
             }
         ],
-        Child: SectionExample,
         location: SECTION_MAIN_LOCATION
     },
     decorators: [

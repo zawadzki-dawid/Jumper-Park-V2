@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+/* import styled, { css } from 'styled-components'
 import { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { Route, Switch, useRouteMatch, useLocation, Redirect} from 'react-router-dom'
@@ -362,7 +362,7 @@ const Desktop = <T,>({
     )
 }
 
-export default <T,>({
+/* export default <T,>({
     Child,
     sections,
     location
@@ -378,6 +378,107 @@ export default <T,>({
                 Child={Child}
                 sections={sections}
                 location={location}
+            />
+        </>
+    )
+}
+*/
+
+import styled from 'styled-components'
+
+// Components
+import { Fitted } from '../link/Link'
+
+type PropsSection<T extends Object> = {
+    name: string
+    path: string
+} & T
+
+type Child<T extends Object> = (props: T) => JSX.Element
+
+export interface Props<T extends Object> {
+    Child: Child<T>
+    sections: PropsSection<T>[]
+}
+
+// Mobile component
+
+const MobileStyled = styled.ul`
+
+`
+
+const Mobile = <T,>({
+    Child,
+    sections
+}: Props<T>) => {
+    return (
+        <MobileStyled>
+
+        </MobileStyled>
+    )
+}
+
+// Desktop component
+
+const DesktopLinksStyled = styled.ul`
+
+`
+
+const DesktopLinks = <T,>({
+    sections
+}: Pick<Props<T>, 'sections'>) => {
+    console.log(sections)
+    return (
+        <DesktopLinksStyled>
+        {
+            sections.map((section, index) =>
+                <li
+                    key={index}
+                >
+                    <Fitted
+                        color={'black'}
+                        to={section.path}
+                        text={section.name}
+                    />
+                </li>
+            )
+        }
+        </DesktopLinksStyled>
+    )
+}
+
+const DesktopStyled = styled.div`
+
+`
+
+const Desktop = <T,>({
+    Child,
+    sections
+}: Props<T>) => {
+    return (
+        <DesktopStyled>
+            <DesktopLinks
+                sections={sections}
+            />
+        </DesktopStyled>
+    )
+}
+
+// Main component
+
+export default <T,>({
+    Child,
+    sections
+}: Props<T>) => {
+    return (
+        <>
+            <Mobile
+                Child={Child}
+                sections={sections}
+            />
+            <Desktop
+                Child={Child}
+                sections={sections}
             />
         </>
     )
