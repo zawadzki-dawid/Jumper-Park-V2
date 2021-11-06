@@ -1,56 +1,60 @@
-/* import styled, { css } from 'styled-components'
+import { useLocation } from 'react-router'
+import styled, { css } from 'styled-components'
 import { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { Route, Switch, useRouteMatch, useLocation, Redirect} from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 // Components
 import { Fitted } from '../link/Link'
 
-type Child<T extends Object> = (props: T) => JSX.Element
-
-export type SectionInfo<T> = {
+type PropsSection<T extends Object> = {
     name: string
     path: string
 } & T
 
-export interface Props<T> {
+type Child<T extends Object> = (props: T) => JSX.Element
+
+export interface Props<T extends Object> {
     Child: Child<T>
-    location: string
-    sections: SectionInfo<T>[]
+    sections: PropsSection<T>[]
 }
 
-interface MobileProps<T> {
+// Mobile component
+
+interface PropsMobileSection<T> {
     Child: Child<T>
-    location: string
-    section: SectionInfo<T>
+    section: PropsSection<T>
 }
 
-interface StyledMobileProps {
-    sectionHeight: number
-}
+// Mobile Link component
 
-// Mobile version
-
-const StyledMobileLink = styled.div`
-    padding: 25px;
+const MobileLinkStyled = styled.div`
+    min-height: 80px;
 `
 
 const MobileLink = <T,>({
-    name,
-    path
-}: Pick<SectionInfo<T>, 'name' | 'path'>) => {
+    path,
+    name
+}: PropsSection<T>) => {
     return (
-        <StyledMobileLink>
+        <MobileLinkStyled>
             <Fitted
+                to={path}
                 text={name}
                 color={'black'}
-                to={path}
+                hover={'orange'}
             />
-        </StyledMobileLink>
+        </MobileLinkStyled>
     )
 }
 
-const StyledMobileSection = styled.div<StyledMobileProps>`
+// Mobile Child component
+
+interface PropsMobileChild {
+    sectionHeight: number
+}
+
+const MobileChildStyled = styled.div<PropsMobileChild>`
     max-height: 0px;
     overflow-y: hidden;
 
@@ -77,39 +81,30 @@ const StyledMobileSection = styled.div<StyledMobileProps>`
     }
 
     > div {
-        padding: 20px;
         box-sizing: border-box;
         border-top: var(--border-width) solid var(--black);
     }
 `
 
-const MobileSection = <T,>({
+const MobileChild = <T,>({
     Child,
-    section,
-    location
-}: MobileProps<T>) => {
+    section
+}: PropsMobileSection<T>) => {
     // State
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [sectionHeight, setSectionHeight] = useState<number>(0)
 
-    // Location
-    const match = useRouteMatch(`/${location}/${section.path}`)
-
     // Ref
-    const sectionRef = useRef<HTMLDivElement | null>(null)
+    const childRef = useRef<HTMLDivElement | null>(null)
+
+    // Location
+    const location = useLocation()
 
     // Effect
     useEffect(() => {
-        if (!sectionRef.current) {
-            return
-        }
-        setSectionHeight(sectionRef.current.clientHeight)
-        if (!match) {
-            setIsOpen(false)
-            return
-        }
-        setIsOpen(true)
-    }, [match])
+        setSectionHeight((childRef.current as HTMLDivElement).clientHeight)
+        setIsOpen(location.pathname === section.path)
+    }, [location.pathname])
 
     return (
         <CSSTransition
@@ -117,294 +112,56 @@ const MobileSection = <T,>({
             timeout={300}
             classNames={'section'}
         >
-            <StyledMobileSection
+            <MobileChildStyled
                 sectionHeight={sectionHeight}
             >
                 <div
-                    ref={sectionRef}
+                    ref={childRef}
                 >
                     <Child
                         {...section}
                     />
                 </div>
-            </StyledMobileSection>
+            </MobileChildStyled>
         </CSSTransition>
     )
 }
 
-const StyledMobile = styled.ul`
-    > li {
-        border: var(--border-width) solid var(--black);
-        border-bottom: none;
+// Mobile Section component
 
-        &:last-of-type {
-            border-bottom: var(--border-width) solid var(--black);
-        }
-    }
-    
-    @media only screen and (min-width: 1000px) {
-        display: none;
-    }
-`
-
-const Mobile = <T,>({
-    Child,
-    sections,
-    location
-}: Props<T>) => {
-    return (
-        <StyledMobile>
-        {
-            sections.map((section, index) => {
-                const { name, path } = section
-
-                return (
-                    <li
-                        key={index}
-                    >
-                        <MobileLink
-                            name={name}
-                            path={path}
-                        />
-                        <MobileSection
-                            Child={Child}
-                            section={section}
-                            location={location}
-                        />
-                    </li>
-                )
-            })
-        }
-        </StyledMobile>
-    )
-}
-
-// Desktop version
-
-interface DesktopLinkProps {
-    active: boolean
-    leftActive: boolean
-    rightActive: boolean
-}
-
-const StyledDesktopLink = styled.li<DesktopLinkProps>`
-    height: 80px;
-    margin-top: 10px;
-    box-sizing: border-box;
+const MobileSectionStyled = styled.li`
     border: var(--border-width) solid var(--black);
+    border-bottom: none;
 
-    &:not(:last-of-type) {
-        border-right: none;
-    }
-
-    ${
-        props => props.active && css`
-            height: 90px;
-            margin-top: 0px;
-            border: var(--border-width) solid var(--black) !important;
-            border-bottom: none !important;
-        `
-    }
-
-    ${
-        props => !props.active && css`
-            &:hover {
-                height: 90px;
-                margin-top: 0px;
-                border: var(--border-width) solid var(--black);
-
-                & + li {
-                    border-left: none;
-                }
-            }
-        `
-    }
-
-    ${ props => props.leftActive && 'border-left: none !important' };
-    ${ props => props.rightActive && 'border-right: none !important' };
-`
-
-const DesktopLink = <T,>({
-    name,
-    path
-}: Pick<SectionInfo<T>, 'name' | 'path'>) => {
-    // State
-    const [isActive, setIsActive] = useState<boolean>(false)
-    const [isLeftActive, setIsLeftActive] = useState<boolean>(false)
-    const [isRightActive, setIsRightActive] = useState<boolean>(false)
-
-    // Location
-    const currentLocation = useLocation()
-
-    // Ref
-    const elementRef = useRef<HTMLLIElement | null>(null)
-
-    // Effect
-    useEffect(() => {
-        checkIfActive()
-        checkIfSiblingActive()
-    }, [currentLocation.pathname])
-
-    // Method
-    const checkIfActive = () => {
-        if (!elementRef.current) {
-            return
-        }
-        const linkRef = elementRef.current.firstChild as HTMLElement
-        setIsActive(linkRef.classList.contains('active'))
-    }
-
-    const checkIfSiblingActive = () => {
-        if (!elementRef.current) {
-            return
-        }
-        const leftRef = (elementRef.current.previousSibling?.firstChild ?? null) as HTMLElement | null
-        const rightRef = (elementRef.current.nextSibling?.firstChild ?? null) as HTMLElement | null
-
-        if (!leftRef) {
-            setIsLeftActive(false)
-        } else {
-            setIsLeftActive(leftRef.classList.contains('active'))
-        }
-
-        if (!rightRef) {
-            setIsRightActive(false)
-        } else {
-            setIsRightActive(rightRef.classList.contains('active'))
-        }
-    }
-
-    return (
-        <StyledDesktopLink
-            ref={elementRef}
-            active={isActive}
-            leftActive={isLeftActive}
-            rightActive={isRightActive}
-        >
-            <Fitted
-                text={name}
-                color={'black'}
-                to={path}
-            />
-        </StyledDesktopLink>
-    )
-}
-
-const StyledDesktop = styled.div`
-    display: none;
-
-    > ul {
-        display: grid;
-        grid-auto-columns: 1fr;
-        grid-auto-flow: column;
-        grid-template-rows: auto;
-    }
-
-    > div {
-        height: fit-content;
-        border: var(--border-width) solid var(--black);
-        border-top: none;
-    }
-
-    @media only screen and (min-width: 1000px) {
-        display: block;
+    &:last-child {
+        border-bottom: var(--border-width) solid var(--black);
     }
 `
 
-const Desktop = <T,>({
+const MobileSection = <T,>({
     Child,
-    sections,
-    location
-}: Props<T>) => {
+    section
+}: PropsMobileSection<T>) => {
     return (
-        <StyledDesktop>
-            <ul>
-            {
-                sections.map((section, index) => {
-                    const { name, path } = section
-
-                    return (
-                        <DesktopLink
-                            name={name}
-                            path={path}
-                            key={index}
-                        />
-                    )
-                })
-            }
-            </ul>
-            <div>
-                <Switch>
-                {
-                    sections.map((section, index) => {
-                        return (
-                            <Route
-                                key={index}
-                                render={() => 
-                                    <Child
-                                        {...section}
-                                    />
-                                }
-                            />
-                        )
-                    })
-                }
-                {                        
-                    sections.length > 0 && (
-                        <Redirect
-                            to={`${location}/${sections[0].path}`}
-                        />
-                    )
-                }
-                </Switch>
-            </div>
-        </StyledDesktop>
-    )
-}
-
-/* export default <T,>({
-    Child,
-    sections,
-    location
-}: Props<T>) => {
-    return (
-        <>
-            <Mobile
-                Child={Child}
-                sections={sections}
-                location={location}
+        <MobileSectionStyled>
+            <MobileLink
+                path={section.path}
+                name={section.name}
             />
-            <Desktop
+            <MobileChild
                 Child={Child}
-                sections={sections}
-                location={location}
+                section={section}
             />
-        </>
+        </MobileSectionStyled>
     )
-}
-*/
-
-import styled from 'styled-components'
-
-// Components
-import { Fitted } from '../link/Link'
-
-type PropsSection<T extends Object> = {
-    name: string
-    path: string
-} & T
-
-type Child<T extends Object> = (props: T) => JSX.Element
-
-export interface Props<T extends Object> {
-    Child: Child<T>
-    sections: PropsSection<T>[]
 }
 
 // Mobile component
 
 const MobileStyled = styled.ul`
-
+    @media only screen and (min-width: 900px) {
+        display: none;
+    }
 `
 
 const Mobile = <T,>({
@@ -413,42 +170,175 @@ const Mobile = <T,>({
 }: Props<T>) => {
     return (
         <MobileStyled>
-
+        {
+            sections.map((section, index) =>
+                <MobileSection
+                    key={index}
+                    Child={Child}
+                    section={section}
+                />
+            )
+        }
         </MobileStyled>
     )
 }
 
 // Desktop component
 
-const DesktopLinksStyled = styled.ul`
+interface PropsDesktopLink {
+    active: boolean
+}
 
+// Desktop Link component
+
+const DesktopLinkStyled = styled.li<PropsDesktopLink>`
+    display: flex;
+    min-height: 80px;
+    position: relative;
+    justify-content: center;
+    border: var(--border-width) solid var(--black);
+
+    &:not(:first-of-type) {
+        border-left: none;
+    }
+
+    ${
+        props => props.active && css`
+            border-bottom: none;
+
+            &::before {
+                top: -2px;
+                width: 80%;
+                content: '';
+                display: block;
+                position: absolute;
+                height: var(--border-width);
+                background-color: var(--orange-light);
+            }
+        `
+    }
+
+    &:hover::before {
+        top: -2px;
+        width: 80%;
+        content: '';
+        display: block;
+        position: absolute;
+        height: var(--border-width);
+        background-color: var(--orange-light);
+    }
+`
+
+const DesktopLink = <T,>({
+    name,
+    path
+}: PropsSection<T>) => {
+    // State
+    const [isActive, setIsActive] = useState<boolean>(false)
+
+    // Location
+    const location = useLocation()
+
+    // Ref
+    const elementRef = useRef<HTMLLIElement | null>(null)
+
+    // Effect
+    useEffect(() => {
+        setIsActive(checkIfActive())
+    }, [location.pathname])
+
+    // Method
+    const checkIfActive = (): boolean => {
+        const childEl = (elementRef.current as HTMLLIElement).firstChild
+        return (childEl as HTMLElement).classList.contains('active')
+    }
+
+    return (
+        <DesktopLinkStyled
+            ref={elementRef}
+            active={isActive}
+        >
+            <Fitted
+                to={path}
+                text={name}
+                color={'black'}
+                hover={'orange'}
+            />
+        </DesktopLinkStyled>
+    )
+}
+
+// Desktop Links component
+
+const DesktopLinksStyled = styled.ul`
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
 `
 
 const DesktopLinks = <T,>({
     sections
 }: Pick<Props<T>, 'sections'>) => {
-    console.log(sections)
     return (
         <DesktopLinksStyled>
         {
             sections.map((section, index) =>
-                <li
+                <DesktopLink
                     key={index}
-                >
-                    <Fitted
-                        color={'black'}
-                        to={section.path}
-                        text={section.name}
-                    />
-                </li>
+                    {...section}
+                />
             )
         }
         </DesktopLinksStyled>
     )
 }
 
-const DesktopStyled = styled.div`
+// Desktop Child component
 
+const DesktopChildStyled = styled.div`
+    border: var(--border-width) solid var(--black);
+    border-top: none;
+`
+
+const DesktopChild = <T,>({
+    Child,
+    sections
+}: Props<T>) => {
+    return (
+        <DesktopChildStyled>
+            <Switch>
+            {
+                sections.map((section, index) =>
+                    <Route
+                        exact
+                        key={index}
+                        render={() =>
+                            <Child
+                                {...section}
+                            />
+                        }
+                        path={section.path}
+                    />
+                )  
+            }
+            {
+                sections.length && <Redirect
+                    to={sections[0].path}
+                />
+            }
+            </Switch>
+        </DesktopChildStyled>
+    )
+}
+
+// Desktop component
+
+const DesktopStyled = styled.div`
+    display: none;
+
+    @media only screen and (min-width: 900px) {
+        display: block;
+    }
 `
 
 const Desktop = <T,>({
@@ -458,6 +348,10 @@ const Desktop = <T,>({
     return (
         <DesktopStyled>
             <DesktopLinks
+                sections={sections}
+            />
+            <DesktopChild
+                Child={Child}
                 sections={sections}
             />
         </DesktopStyled>
