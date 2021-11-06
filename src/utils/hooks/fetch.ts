@@ -1,6 +1,6 @@
 import firebase from '../../flamelink'
 import { useReducer, useEffect, Reducer } from 'react'
-import { doc, getDoc, getDocFromCache } from 'firebase/firestore'
+import { doc, query, where, getDoc, getDocs, collection, getDocFromCache, getDocsFromCache } from 'firebase/firestore'
 
 type Cache = string[]
 
@@ -94,6 +94,44 @@ export const useFetchContent = <T,>(documentId: string) => {
         try {
             dispatch({ type: 'loading' })
             const data = await getData<T>(documentId)
+            dispatch({ type: 'data', data: data })
+        } catch (error) {
+            dispatch({ type: 'error', error: null })
+        }
+    }
+
+    return state
+}
+
+const getDataArray = async <T,>(schemaName: string): Promise<T[]> => {
+    let docsSnap
+    const data: T[] = []
+    const q = query(collection(firebase.firestoreApp, 'fl_content'), where('_fl_meta_.schema', '==', schemaName))
+
+    if (cache.includes(schemaName)) {
+        docsSnap = await getDocsFromCache(q)
+    } else {
+        docsSnap = await getDocs(q)
+    }
+
+    docsSnap.forEach((snap) => data.push(snap.data() as T))
+    return data
+}
+
+export const useFetchContents = <T extends Object,>(schemaName: string) => {
+    // Reducer
+    const [state, dispatch] = useReducer<Reducer<State<T[]>, StateAction<T[]>>>(stateReducer, initState)
+
+    // Effect
+    useEffect(() => {
+        fetchContent()
+    }, [])
+
+    // Method
+    const fetchContent = async () => {
+        try {
+            dispatch({ type: 'loading' })
+            const data = await getDataArray<T>(schemaName)
             dispatch({ type: 'data', data: data })
         } catch (error) {
             dispatch({ type: 'error', error: null })
