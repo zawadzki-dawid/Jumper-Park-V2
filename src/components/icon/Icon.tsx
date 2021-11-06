@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 
 // Assets
+import East from '../../assets/icons/icon-east.svg'
 import Arrow from '../../assets/icons/icon-arrow.svg'
 import Document from '../../assets/icons/icon-document.svg'
 import Download from '../../assets/icons/icon-download.svg'
 import Hamburger from '../../assets/icons/icon-hamburger.svg'
 
 const icon = {
+    east: East,
     arrow: Arrow,
     document: Document,
     download: Download,
