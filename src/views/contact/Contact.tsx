@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import Baner from '../../components/baner/Baner'
 import { useFetchContent } from '../../utils/hooks/fetch'
+
+// Components
+import Baner from '../../components/baner/Baner'
 
 // Sections
 import InfoSection, { Schedule as InfoType } from './info-section/InfoSection'
@@ -18,6 +20,7 @@ const Wrapper = styled.div`
 `
 
 export default () => {
+    // Data
     const { data, error, loading } = useFetchContent<State>('R56NvX4zjDW3VQF3s0SD')
 
     return (
@@ -25,14 +28,18 @@ export default () => {
             <Baner 
                 content={'Kontakt'}
             />
-            <Wrapper>
-                <InfoSection
-                    schedule={data ? data.schedule : []}
-                />
-                <QuestionsSection
-                    questions={data ? data.questions : []}
-                />
-            </Wrapper>
+            {
+                data && (
+                    <Wrapper>
+                        <InfoSection
+                            schedule={data.schedule}
+                        />
+                        <QuestionsSection
+                            questions={data ? data.questions : []}
+                        />
+                    </Wrapper>
+                )
+            }
         </>
     )
 }
