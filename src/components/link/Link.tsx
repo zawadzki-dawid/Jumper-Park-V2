@@ -8,7 +8,7 @@ export enum Type {
 }
 
 type LinkColor = 'white' | 'black'
-type HoverType =  'yellow' | 'default' | 'gradient'
+type HoverType =  'yellow' | 'orange' | 'default' | 'gradient'
 
 export interface Props {
     to: string
@@ -31,6 +31,18 @@ const Base = css<PropsBase>`
     &:hover, &.active {
         ${ props => props.hover === 'default' && 'color: var(--yellow-main)' };
     }
+
+    ${
+        props => props.hover === 'orange' && css`
+            color: var(--grey);
+            background-color: var(--grey-light);
+
+            &:hover, &.active {
+                color: var(--orange-light);
+            }
+        `
+    }
+
 `
 
 // Link
