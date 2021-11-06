@@ -11,11 +11,15 @@ export default createGlobalStyle`
         font-size: 62.5%;
         --white: rgb( 255, 255, 255);
         --black: rgb(0, 0, 0);
+        --grey: rgb(112, 112, 112);
         --yellow-main: rgb(249, 212, 35);
         --orange-main: rgb(248, 54, 0);
+        --orange-light: rgb(249, 162, 24);
+        --gray-light: rgb(245, 246, 247);
         --image-loader-gradient: linear-gradient(270deg, rgb(245, 245, 245), rgb(220, 220, 220));
         --shadow-color: rgba(0, 0, 41, 0.2);
         --border-width: 2px;
+        --border-radius: 2px;
         --nav-mobile-height: 80px;
         --footer-mobile-height: 80px;
         --gradient-main: linear-gradient(to right, var(--yellow-main), var(--orange-main));
@@ -36,5 +40,24 @@ export default createGlobalStyle`
         &:hover {
             cursor: pointer;
         }
+    }
+
+    input {
+        border: none;
+        outline: none;
+        background: none;
+    }
+
+    textarea {
+        resize: none;
+        border: none;
+        outline: none;
+    }
+
+    select {
+        border: none;
+        outline: none;
+        appearance: none;
+        background: none;
     }
 `
