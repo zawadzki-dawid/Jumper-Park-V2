@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
+import { useMemo, useEffect, useRef, useState } from 'react'
 
 // Components
 import LazyImage from '../lazy-image/LazyImage'
@@ -179,6 +179,12 @@ export default ({
         setIsOpen(!isOpen)
     }
 
+    const cutDate = useMemo((): string => {
+        console.log(date)
+        const dateUS = date.split('T')[0]
+        return dateUS.split('-').reverse().join('/')
+    }, [date])
+
     return (
         <Card>
             <div>
@@ -195,7 +201,7 @@ export default ({
                         ref={contentRef}
                     >
                         <p>
-                            { date }
+                            { cutDate }
                         </p>
                         <h3>
                             { title }
