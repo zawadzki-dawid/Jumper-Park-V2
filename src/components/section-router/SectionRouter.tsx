@@ -7,6 +7,20 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 // Components
 import { Fitted } from '../link/Link'
 
+const ActiveStyle = css`
+    left: 0; 
+    right: 0;
+    top: -2px;
+    width: 70%;
+    content: '';
+    display: block;
+    margin-left: auto; 
+    margin-right: auto;
+    position: absolute;
+    height: var(--border-width);
+    background-color: var(--orange-light);
+`
+
 type PropsSection<T extends Object> = {
     name: string
     path: string
@@ -16,6 +30,7 @@ type Child<T extends Object> = (props: T) => JSX.Element
 
 export interface Props<T extends Object> {
     Child: Child<T>
+    subpath: string
     sections: PropsSection<T>[]
 }
 
@@ -23,13 +38,15 @@ export interface Props<T extends Object> {
 
 interface PropsMobileSection<T> {
     Child: Child<T>
+    subpath: string
     section: PropsSection<T>
 }
 
 // Mobile Link component
 
 const MobileLinkStyled = styled.div`
-    min-height: 80px;
+    height: 80px;
+    background-color: var(--grey-light);
 `
 
 const MobileLink = <T,>({
@@ -88,6 +105,7 @@ const MobileChildStyled = styled.div<PropsMobileChild>`
 
 const MobileChild = <T,>({
     Child,
+    subpath,
     section
 }: PropsMobileSection<T>) => {
     // State
@@ -103,7 +121,7 @@ const MobileChild = <T,>({
     // Effect
     useEffect(() => {
         setSectionHeight((childRef.current as HTMLDivElement).clientHeight)
-        setIsOpen(location.pathname === section.path)
+        setIsOpen(location.pathname === `${subpath}/${section.path}`)
     }, [location.pathname])
 
     return (
@@ -129,27 +147,74 @@ const MobileChild = <T,>({
 
 // Mobile Section component
 
-const MobileSectionStyled = styled.li`
-    border: var(--border-width) solid var(--black);
+interface PropsMobileLink {
+    active: boolean
+}
+
+const MobileSectionStyled = styled.li<PropsMobileLink>`
+    position: relative;
+    border: var(--border-width) solid var(--grey);
     border-bottom: none;
 
     &:last-child {
-        border-bottom: var(--border-width) solid var(--black);
+        border-bottom: var(--border-width) solid var(--grey);
+    }
+
+    ${
+        props => props.active && css`
+            > div {
+                background-color: var(--white);
+            }
+
+            &::before {
+                ${ActiveStyle};
+            }
+        `
+    }
+
+    &:hover::before {
+        ${ActiveStyle};
     }
 `
 
 const MobileSection = <T,>({
     Child,
+    subpath,
     section
 }: PropsMobileSection<T>) => {
+    // State
+    const [isActive, setIsActive] = useState<boolean>(false)
+
+    // Location
+    const location = useLocation()
+
+    // Ref
+    const elementRef = useRef<HTMLLIElement | null>(null)
+
+    // Effect
+    useEffect(() => {
+        setIsActive(checkIfActive())
+    }, [location.pathname])
+
+    // Method
+    const checkIfActive = (): boolean => {
+        const childEl = (elementRef.current as HTMLLIElement).firstChild
+        const linkEl = (childEl as HTMLDivElement).firstChild
+        return (linkEl as HTMLElement).classList.contains('active')
+    }
+
     return (
-        <MobileSectionStyled>
+        <MobileSectionStyled
+            ref={elementRef}
+            active={isActive}
+        >
             <MobileLink
                 path={section.path}
                 name={section.name}
             />
             <MobileChild
                 Child={Child}
+                subpath={subpath}
                 section={section}
             />
         </MobileSectionStyled>
@@ -159,6 +224,8 @@ const MobileSection = <T,>({
 // Mobile component
 
 const MobileStyled = styled.ul`
+    width: 100%;
+
     @media only screen and (min-width: 900px) {
         display: none;
     }
@@ -166,6 +233,7 @@ const MobileStyled = styled.ul`
 
 const Mobile = <T,>({
     Child,
+    subpath,
     sections
 }: Props<T>) => {
     return (
@@ -175,6 +243,7 @@ const Mobile = <T,>({
                 <MobileSection
                     key={index}
                     Child={Child}
+                    subpath={subpath}
                     section={section}
                 />
             )
@@ -193,39 +262,29 @@ interface PropsDesktopLink {
 
 const DesktopLinkStyled = styled.li<PropsDesktopLink>`
     display: flex;
-    min-height: 80px;
+    min-height: 70px;
     position: relative;
     justify-content: center;
-    border: var(--border-width) solid var(--black);
-
-    &:not(:first-of-type) {
-        border-left: none;
-    }
+    border: 1px solid var(--grey);
+    border-bottom-color: var(--black);
+    background-color: var(--grey-light);
+    border-bottom-width: var(--border-width);
 
     ${
         props => props.active && css`
             border-bottom: none;
+            border-color: var(--black);
+            background-color: var(--white);
+            border-width: var(--border-width);
 
             &::before {
-                top: -2px;
-                width: 80%;
-                content: '';
-                display: block;
-                position: absolute;
-                height: var(--border-width);
-                background-color: var(--orange-light);
+                ${ActiveStyle};
             }
         `
     }
 
     &:hover::before {
-        top: -2px;
-        width: 80%;
-        content: '';
-        display: block;
-        position: absolute;
-        height: var(--border-width);
-        background-color: var(--orange-light);
+        ${ActiveStyle};
     }
 `
 
@@ -296,12 +355,14 @@ const DesktopLinks = <T,>({
 // Desktop Child component
 
 const DesktopChildStyled = styled.div`
+    box-sizing: border-box;
     border: var(--border-width) solid var(--black);
     border-top: none;
 `
 
 const DesktopChild = <T,>({
     Child,
+    subpath,
     sections
 }: Props<T>) => {
     return (
@@ -317,13 +378,13 @@ const DesktopChild = <T,>({
                                 {...section}
                             />
                         }
-                        path={section.path}
+                        path={`${subpath}/${section.path}`}
                     />
                 )  
             }
             {
                 sections.length && <Redirect
-                    to={sections[0].path}
+                    to={`${subpath}/${sections[0].path}`}
                 />
             }
             </Switch>
@@ -343,6 +404,7 @@ const DesktopStyled = styled.div`
 
 const Desktop = <T,>({
     Child,
+    subpath,
     sections
 }: Props<T>) => {
     return (
@@ -352,6 +414,7 @@ const Desktop = <T,>({
             />
             <DesktopChild
                 Child={Child}
+                subpath={subpath}
                 sections={sections}
             />
         </DesktopStyled>
@@ -362,16 +425,19 @@ const Desktop = <T,>({
 
 export default <T,>({
     Child,
+    subpath,
     sections
 }: Props<T>) => {
     return (
         <>
             <Mobile
                 Child={Child}
+                subpath={subpath}
                 sections={sections}
             />
             <Desktop
                 Child={Child}
+                subpath={subpath}
                 sections={sections}
             />
         </>
