@@ -15,7 +15,7 @@ export default createGlobalStyle`
         --yellow-main: rgb(249, 212, 35);
         --orange-main: rgb(248, 54, 0);
         --orange-light: rgb(249, 162, 24);
-        --gray-light: rgb(245, 246, 247);
+        --grey-light: rgb(245, 246, 247);
         --image-loader-gradient: linear-gradient(270deg, rgb(245, 245, 245), rgb(220, 220, 220));
         --shadow-color: rgba(0, 0, 41, 0.2);
         --border-width: 2px;
@@ -23,14 +23,18 @@ export default createGlobalStyle`
         --nav-mobile-height: 80px;
         --footer-mobile-height: 80px;
         --gradient-main: linear-gradient(to right, var(--yellow-main), var(--orange-main));
-        --link-font-size: 1.6rem;
-        --default-font-size: 1.6rem;
+        --link-font-size: 1.8rem;
+        --link-font-weight: medium;
         --heading-font-size: 1.8rem;
+        --heading-font-weight: medium;
+        --default-font-size: 1.6rem;
         --small-font-size: 1.4rem;
     }
 
     ul {
         list-style-type: none;
+        margin-block-end: 0px;
+        margin-block-start: 0px;
     }
 
     button {
