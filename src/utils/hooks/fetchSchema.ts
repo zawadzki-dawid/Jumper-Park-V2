@@ -1,13 +1,22 @@
 import firebase from '../../flamelink'
-import { useReducer, useEffect, Reducer } from 'react'
-import { doc, query, where, getDoc, getDocs, collection, getDocFromCache, getDocsFromCache } from 'firebase/firestore'
+import { LoaderContext } from '../../components/loader/Loader'
+import { useReducer, useEffect, Reducer, useContext } from 'react'
+import { query, where, getDocs, collection, getDocsFromCache } from 'firebase/firestore'
 
 type Cache = string[]
 
-type State<T> = {
-    error: Error | null
-    data: T | null
-    loading: boolean
+type State<T> =
+{
+    data: null
+    error: null
+}
+| {
+    data: T
+    error: null
+} |
+{
+    data: null
+    error: Error
 }
 
 type StateAction<T> =
@@ -16,11 +25,11 @@ type StateAction<T> =
 }
 | {
     type: 'error',
-    error: State<T>['error']
+    error: Error
 }
 | {
     type: 'data',
-    data: State<T>['data']
+    data: T
 }
 
 const stateReducer = <T,>(
@@ -31,21 +40,18 @@ const stateReducer = <T,>(
         case 'loading':
             return {
                 data: null,
-                error: null,
-                loading: true
+                error: null
             }
 
         case 'error':
             return {
                 data: null,
-                error: null,
-                loading: false
+                error: action.error
             }
             
         case 'data':
             return {
                 error: null,
-                loading: false,
                 data: action.data
             }
     }
@@ -59,49 +65,6 @@ const initState = {
 }
 
 const cache: Cache = []
-
-const getData = async <T,>(documentId: string): Promise<T> => {
-    let docSnap
-    const docRef = doc(firebase.firestoreApp, 'fl_content', documentId)
-
-    if (cache.includes(documentId)) {
-        docSnap = await getDocFromCache(docRef)
-    } else {
-        docSnap = await getDoc(docRef)
-    }
-
-    if (!docSnap.exists()) {
-        throw new Error(`${documentId} doesn't exists in collection!`)
-    }
-    if (firebase.isCacheEnabled) {
-        cache.push(documentId)
-    }
-
-    return docSnap.data() as T
-}
-
-export const useFetchContent = <T,>(documentId: string) => {
-    // Reducer
-    const [state, dispatch] = useReducer<Reducer<State<T>, StateAction<T>>>(stateReducer, initState)
-
-    // Effect
-    useEffect(() => {
-        fetchContent()
-    }, [])
-
-    // Method
-    const fetchContent = async () => {
-        try {
-            dispatch({ type: 'loading' })
-            const data = await getData<T>(documentId)
-            dispatch({ type: 'data', data: data })
-        } catch (error) {
-            dispatch({ type: 'error', error: null })
-        }
-    }
-
-    return state
-}
 
 const getDataArray = async <T,>(schemaName: string): Promise<T[]> => {
     let docsSnap
@@ -119,13 +82,19 @@ const getDataArray = async <T,>(schemaName: string): Promise<T[]> => {
 }
 
 export const useFetchContents = <T extends Object,>(schemaName: string) => {
+    // Context 
+    const { entered } = useContext(LoaderContext)
+
     // Reducer
     const [state, dispatch] = useReducer<Reducer<State<T[]>, StateAction<T[]>>>(stateReducer, initState)
 
     // Effect
     useEffect(() => {
+        if (!entered) {
+            return
+        }
         fetchContent()
-    }, [])
+    }, [entered])
 
     // Method
     const fetchContent = async () => {
@@ -134,7 +103,7 @@ export const useFetchContents = <T extends Object,>(schemaName: string) => {
             const data = await getDataArray<T>(schemaName)
             dispatch({ type: 'data', data: data })
         } catch (error) {
-            dispatch({ type: 'error', error: null })
+            dispatch({ type: 'error', error: error as Error })
         }
     }
 
