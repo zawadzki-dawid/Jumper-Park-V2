@@ -1,85 +1,106 @@
 import * as Yup from 'yup'
-import { Field, Form, Formik, ErrorMessage, FieldProps } from 'formik'
+import { useCallback } from 'react'
+import { Form, Formik } from 'formik'
 import styled from 'styled-components'
 
 // Components
-import withForm from '../withForm'
-import { ComponentType } from 'react'
+import FormWrapper from '../FormWrapper'
+import Input from '../../input/input/Input'
+import Select from '../../input/select/Select'
+import TextArea from '../../input/text-area/TextArea'
 
-interface PropsInput {
-    name: string
-    label: string
-    as?: string | ComponentType<FieldProps['field']>
+// Data
+
+const topics = [
+    'Pytanie',
+    'Pomoc',
+    'Zajęcia',
+    'Atrakcje',
+    'Urodziny',
+    'Zakup biletu'
+]
+
+const init = {
+    name: '',
+    email: '',
+    message: '',
+    topic: topics[0]
 }
+
+const validation = Yup.object({
+    email: Yup.string().email('Wpisany adres e-mail jest niepoprawny').required('Pole jest wymagane!'),
+    name: Yup.string().max(100, 'Podane imię jest za długie. (max. 100 znaków)').required('Pole jest wymagane!'),
+    message: Yup.string().max(1000, 'Podana wiadomość jest za długa. (max. 1000 znaków)').required('Pole jest wymagane!'),
+    topic: Yup.string().oneOf(topics)
+})
+
+// Main
 
 const Wrapper = styled.div`
+    gap: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 
+    @media only screen and (min-width: 700px) {
+        flex-direction: row;
+    }
 `
 
-const Input = styled.div`
-
+const MessageWrapper = styled.div`
+    height: 200px;
 `
 
-const FormMain = () => {
+export default () => {
+    // Method
+    const sendForm = useCallback((fields: Object) => {
+        console.log(fields)
+    }, [])
+
     return (
-        <Formik
-            validationSchema={{
-                email: Yup.string().email('Podaj poprawny adres email!').required('Pole jest wymagane!'),
-                name: Yup.string().min(1, 'Podane imię jest za krótkie').max(100, 'Podane imię jest za długie').required(),
-            }}
-            initialValues={{
-                name: '',
-                label: '',
-                message: ''
-            }}
-            onSubmit={() => {}}
+        <FormWrapper
+            heading={'Masz pytanie?'}
+            subheading={'Napisz do nas'}
         >
-            <Form>
-                <Wrapper>
-                    <Input>
-                        <label
-                            htmlFor={'name'}
-                        >
-
-                        </label>
-                        <Field
+            <Formik
+                onSubmit={sendForm}
+                initialValues={init}
+                validationSchema={validation}
+            >
+                <Form>
+                    <Wrapper>
+                        <Input
+                            id={'name'}
                             name={'name'}
+                            label={'Imię'}
                         />
-                        <ErrorMessage
-                            name={'name'}
+                        <Input
+                            id={'email'}
+                            name={'email'}
+                            label={'Adres e-mail'}
                         />
-                    </Input>
-                    <Input>
-                        <label
-                            htmlFor={'label'}
-                        >
-                            
-                        </label>
-                        <Field
-                            name={'label'}
+                        <Select
+                            id={'topic'}
+                            name={'topic'}
+                            label={'Temat'}
+                            options={topics}
                         />
-                        <ErrorMessage
-                            name={'label'}
+                    </Wrapper>
+                    <MessageWrapper>
+                        <TextArea
+                            id={'message'}
+                            name={'message'}
+                            label={'Wiadomość'}
                         />
-                    </Input>
-                </Wrapper>
-                <Input>
-                    <label
-                        htmlFor={'message'}
+                    </MessageWrapper>
+                    <button
+                        type={'submit'}
                     >
-
-                    </label>
-                    <Field
-                        as={'textarea'}
-                        name={'message'}
-                    />
-                    <ErrorMessage
-                        name={'message'}
-                    />
-                </Input>
-            </Form>
-        </Formik>
+                        xd
+                    </button>
+                </Form>
+            </Formik>
+        </FormWrapper>
     )
 }
-
-export default () => withForm('Masz pytania?', 'napisz do nas', FormMain)
