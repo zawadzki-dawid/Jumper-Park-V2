@@ -16,6 +16,7 @@ export default createGlobalStyle`
         --orange-main: rgb(248, 54, 0);
         --orange-light: rgb(249, 162, 24);
         --grey-light: rgb(245, 246, 247);
+        --grey: rgb(227, 227, 227);
         --image-loader-gradient: linear-gradient(270deg, rgb(245, 245, 245), rgb(220, 220, 220));
         --shadow-color: rgba(0, 0, 41, 0.2);
         --border-width: 2px;
@@ -29,6 +30,7 @@ export default createGlobalStyle`
         --heading-font-weight: medium;
         --default-font-size: 1.6rem;
         --small-font-size: 1.4rem;
+        --label-font-size: 1.8rem;
     }
 
     ul {
