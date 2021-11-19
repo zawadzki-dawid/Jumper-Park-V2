@@ -11,7 +11,6 @@ interface Props {
 }
 
 const Wrapper = styled.div`
-    width: 90%;
     display: grid;
     row-gap: 30px;
 `

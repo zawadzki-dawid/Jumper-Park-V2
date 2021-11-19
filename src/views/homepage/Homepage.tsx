@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
-import { useFetchContent } from '../../utils/hooks/fetch'
+import { useContext, useEffect } from 'react'
+import { useFetchContent } from '../../utils/hooks/fetchDoc'
+import { LoaderContext } from '../../components/loader/Loader'
 
 // Components
 import { Props as CardProps } from '../../components/card/Card'
@@ -14,23 +15,31 @@ interface State {
 
 export default () => {
     // State
-    const { data, error, loading } = useFetchContent<State>('aY9ZXtrIZ9yYS78Rl6ne')
+    const { data, error } = useFetchContent<State>('aY9ZXtrIZ9yYS78Rl6ne')
+
+    // Context
+    const { setEntered } = useContext(LoaderContext)
 
     // Effect
     useEffect(() => {
-        console.log(data)
+        if (!data) {
+            return
+        }
+        setEntered(false)
     }, [data])
 
     return (
         <>
         {
-            data && <div>
-                <FeedSection
-                    feed={data['feed']}
-                />
-            </div>
+            !error && data && (
+                <>
+                    <FeedSection
+                        feed={data.feed}
+                    />
+                    <ShortcutsSection/>
+                </>
+            )
         }
-        <ShortcutsSection/>
         </>
     )
 }
