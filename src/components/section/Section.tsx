@@ -35,8 +35,8 @@ const Section = styled.section`
         }
     }
 
-    &:not(:last-child) {
-        margin-bottom: 0px;
+    &:not(:first-child) {
+        margin-top: 0px;
     }
 `
 
