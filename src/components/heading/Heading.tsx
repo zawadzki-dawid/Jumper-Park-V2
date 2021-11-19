@@ -5,11 +5,12 @@ export interface Props {
 }
 
 const Heading = styled.header`
+    border-left: 5px solid var(--yellow-main);
+
     h2 {
-        padding: 8px 15%;
-        width: fit-content;
-        font-size: var(--default-font-size);
-        border-bottom: var(--border-width) solid var(--yellow-main);
+        font-weight: 700;
+        font-size: 2.0rem;
+        padding-left: 7px;
     }
 `
 
