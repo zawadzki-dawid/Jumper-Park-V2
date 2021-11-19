@@ -7,8 +7,11 @@ export interface Props {
 }
 
 const Wrapper = styled.div`
+    height: 100%;
+    display: flex;
+    min-width: 100%;
     position: relative;
-    height: fit-content;
+    justify-content: center;
 `
 
 const Image = styled.img`
@@ -17,6 +20,7 @@ const Image = styled.img`
 
 const Loader = styled.div`
     top: 0;
+    width: 100%;
     height: 100%;
     position: absolute;
     background: var(--image-loader-gradient);

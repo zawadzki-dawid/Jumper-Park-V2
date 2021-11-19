@@ -27,7 +27,8 @@ export const VisibleOnRender = (args: Props) => {
     return (
         <div
             style={{
-                width: '300px',
+                width: 'fitContent',
+                minWidth: '300px',
                 height: '300px'
             }}
         >
