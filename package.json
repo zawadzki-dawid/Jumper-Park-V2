@@ -48,12 +48,13 @@
       {
         "files": [
           "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
+        ]
       }
-    ]
+    ],
+    "rules": {
+      "import/no-anonymous-default-export": "off",
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "browserslist": {
     "production": [
