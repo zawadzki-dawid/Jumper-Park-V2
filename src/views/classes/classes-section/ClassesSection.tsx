@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 // Components
-import { Button } from '../../../components/link/Link'
+import Section from '../../../components/section/Section'
 import SectionRouter from '../../../components/section-router/SectionRouter'
 
 type Entry = {
@@ -14,164 +14,146 @@ type Subsection = {
     entries: Entry[]
 }
 
-type Section = {
+export type SectionData = {
     name: string
     path: string
     title: string
-    linkText: string
+    linkName: string
     linkPath: string
     description: string
-    sections: Subsection[]
+    subsections: Subsection[]
 }
 
-export interface Props {
-    sections: Section[]
+interface Props {
+    subpath: string
+    sections: SectionData[]
 }
 
-type PropsChild = Omit<Section, 'name' | 'path'>
+// Description 
 
-// Data
-const DEFAULT_LOCATION = 'zajecia'
+type PropsDescription = Pick<SectionData, 'title' | 'description'>
 
-// Section component
-
-const SectionStyled = styled.div`
-    margin-top: 20px;
-
-    h4 {
-        font-size: var(--default-font-size);
-    }
-
-    li {
-        margin-top: 5px;
-
-        p:first-of-type {
-            font-size: var(--default-font-size);
-        }
-
-        p:nth-of-type(2) {
-            margin-top: 5px;
-            font-size: var(--small-font-size);
-        }
-    }
+const DescriptionStyled = styled.div`
+    
 `
 
-const Section = ({
+const Description = ({
     title,
-    entries
-}: Subsection) => {
+    description
+}: PropsDescription) => {
     return (
-        <SectionStyled>
+        <DescriptionStyled>
             <h4>
                 {title}
             </h4>
-            <ul>
-            {
-                entries.map((entry) =>
-                    <li>
-                        <p>
-                            {entry.entry}
-                        </p>
-                        {
-                            entry.description && (
-                                <p>
-                                    {entry.description}
-                                </p>
-                            )
-                        }
-                    </li>
-                )
-            }
-            </ul>
-        </SectionStyled>
+            <p>
+                {description}
+            </p>
+        </DescriptionStyled>
     )
 }
 
-// Child component
+// Info
+
+type PropsInfo = Pick<SectionData, 'subsections'>
+
+const SubsectionStyled = styled.ul`
+    
+`
+
+type PropsSubsection = Pick<Subsection, 'entries'>
+
+const Subsection = ({
+    entries
+}: PropsSubsection) => {
+    return (
+        <SubsectionStyled>
+        {
+            entries.map((entry, index) =>
+                <li
+                    key={index}
+                >
+                    <p>
+                        {entry.entry}
+                    </p>
+                    {
+                        entry.description && (
+                            <p>
+                                {entry.description}
+                            </p>
+                        )
+                    }
+                </li>
+            )
+        }
+        </SubsectionStyled>
+    )
+}
+
+const InfoStyled = styled.div`
+    
+`
+
+const Info = ({
+    subsections
+}: PropsInfo) => {
+    return (
+        <InfoStyled>
+        {
+            subsections.map((subsection, index) =>
+                <div
+                    key={index}
+                >
+                    <h4>
+                        {subsection.title}
+                    </h4>
+                    <Subsection
+                        entries={subsection.entries}
+                    />
+                </div>
+            )
+        }
+        </InfoStyled>
+    )
+}
+
+// Child
 
 const ChildStyled = styled.div`
-    padding: 15px;
-`
-
-const Content = styled.div`
-    h3 {
-        font-size: var(--default-font-size);
-    }
-
-    p {
-        margin-top: 8px;
-        font-size: var(--default-font-size);
-    }
-`
-
-const LinkStyled = styled.div`
-    display: flex;
-    margin-top: 30px;
-    justify-content: center;
+    padding: 20px;
 `
 
 const Child = ({
     title,
-    linkText,
-    linkPath,
-    sections,
-    description
-}: PropsChild) => {
+    description,
+    subsections
+}: SectionData) => {
     return (
         <ChildStyled>
-            <div>
-                <Content>
-                    <h3>
-                        {title}
-                    </h3>
-                    <p>
-                        {description}
-                    </p>
-                </Content>
-                {
-                    sections.map((section) => 
-                        <Section
-                            title={section.title}
-                            entries={section.entries}
-                        />
-                    )
-                }
-            </div>
-            {
-                linkText && (
-                    <LinkStyled>
-                        <Button
-                            to={linkPath}
-                            text={linkText}
-                            color={'black'}
-                        />
-                    </LinkStyled>
-                )
-            }
+            <Description
+                title={title}
+                description={description}
+            />
+            <Info
+                subsections={subsections}
+            />
         </ChildStyled>
     )
 }
 
-// Main component
-
-const Wrapper = styled.div`
-    width: 90%;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
-`
+// Main
 
 export default ({
+    subpath,
     sections
 }: Props) => {
     return (
-        <Wrapper>
+        <Section>
             <SectionRouter
                 Child={Child}
+                subpath={subpath}
                 sections={sections}
-                location={DEFAULT_LOCATION}
             />
-        </Wrapper>
+        </Section>
     )
 }

@@ -1,111 +1,22 @@
-import { useEffect } from 'react'
 import styled from 'styled-components'
-import { useFetchContent } from '../../utils/hooks/fetch'
+import { useContext, useEffect } from 'react'
+import { LoaderContext } from '../../components/loader/Loader'
+import { useFetchContents } from '../../utils/hooks/fetchSchema'
+
+// Components
+import Baner from '../../components/baner/Baner'
+import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import ClassesSection, { Props as ClassesProps } from './classes-section/ClassesSection'
-
-/* // Components
-import Baner from '../../components/baner/Baner'
-import { LinkButton } from '../../components/link/Link'
-import SectionRouter from '../../components/section-router/SectionRouter'
+import ClassesSection, { SectionData as PropsClasses } from './classes-section/ClassesSection'
 
 // Data
-const SECTION_MAIN_LOCATION = 'zajecia'
 
-interface Props {
-    title: string
-    description: string
-    sectionName: string
-    schedule: string[]
-    linkText: string
-    linkPath: string
-}
+const SECTION_SUBPATH = '/zajecia'
 
-const StyledSection = styled.div`
-    padding: 30px 40px;
-    display: grid;
-    row-gap: 30px;
+// Main component
 
-    h3 {
-        text-decoration: underline;
-    }
-
-    p, ul {
-        margin-top: 10px;
-    }
-
-    li:not(:first-of-type) {
-        margin-top: 5px;
-    }
-`
-
-const ClassesSection = ({
-    title,
-    description,
-    schedule,
-    linkText,
-    linkPath
-}: Props) => {
-    return (
-        <StyledSection>
-            <div>
-                <h3>
-                    { title }
-                </h3>
-                <p>
-                    { description }
-                </p>
-            </div>
-            <div>
-                <h3>
-                    Godziny zajęć
-                </h3>
-                    <ul>
-                    {
-                        schedule.map((hour, index) => 
-                            <li
-                                key={index}
-                            >
-                                { hour }
-                            </li>
-                        )
-                    }
-                    </ul>
-            </div>
-            {
-                linkText && linkPath && (
-                    <div>
-                        <LinkButton
-                            text={linkText}
-                            path={linkPath}
-                            color={'black'}
-                        />
-                    </div>
-                )
-            }
-        </StyledSection>
-    )
-}
-
-export default () => {
-    return (
-        <>
-            <Baner 
-                content={'Zajęcia'}
-            />
-            <div>
-
-            </div>
-        </>
-    )
-} */
-
-interface State {
-    sections: ClassesProps['sections']
-}
-
-// Main content
+type State = PropsClasses
 
 const Wrapper = styled.div`
 
@@ -113,15 +24,35 @@ const Wrapper = styled.div`
 
 export default () => {
     // State
-    const { data, error, loading } = useFetchContent<State>('IbNVn6og6FLqTfXjgiB4')
+    const { data, error } = useFetchContents<State>('zajecia')
+
+    // Context
+    const { setEntered } = useContext(LoaderContext)
+
+    // Effect
+    useEffect(() => {
+        if (!data) {
+            return
+        }
+        setEntered(false)
+    }, [data])
 
     return (
         <>
-            <Wrapper>
-                <ClassesSection
-                    sections={data && data.sections || []}
-                />
-            </Wrapper>
+            <Baner
+                content={'Zajęcia'}
+            />
+            {
+                !error && data && (
+                    <Wrapper>
+                        <ClassesSection
+                            sections={data}
+                            subpath={SECTION_SUBPATH}
+                        />
+                        <FormMain/>
+                    </Wrapper>
+                )
+            }
         </>
     )
 }
