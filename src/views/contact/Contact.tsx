@@ -1,8 +1,11 @@
 import styled from 'styled-components'
-import { useFetchContent } from '../../utils/hooks/fetch'
+import { useContext, useEffect } from 'react'
+import { useFetchContent } from '../../utils/hooks/fetchDoc'
+import { LoaderContext } from '../../components/loader/Loader'
 
 // Components
 import Baner from '../../components/baner/Baner'
+import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
 import InfoSection, { Schedule as InfoType } from './info-section/InfoSection'
@@ -21,7 +24,18 @@ const Wrapper = styled.div`
 
 export default () => {
     // Data
-    const { data, error, loading } = useFetchContent<State>('R56NvX4zjDW3VQF3s0SD')
+    const { data, error } = useFetchContent<State>('R56NvX4zjDW3VQF3s0SD')
+
+    // Context
+    const { setEntered } = useContext(LoaderContext)
+
+    // Effect
+    useEffect(() => {
+        if (!data) {
+            return
+        }
+        setEntered(false)
+    }, [data])
 
     return (
         <>
@@ -29,14 +43,15 @@ export default () => {
                 content={'Kontakt'}
             />
             {
-                data && (
+                !error && data && (
                     <Wrapper>
                         <InfoSection
                             schedule={data.schedule}
                         />
                         <QuestionsSection
-                            questions={data ? data.questions : []}
+                            questions={data.questions}
                         />
+                        <FormMain/>
                     </Wrapper>
                 )
             }
