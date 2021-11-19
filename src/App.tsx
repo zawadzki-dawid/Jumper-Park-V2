@@ -5,6 +5,7 @@ import { Type } from './components/link/Link'
 // Components
 import Navbar from './components/navbar/Navbar'
 import Footer from './components/footer/Footer'
+import Loader from './components/loader/Loader'
 import RouterMain from './components/router-main/RouterMain'
 
 // Views
@@ -19,21 +20,9 @@ const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
 
 const routes = [
   {
-    View: Birthday,
-    path: '/urodziny',
-    text: 'Urodziny',
-    type: Type.Link
-  },
-  {
-    View: Classes,
-    path: '/zajecia',
-    text: 'Zajęcia',
-    type: Type.Link
-  },
-  {
-    View: Contact,
-    path: '/kontakt',
-    text: 'Kontakt',
+    View: SchoolTrip,
+    path: '/wycieczkaszkolna',
+    text: 'Wycieczka szkolna',
     type: Type.Link
   },
   {
@@ -43,21 +32,27 @@ const routes = [
     type: Type.Link
   },
   {
+    View: Classes,
+    path: '/zajecia',
+    text: 'Zajęcia',
+    type: Type.Link
+  },
+  {
+    View: Birthday,
+    path: '/urodziny',
+    text: 'Urodziny',
+    type: Type.Link
+  },
+  {
     View: Safety,
     path: '/bezpieczenstwo',
     text: 'Bezpieczeństwo',
     type: Type.Link
   },
   {
-    View: SchoolTrip,
-    path: '/wycieczkaszkolna',
-    text: 'Wycieczka szkolna',
-    type: Type.Link
-  },
-  {
-    View: SummerClasses,
-    path: '/zajeciawakacyjne',
-    text: 'Zajęcia wakacyjne',
+    View: Contact,
+    path: '/kontakt',
+    text: 'Kontakt',
     type: Type.Link
   },
   {
@@ -83,23 +78,25 @@ const Wrapper = styled.div`
     flex: 1 1 auto;
   }
 
-   >footer {
+   > footer {
     flex: 0 1 80px;
   }
 `
 
 export default () => {
   return (
-    <Wrapper>
-      <Navbar
-        links={routes}
-      />
-      <main>
-        <RouterMain
-          routes={routes}
+    <Loader>
+      <Wrapper>
+        <Navbar
+          links={routes}
         />
-      </main>
-      <Footer/>
-    </Wrapper>
+        <main>
+          <RouterMain
+            routes={routes}
+            />
+        </main>
+        <Footer/>
+      </Wrapper>
+    </Loader>
   )
 }

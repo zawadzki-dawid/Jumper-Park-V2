@@ -6,7 +6,7 @@ import Homepage from '../../views/homepage/Homepage'
 
 type ViewRoute = {
     path: string
-    View: LazyExoticComponent<() => JSX.Element>,
+    View: LazyExoticComponent<() => JSX.Element>
 }
 
 interface Props extends RouteProps {
