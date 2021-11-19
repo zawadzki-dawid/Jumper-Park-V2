@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import { CSSTransition } from 'react-transition-group'
 import { useMemo, useEffect, useRef, useState } from 'react'
 
+// Assets
+import DefaultImage from '../../assets/icons/icon-document.svg'
+
 // Components
 import LazyImage from '../lazy-image/LazyImage'
 
@@ -9,9 +12,9 @@ const CARD_HEIGHT = 100
 
 export interface Props {
     alt: string
+    url: string
     date: string
     title: string
-    image: string
     content: string
 }
 
@@ -32,7 +35,7 @@ const Card = styled.div`
         > div {
             column-gap: 25px;
             padding: 30px 200px 30px 30px;
-            grid-template-columns: auto 1fr;
+            grid-template-columns: minmax(150px, auto) 1fr;
         }
     }
 `
@@ -115,10 +118,10 @@ const Button = styled.button`
 `
 
 export default ({
+    url,
     alt,
     date,
     title,
-    image,
     content
 }: Props) => {
     // State
@@ -180,7 +183,6 @@ export default ({
     }
 
     const cutDate = useMemo((): string => {
-        console.log(date)
         const dateUS = date.split('T')[0]
         return dateUS.split('-').reverse().join('/')
     }, [date])
@@ -193,7 +195,7 @@ export default ({
                 >
                     <LazyImage
                         alt={alt}
-                        image={image}
+                        image={url || DefaultImage}
                     />
                 </Image>
                 <Wrapper>
