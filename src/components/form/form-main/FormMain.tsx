@@ -41,7 +41,6 @@ const Wrapper = styled.div`
     z-index: 10;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 
     @media only screen and (min-width: 700px) {
         flex-direction: row;
@@ -50,6 +49,36 @@ const Wrapper = styled.div`
 
 const MessageWrapper = styled.div`
     height: 200px;
+    margin-top: 20px;
+
+    @media only screen and (min-width: 700px) {
+        height: 300px;
+        margin-top: 40px;
+    }
+`
+
+const ButtonWrapper = styled.div`
+    margin-top: 20px;
+
+    > button {
+        border: 4px solid var(--yellow-darker);
+        display: flex;
+        height: 45px;
+        width: 140px;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.6rem;
+        margin: auto;
+
+        &:hover {
+            background-color: var(--yellow-darker);
+        }
+    }
+
+    @media only screen and (min-width: 700px) {
+        margin-top: 40px;
+    }
 `
 
 export default () => {
@@ -94,11 +123,13 @@ export default () => {
                             label={'Wiadomość'}
                         />
                     </MessageWrapper>
-                    <button
-                        type={'submit'}
-                    >
-                        xd
-                    </button>
+                    <ButtonWrapper>
+                        <button
+                            type={'submit'}
+                        >
+                            Wyślij
+                        </button>
+                    </ButtonWrapper>
                 </Form>
             </Formik>
         </FormWrapper>

@@ -12,15 +12,10 @@ interface Props {
 const Wrapper = styled.section`
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
     flex-direction: column;
     padding: 30px 20px 80px 20px;
     background-color: var(--yellow-main);
     background: transparent linear-gradient(0deg, #F9C41F 0%, #F9A91A 100%) 0% 0% no-repeat padding-box;
-
-    @media only screen and (min-width: 900px) {
-        margin-bottom: 60px;
-    }
 `
 
 const Header = styled.header`
@@ -54,10 +49,19 @@ const Header = styled.header`
 const Form = styled.div`
     width: 100%;
     padding: 20px;
-    max-width: 1280px;
+    max-width: 1050px;
+    border-radius: 20px;
     box-sizing: border-box;
     background-color: var(--white);
-    box-shadow: 0 3px 8px var(--shadow-color);
+    box-shadow: 9px 15px 60px #00000029;
+
+    @media only screen and (min-width: 700px) {
+        padding: 35px;
+    }
+
+    @media only screen and (min-width: 1000px) {
+        padding: 50px;
+    }
 `
 
 export default ({
