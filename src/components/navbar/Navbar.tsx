@@ -54,6 +54,7 @@ const Hamburger = styled.button`
 const MenuMobile = styled.nav<PropsMobile>`
     top: 100%;
     width: 100%;
+    z-index: 9999;
     position: absolute;
     background-color: var(--black);
     height: calc(100vh - ${ props => `${props.headerHeight}px` });
@@ -91,6 +92,7 @@ const MenuMobile = styled.nav<PropsMobile>`
 
 const MenuDesktop = styled.nav`
     display: none;
+    z-index: 9999;
 
     ul {
         display: flex;
