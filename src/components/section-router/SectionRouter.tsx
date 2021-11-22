@@ -162,12 +162,23 @@ const MobileSectionStyled = styled.li<PropsMobileLink>`
 
     ${
         props => props.active && css`
+            border: var(--border-width) solid var(--black);
+            border-bottom: none;
+
             > div {
                 background-color: var(--white);
             }
 
             &::before {
                 ${ActiveStyle};
+            }
+
+            & + li {
+                border-top: var(--border-width) solid var(--black);
+            }
+
+            &:last-child {
+                border-bottom: var(--border-width) solid var(--black);
             }
         `
     }
