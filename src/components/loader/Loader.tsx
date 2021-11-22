@@ -27,7 +27,7 @@ const Loader = styled.div`
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 9999;
+    z-index: 99999;
     position: fixed;
     background-color: var(--grey-light);
 
@@ -66,10 +66,8 @@ export default ({
             setIsVisible(state)
             return
         }
-        setTimeout(() => {
-            setIsEntered(state)
-            setIsVisible(state)
-        }, 200)
+        setIsEntered(state)
+        setIsVisible(state)
     }, [setIsVisible])
 
     const onEntered = () => {
