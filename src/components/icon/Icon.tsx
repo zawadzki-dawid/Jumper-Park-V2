@@ -21,6 +21,7 @@ export interface Props {
 
 const Icon = styled.img`
     height: 100%;
+    display: block;
 `
 
 export default ({
