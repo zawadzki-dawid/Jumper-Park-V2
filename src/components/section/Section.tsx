@@ -11,8 +11,8 @@ interface Props {
 
 const Section = styled.section`
     display: flex;
+    margin: 0 20px;
     height: fit-content;
-    margin: 30px 20px;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -23,20 +23,16 @@ const Section = styled.section`
         max-width: 1280px;
     }
 
-    > div:not(:last-of-type) {
-        margin-bottom: 15px;
+    .heading__wrapper {
+        margin-bottom: 25px;
     }
 
-    @media only screen and (min-width: 900px) {
-        margin: 60px 60px;
+    @media only screen and (min-width: 1000px) {
+        margin: 0 60px;
 
-        > div:not(:last-of-type) {
-            margin-bottom: 20px;
+        .heading__wrapper {
+            margin-bottom: 40px;
         }
-    }
-
-    &:not(:first-child) {
-        margin-top: 0px;
     }
 `
 
@@ -48,7 +44,9 @@ export default ({
         <Section>
             {
                 text.length !== 0 && (
-                    <div>
+                    <div
+                        className={'heading__wrapper'}
+                    >
                         <Heading
                             text={text}
                         />
