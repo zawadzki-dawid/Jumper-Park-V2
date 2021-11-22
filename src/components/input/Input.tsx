@@ -14,16 +14,16 @@ export const BaseStyle = css`
     grid-template-rows: auto 45px;
 
     label {
-        font-weight: medium;
-        font-size: var(--label-font-size);
+        font-weight: 500;
+        font-size: 1.8rem;
     }
 
     input, textarea {
         width: 100%;
         padding: 0 10px;
-        font-weight: medium;
+        font-weight: 400;
+        font-size: 1.6rem;
         box-sizing: border-box;
-        font-size: var(--default-font-size);
         border: var(--border-width) solid var(--black);
     }
 
