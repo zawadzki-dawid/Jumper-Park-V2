@@ -19,7 +19,9 @@ const SECTION_SUBPATH = '/zajecia'
 type State = PropsClasses
 
 const Wrapper = styled.div`
-
+    display: grid;
+    gap: var(--section-default-gap);
+    margin: var(--section-default-gap) 0;
 `
 
 export default () => {
