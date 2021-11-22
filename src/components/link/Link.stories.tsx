@@ -54,6 +54,23 @@ ButtonLink.args = {
     text: 'Kup bilet'
 }
 
+// Button Orange
+
+export const ButtonOrangeLink = (args: Props) => {
+    return (
+        <Button
+            {...args}
+        />
+    )
+}
+
+ButtonOrangeLink.args = {
+    color: 'black',
+    to: '/kupbilet',
+    text: 'Kup bilet',
+    style: 'orange'
+}
+
 // Fitted
 
 export const FittedLink = (args: Props) => {

@@ -25,17 +25,22 @@ interface PropsBase {
 const Base = css<PropsBase>`
     text-decoration: none;
     font-size: var(--link-font-size);
+    font-weight: var(--link-font-weight);
     color: ${ props => props.color === 'white' ? 'var(--white)' : 'var(--black)' };
 
     // Default hover
-    &:hover, &.active {
-        ${ props => props.hover === 'default' && 'color: var(--yellow-main)' };
+    
+    ${ 
+        props => props.hover === 'default' && css`
+            &:hover, &.active {
+                color: var(--yellow-main);
+            }
+        `
     }
 
     ${
         props => props.hover === 'orange' && css`
             color: var(--grey);
-            background-color: var(--grey-light);
 
             &:hover, &.active {
                 color: var(--orange-light);
@@ -57,7 +62,7 @@ export const Link = ({
     to,
     text,
     color = 'white',
-    hover = 'default'
+    hover = 'default',
 }: Props) => {
     return (
         <LinkStyled
@@ -87,7 +92,7 @@ export const Button = ({
     to,
     text,
     color = 'white',
-    hover = 'default'
+    hover = 'default',
 }: Props) => {
     return (
         <ButtonStyled
@@ -107,9 +112,12 @@ const FittedStyled = styled(NavLink)`
     width: 100%;
     height: 100%;
     display: flex;
+    padding: 10px;
     text-align: center;
     align-items: center;
+    box-sizing: border-box;
     justify-content: center;
+    background-color: transparent;
 `
 
 export const Fitted = ({
