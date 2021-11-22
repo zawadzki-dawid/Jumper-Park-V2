@@ -5,10 +5,6 @@ import Section from '../../../components/section/Section'
 
 // Bundle
 
-type OptionType = {
-    option: string
-}
-
 type PricelistType = {
     days: string
     price: string
@@ -25,11 +21,6 @@ type BundleType = {
 
 }
 
-type AdditionType = {
-    additional: string
-    options: OptionType[]
-}
-
 const OfferStyled = styled.div`
     h4 {
         padding: 12px 0;
@@ -39,7 +30,7 @@ const OfferStyled = styled.div`
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border: 1px solid var(--black);
-        background-color: var(--yellow-main);
+        background-color: var(--yellow-darker);
     }
 
     div {
@@ -58,6 +49,8 @@ const OfferStyled = styled.div`
     }
 
     li {
+        font-weight: 500;
+        font-size: 1.6rem;
         max-width: max-content;
     }
 `
@@ -92,7 +85,7 @@ const PricesStyled = styled.div`
     .prices__header {
         display: flex;
         border: 1px solid var(--black);
-        background-color: var(--yellow-main);
+        background-color: var(--yellow-darker);
 
         h5 {
             flex: 1;
@@ -127,6 +120,8 @@ const PricesStyled = styled.div`
         p {
             width: 80%;
             margin: auto;
+            font-weight: 500;
+            font-size: 1.6rem;
         }
     }
 `
@@ -197,13 +192,7 @@ const Bundle = ({
 
 export interface Props {
     bundles: BundleType[]
-    additionals: AdditionType
 }
-
-const Wrapper = styled.div`
-    padding: 20px 0;
-    background-color: var(--grey-light);
-`
 
 const BundlesWrapper = styled.div`
     gap: 30px;
@@ -213,25 +202,22 @@ const BundlesWrapper = styled.div`
 `
 
 export default ({
-    bundles,
-    additionals
+    bundles
 }: Props) => {
     return (
-        <Wrapper>
-            <Section
-                text={'Cennik'}
-            >
-                <BundlesWrapper>
-                {
-                    bundles.map((bundle, index) =>
-                        <Bundle
-                            key={index}
-                            {...bundle}
-                        />
-                    )
-                }
-                </BundlesWrapper>
-            </Section>
-        </Wrapper>
+        <Section
+            text={'Cennik'}
+        >
+            <BundlesWrapper>
+            {
+                bundles.map((bundle, index) =>
+                    <Bundle
+                        key={index}
+                        {...bundle}
+                    />
+                )
+            }
+            </BundlesWrapper>
+        </Section>
     )
 }

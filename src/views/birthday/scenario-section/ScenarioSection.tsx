@@ -16,11 +16,11 @@ interface PropsEntry {
 }
 
 const ScenarioEntryStyled = styled.li`
-    display: flex;
+    font-weight: 500;
+    font-size: 1.6rem;
     position: relative;
-    align-items: center;
 
-    > div {
+    > img {
         right: 100%;
         position: absolute;
         transform: rotate(-90deg);
@@ -32,11 +32,9 @@ const ScenarioEntry = ({
 }: PropsEntry) => {
     return (
         <ScenarioEntryStyled>
-            <div>
                 <Icon
                     image={'arrow'}
                 />
-            </div>
             {entry}
         </ScenarioEntryStyled>
     )
@@ -48,14 +46,14 @@ const ScenarioStyled = styled.div`
     max-width: 400px;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 3px 8px var(--shadow-color);
+    box-shadow: 5px 5px 40px #00000029;
 
     > div {
         padding: 12px 0;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         border: 1px solid var(--black);
-        background-color: var(--yellow-main);
+        background-color: var(--yellow-darker);
     }
 
     h4 {
@@ -67,7 +65,7 @@ const ScenarioStyled = styled.div`
     ul {
         gap: 20px;
         display: grid;
-        padding: 20px 40px;
+        padding: 20px 50px;
         width: fit-content;
         grid-template-columns: auto;
 
