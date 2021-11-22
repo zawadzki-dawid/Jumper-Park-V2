@@ -19,7 +19,9 @@ interface State {
 // Main component
 
 const Wrapper = styled.div`
-    padding: 25px 0;
+    display: grid;
+    gap: var(--section-default-gap);
+    margin: var(--section-default-gap) 0;
 `
 
 export default () => {

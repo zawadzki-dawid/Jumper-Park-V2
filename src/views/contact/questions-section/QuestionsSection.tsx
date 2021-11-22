@@ -21,10 +21,8 @@ interface Props {
 // Questions components
 
 const QuestionsStyled = styled.div`
-    width: 90%;
     row-gap: 15px;
     display: grid;
-    max-width: 1200px;
 `
 
 const Questions = ({

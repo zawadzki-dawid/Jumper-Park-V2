@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 // Components
 import Phone from '../../../components/phone/Phone'
+import Section from '../../../components/section/Section'
 
 export type Schedule = {
     openingDays: string
@@ -15,13 +16,15 @@ interface Props {
 // Map component
 
 const MapStyled = styled.div`
+    justify-self: stretch;
     border: var(--border-width) solid var(--black);
 
-    .contact__map {
+    iframe {
         border: 0;
         width: 100%;
         height: 100%;
         border-style: none;
+        overflow: hidden;
     } 
 `
 
@@ -30,7 +33,6 @@ const Map = () => {
         <MapStyled>
             <iframe
                 loading={'lazy'}
-                className={'contact__map'}
                 src={'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2394.127772621832!2d23.144965416199422!3d53.12585187993341!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ffc07d9ac98dd%3A0xb9822a8db78a3ffb!2sJumper%20Park%20Trampolin!5e0!3m2!1spl!2spl!4v1635632494574!5m2!1spl!2spl'}
             />
         </MapStyled>
@@ -181,7 +183,7 @@ const Info = ({
 
 // Main component
 
-const Wrapper = styled.div`
+/* const Wrapper = styled.div`
     gap: 20px;
     width: 90%;
     margin: auto;
@@ -198,17 +200,31 @@ const Wrapper = styled.div`
     @media only screen and (min-width: 1000px) {
         gap: 70px;
     }
+` */
+
+const Wrapper = styled.div`
+    gap: 25px;
+    display: grid;
+    grid-template-rows: auto 400px;
+
+    @media only screen and (min-width: 900px) {
+        gap: 50px;
+        grid-template-rows: auto;
+        grid-template-columns: auto 1fr;
+    }
 `
 
 export default ({
     schedule
 }: Props) => {
     return (
-        <Wrapper>
-            <Info
-                schedule={schedule}
-            />
-            <Map/>
-        </Wrapper>
+        <Section>
+            <Wrapper>
+                <Info
+                    schedule={schedule}
+                />
+                <Map/>
+            </Wrapper>
+        </Section>
     )
 }
