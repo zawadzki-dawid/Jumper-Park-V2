@@ -119,7 +119,7 @@ const AdditionsStyled = styled.div`
     h4 {
         padding: 12px 0;
         font-weight: 700;
-        font-size: 1.8rem;
+        font-size: 2.0rem;
         text-align: center;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
