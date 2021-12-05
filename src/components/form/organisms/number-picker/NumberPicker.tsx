@@ -1,11 +1,10 @@
-import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useFormikContext } from 'formik'
-import { useState, ButtonHTMLAttributes, KeyboardEvent } from 'react'
+import { useRef, useEffect, useState, ButtonHTMLAttributes, KeyboardEvent, forwardRef, ForwardedRef } from 'react'
 
 // Components
 import Icon from '../../../icon/Icon'
-import { Input } from "../../atoms/input/Input"
+import { Input } from '../../atoms/input/Input'
 
 // Button
 
@@ -22,16 +21,17 @@ const ButtonStyled = styled.button`
         height: 15px;
     }
 
-    &:disabled {
+    &.disabled {
         background-color: #E3E3E3;
     }
 `
 
-const Button = ({
+const Button = forwardRef(({
     ...rest
-}: ButtonHTMLAttributes<HTMLButtonElement>) => {
+}: ButtonHTMLAttributes<HTMLButtonElement>, ref: ForwardedRef<HTMLButtonElement>) => {
     return (
         <ButtonStyled
+            ref={ref}
             {...rest}
         >
             <div>
@@ -41,7 +41,7 @@ const Button = ({
             </div>
         </ButtonStyled>
     )
-}
+})
 
 // NumberPicker
 
@@ -67,6 +67,11 @@ const Wrapper = styled.div`
     input {
         text-align: center;
     }
+
+    .input--focused {
+        color: var(--black);
+        border: 2px solid var(--black);
+    }
 `
 
 export default ({
@@ -74,6 +79,10 @@ export default ({
 }: Props) => {
     // State
     const [value, setValue] = useState<string>(lowerLimit)
+    const [isFocused, setIsFocused] = useState<boolean>(false)
+
+    // Ref
+    const buttonRef = useRef<HTMLButtonElement | null>(null)
 
     // Formik
     const formikProps = useFormikContext()
@@ -116,12 +125,23 @@ export default ({
         event.preventDefault()
     }
 
+    const onButtonFocus = () => {
+        setIsFocused(true)
+    }
+
+    const onButtonBlur = () => {
+        setIsFocused(false)
+    }
+
     return (
         <Wrapper>
             <Button
+                ref={buttonRef}
                 type={'button'}
-                onClick={decreaseValue}
-                disabled={value === lowerLimit || value.length === 0}
+                onBlur={onButtonBlur}
+                onFocus={onButtonFocus}
+                className={value === lowerLimit || value.length === 0 ? 'disabled' : ''}
+                onClick={value === lowerLimit || value.length === 0 ? () => {} : decreaseValue}
             />
             <div>
                 <Input
@@ -129,10 +149,14 @@ export default ({
                     onBlur={onBlur}
                     fieldName={fieldName}
                     onKeyDown={onKeyDown}
+                    className={isFocused ? 'input--focused' : ''}
                 />
             </div>
             <Button
+                ref={buttonRef}
                 type={'button'}
+                onBlur={onButtonBlur}
+                onFocus={onButtonFocus}
                 onClick={increaseValue}
             />
         </Wrapper>

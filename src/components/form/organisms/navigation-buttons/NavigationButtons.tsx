@@ -70,6 +70,10 @@ export default ({
         setCurrentStep(currentStep + 1)
     }
 
+    const onSubmit = () => {
+        formikProps.submitForm()
+    }
+
     return (
         <Wrapper>
         {
@@ -83,9 +87,9 @@ export default ({
         }
             <Navigation
                 picked={true}
-                onClick={onNext}
+                type={'button'}
                 text={currentStep === numberOfSteps ? 'Wyślij' : 'Dalej'}
-                type={currentStep === numberOfSteps ? 'submit' : 'button'}
+                onClick={currentStep === numberOfSteps ? onSubmit : onNext}
             />
         </Wrapper>
     )
