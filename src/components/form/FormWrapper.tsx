@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 interface Props {
     heading: string
-    subheading: string
+    subheading?: string
     children: ReactNode
 }
 
@@ -48,35 +48,30 @@ const Header = styled.header`
 
 const Form = styled.div`
     width: 100%;
-    padding: 20px;
     max-width: 1050px;
     border-radius: 20px;
     box-sizing: border-box;
     background-color: var(--white);
     box-shadow: 9px 15px 60px #00000029;
-
-    @media only screen and (min-width: 700px) {
-        padding: 35px;
-    }
-
-    @media only screen and (min-width: 1000px) {
-        padding: 50px;
-    }
 `
 
 export default ({
     heading,
     children,
-    subheading
+    subheading = ''
 }: Props) => {
     return (
         <Wrapper>
             <Header>
                 <h2>
                     {heading}
-                    <span>
-                        {subheading}
-                    </span>
+                    {
+                        subheading && (
+                            <span>
+                                {subheading}
+                            </span>
+                        )
+                    }
                 </h2>
             </Header>
             <Form>
