@@ -1,12 +1,27 @@
-import { ReactNode } from 'react'
 import styled from 'styled-components'
+import { createContext, Dispatch, SetStateAction, cloneElement, ReactElement, useState } from 'react'
+
+// Components
+import Modal from './atoms/modal/Modal'
+
+// Context
+
+interface ModalContextProps {
+    setIsError: Dispatch<SetStateAction<boolean>>
+    setIsSuccess: Dispatch<SetStateAction<boolean>>
+}
+
+export const ModalContext = createContext<ModalContextProps>({
+    setIsError: () => {},
+    setIsSuccess: () => {}
+})
 
 // Main
 
 interface Props {
     heading: string
     subheading?: string
-    children: ReactNode
+    children: ReactElement
 }
 
 const Wrapper = styled.section`
@@ -48,6 +63,7 @@ const Header = styled.header`
 
 const Form = styled.div`
     width: 100%;
+    overflow: hidden;
     max-width: 1050px;
     border-radius: 20px;
     box-sizing: border-box;
@@ -60,6 +76,13 @@ export default ({
     children,
     subheading = ''
 }: Props) => {
+    // State
+    const [isError, setIsError] = useState<boolean>(false)
+    const [isSuccess, setIsSuccess] = useState<boolean>(false)
+
+    // Method
+    const childrenWithProps = cloneElement(children, { setIsError, setIsSuccess })
+
     return (
         <Wrapper>
             <Header>
@@ -75,7 +98,32 @@ export default ({
                 </h2>
             </Header>
             <Form>
-                { children }
+                <Modal
+                    icon={'error'}
+                    isVisible={isError}
+                    setIsVisible={setIsError}
+                    paragraphs={[
+                        'Coś poszło nie tak :(', 
+                        'Spróbuj ponownie później'
+                    ]}
+                />
+                <Modal
+                    icon={'success'}
+                    isVisible={isSuccess}
+                    setIsVisible={setIsSuccess}
+                    paragraphs={[
+                        'Wiadomość została wysłana!', 
+                        'Skontaktujemy się z Tobą najszybciej jak to tylko będzie możliwe :)'
+                    ]}
+                />
+                <ModalContext.Provider
+                    value={{
+                        setIsError: setIsError,
+                        setIsSuccess: setIsSuccess
+                    }}
+                >
+                    { !isSuccess && childrenWithProps }
+                </ModalContext.Provider>
             </Form>
         </Wrapper>
     )
