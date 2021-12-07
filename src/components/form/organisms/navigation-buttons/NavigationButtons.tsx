@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useFormikContext } from 'formik'
-import { Dispatch, SetStateAction, useLayoutEffect } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 // Components
 import Button, { Props as PropsButton } from '../../atoms/button/Button'
@@ -90,6 +90,7 @@ export default ({
                 type={'button'}
                 text={currentStep === numberOfSteps ? 'Wyślij' : 'Dalej'}
                 onClick={currentStep === numberOfSteps ? onSubmit : onNext}
+                disabled={currentStep === numberOfSteps && formikProps.isSubmitting}
             />
         </Wrapper>
     )

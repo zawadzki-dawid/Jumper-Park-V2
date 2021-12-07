@@ -1,14 +1,16 @@
 import 'yup-phone'
 import * as Yup from 'yup'
+import { send } from 'emailjs-com'
+import { Form, Formik } from 'formik'
 import styled from 'styled-components'
-import { useState, useContext } from 'react'
-import { Form, Formik, FormikBag } from 'formik'
+import { useRef, useState, ElementRef } from 'react'
 
 // Components
+import FormWrapper from '../FormWrapper'
 import Dots from '../organisms/dots/Dots'
-import FormWrapper, { ModalContext } from '../FormWrapper'
 import { bundles } from '../organisms/bundle-picker/BundlePicker'
 import { spans } from '../organisms/age-span-picker/AgeSpanPicker'
+import Modal, { errorParagraphs, successParagraph } from '../atoms/modal/Modal'
 import NavigationButtons from '../organisms/navigation-buttons/NavigationButtons'
 
 // Steps
@@ -69,55 +71,73 @@ const StepsWrapper = styled.div<PropsSteps>`
 `
 
 const WrapperStyled = styled.div`
+    position: relative;
     padding: 20px 10px 50px 10px;
 `
 
 const Wrapper = () => {
-     // State
-     const [currentStep, setCurrentStep] = useState<number>(1)
+    // State
+    const [refresh, setRefresh] = useState<number>(0)
+    const [currentStep, setCurrentStep] = useState<number>(1)
 
-     // Context
-     const { setIsError, setIsSuccess } = useContext(ModalContext)
- 
-     // Method
-     const onSubmit = (fields: typeof initialValues, { resetForm }: any) => {
-         setIsSuccess(true)
-         setCurrentStep(1)
-         console.log(fields)
-         resetForm()
-     }
+    // Ref
+    const modalRef = useRef<ElementRef<typeof Modal>>(null)
+
+    // Method
+    const onSubmit = async (fields: typeof initialValues, { resetForm }: any): Promise<void> => {
+        if (!modalRef.current) {
+            return
+        }
+        try {
+            await send('service_71a41c6', 'template_tzner7g', fields)
+            await modalRef.current.openModal('success', successParagraph)
+            setRefresh(refresh + 1)
+            setCurrentStep(1)
+            resetForm({})
+        } catch (error) {
+            console.log(error)
+            await modalRef.current.openModal('error', errorParagraphs)
+        }
+    }
 
     return (
-        <WrapperStyled>
-            <Dots
-                numberOfSteps={4}
-                currentIndex={currentStep}
+        <>
+            <Modal
+                ref={modalRef}
             />
-            <Formik
-                onSubmit={onSubmit}
-                validateOnBlur={false}
-                validateOnMount={false}
-                validateOnChange={false}
-                initialValues={initialValues}
-                validationSchema={validationSchema[currentStep - 1]}
+            <WrapperStyled
+                key={refresh}
             >
-                <Form>
-                    <StepsWrapper
-                        currentStep={currentStep}
-                    >
-                        <FirstStep/>
-                        <SecondStep/>
-                        <ThirdStep/>
-                        <FourthStep/>
-                    </StepsWrapper>
-                    <NavigationButtons
-                        numberOfSteps={4}
-                        currentStep={currentStep}
-                        setCurrentStep={setCurrentStep}
-                    />
-                </Form>
-            </Formik>
-        </WrapperStyled>
+                <Dots
+                    numberOfSteps={4}
+                    currentIndex={currentStep}
+                />
+                <Formik
+                    onSubmit={onSubmit}
+                    validateOnBlur={false}
+                    validateOnMount={false}
+                    validateOnChange={false}
+                    initialValues={initialValues}
+                    validationSchema={validationSchema[currentStep - 1]}
+                >
+                    <Form>
+                        <StepsWrapper
+                            currentStep={currentStep}
+                        >
+                            <FirstStep/>
+                            <SecondStep/>
+                            <ThirdStep/>
+                            <FourthStep/>
+                        </StepsWrapper>
+                        <NavigationButtons
+                            numberOfSteps={4}
+                            currentStep={currentStep}
+                            setCurrentStep={setCurrentStep}
+                        />
+                    </Form>
+                </Formik>
+            </WrapperStyled>
+        </>
     )
 }
 

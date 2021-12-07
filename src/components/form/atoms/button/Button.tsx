@@ -22,11 +22,7 @@ const ButtonStyled = styled.button<PropsStyled>`
     box-sizing: border-box;
     justify-content: center;
     text-transform: uppercase;
-    border: 3px solid #F9BB1D;
-
-    &:hover {
-        background-color: #F9BB1D;
-    }
+    border: 3px solid rgb(249, 187, 29);
 
     ${
         props => props.rounded && css`
@@ -36,8 +32,18 @@ const ButtonStyled = styled.button<PropsStyled>`
 
     ${
         props => props.picked && css`
-            background-color: #F9BB1D;
+            background-color: rgb(249, 187, 29);
         `
+    }
+
+    &:hover {
+        background-color: rgb(249, 187, 29);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background: rgba(249, 187, 29, 0.46);
+        border-color: rgba(249, 187, 29, 0.46);
     }
 `
 

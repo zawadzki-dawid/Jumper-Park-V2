@@ -1,19 +1,27 @@
 import styled, { css } from 'styled-components'
-import { Dispatch, SetStateAction } from 'react'
+import { ButtonHTMLAttributes, Ref, forwardRef, useImperativeHandle, useState } from 'react'
 
 // Components
 import Icon, { icon } from '../../../icon/Icon'
 
+// Data
+export const errorParagraphs = ['Coś poszło nie tak :(', 'Spróbuj ponownie później']
+export const successParagraph = ['Wiadomość została wysłana!', 'Skontaktujemy się z Tobą najszybciej jak to tylko będzie możliwe :)']
+
+// Main
+
+type IconType = keyof Pick<typeof icon, 'error' | 'success'>
+
 interface Props {
-    isVisible: boolean
     paragraphs: string[]
-    setIsVisible: Dispatch<SetStateAction<boolean>>
-    icon: keyof Pick<typeof icon, 'error' | 'success'>
+    icon: IconType
 }
 
-type PropsModal = Pick<Props, 'icon'>
+type ResolveType = (value: void | PromiseLike<void>) => void
 
-type PropsButton = Pick<Props, 'setIsVisible'>
+type PropsButton = ButtonHTMLAttributes<HTMLButtonElement>
+
+type PropsModal = Pick<Props, 'icon'>
 
 const ButtonStyled = styled.button`
     top: 0;
@@ -32,12 +40,12 @@ const ButtonStyled = styled.button`
 `
 
 const Button = ({
-    setIsVisible
+    ...rest
 }: PropsButton) => {
     return (
         <ButtonStyled
             type={'button'}
-            onClick={() => setIsVisible(false)}
+            {...rest}
         >
             <div>
                 <Icon
@@ -85,29 +93,63 @@ const Paragraphs = styled.div<PropsModal>`
 
 const ModalStyled = styled.div`
     width: 100%;
+    height: 100%;
     z-index: 200;
     display: flex;
-    height: 500px;
-    position: relative;
+    position: absolute;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     background-color: var(--white);
 `
+interface RefMethods {
+    openModal: (icon: IconType, paragraphs: string[]) => Promise<void>
+}
 
-export default ({
-    icon,
-    isVisible,
-    paragraphs,
-    setIsVisible
-}: Props) => {
+let resolveModal: ResolveType | null = null
+
+export default forwardRef((
+    _,
+    ref: Ref<RefMethods>
+) => {
+    // State
+    const [icon, setIcon] = useState<IconType>('error')
+    const [isVisible, setIsVisible] = useState<boolean>(false)
+    const [paragraphs, setParahraphs] = useState<string[]>([])
+
+    //Methods
+    const openModal = async (icon: IconType, paragraphs: string[]): Promise<void> => {
+        return new Promise((resolve) => {
+            setParahraphs(paragraphs)
+            setIcon(icon)
+            resolveModal = resolve
+            setIsVisible(true)
+        })
+    }
+
+    const closeModal = () => {
+        setIsVisible(false)
+        if (!resolveModal) {
+            return
+        }
+        resolveModal()
+    }
+
+    // ImperativeHandle
+    useImperativeHandle(
+        ref,
+        () => ({
+            openModal
+        })
+    )
+
     return (
         <>
         {
             isVisible && (
                 <ModalStyled>
                     <Button
-                        setIsVisible={setIsVisible}
+                        onClick={closeModal}
                     />
                     <IconWrapper>
                         <Icon
@@ -132,4 +174,4 @@ export default ({
         }
         </>
     )
-}
+})
