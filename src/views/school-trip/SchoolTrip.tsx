@@ -52,7 +52,7 @@ export default () => {
                     <Wrapper>
                         <TextSection>
                             Dbamy o Wasze bezpieczeństwo! 
-                            Na prośbę grupy min. 10 osób możemy udostępnić Park na wyłączność. 
+                            Na prośbę grupy min. 30 osób możemy udostępnić Park na wyłączność. 
                             Wystarczy, że ustalimy dogodny termin, a będziecie mieć Jumper Park tylko dla siebie!
                         </TextSection>
                         <OfferWrapper>
