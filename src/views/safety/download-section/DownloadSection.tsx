@@ -1,7 +1,9 @@
-import styled from 'styled-components'
+import { AnchorHTMLAttributes } from 'react'
+import styled, { css } from 'styled-components'
 
 // Assets
 import MainStatue from '../../../assets/documents/Regulamin-ogolny.pdf'
+import PrivacyPolicy from '../../../assets/documents/Polityka-prywatnosci.pdf'
 import EventsStatue from '../../../assets/documents/Regulamin-organizacji-imprez.pdf'
 import GuardianAgreement from '../../../assets/documents/Zgoda-rodzica-opiekuna.pdf'
 import GroupAgreement from '../../../assets/documents/Oswiadczenie-opiekuna-grupy.pdf'
@@ -10,169 +12,220 @@ import TrampolinesStatue from '../../../assets/documents/Regulamin-korzystania-z
 // Components
 import Icon from '../../../components/icon/Icon'
 import Section from '../../../components/section/Section'
-import { Statue, Agreement } from '../../../components/download-link/DownloadLink'
 
-// Agreements component
+// Card
 
-const AgreementsStyled = styled.div`
-    gap: 20px;
+interface PropsCard extends AnchorHTMLAttributes<HTMLAnchorElement> {
+    text: string
+}
+
+const CardBase = css`
+
     display: grid;
-    align-content: space-between;
-    grid-template-rows: 90px auto;
-    grid-template-columns: auto 1fr;
+    font-size: 1.6rem;
+    color: var(--black);
+    border-radius: 10px;
+    justify-items: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    padding: 20px 15px 11px 15px;
+    box-shadow: 0px 7px 30px #00000029;
 
-    .agreement__icon {
-        grid-row: 1;
-        grid-column: 1;
-        padding: 12px 0;
+    .card__title {
+        text-align: center;
     }
 
-    .agreement__links {
-        grid-row: 1;
-        display: grid;
-        grid-column: 2;
-        align-content: space-around;
+    .card__text {
+        margin-top: 5px;
+        color: #F9A218;
+    }
 
-        > div {
-            height: 38px;
-            display: flex;
-            align-items: center;
+    .top-icon__wrapper > img:last-child {
+        display: none;
+    }
+
+    .bottom-icon__wrapper > img:last-child {
+        display: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: #F9A218;
+
+        .card__text, .card__title {
+            color: var(--white);
         }
 
-        @media only screen and (min-width: 700px) {
-            gap: 25px;
-            align-content: center;
+        .top-icon__wrapper > img:first-child {
+            display: none;
         }
-    }
 
-    .agreement__asterixs {
-        grid-row: 2;
-        row-gap: 8px;
-        display: grid;
-        grid-column: 1 / 3;
-
-        p {
-            font-size: var(--small-font-size);
+        .top-icon__wrapper > img:last-child {
+            display: block;
         }
-    }
 
-    @media only screen and (min-width: 700px) {
-        grid-template-rows: 150px auto;
-    }
+        .bottom-icon__wrapper > img:last-child {
+            display: block;
+        }
 
-    @media only screen and (min-width: 1000px) {
-        grid-template-rows: 180px auto;
+        .bottom-icon__wrapper > img:first-child {
+            display: none;
+        }
     }
 `
 
-const Agreements = () => {
+const Card = ({
+    text
+}: Pick<PropsCard, 'text'>) => {
     return (
-        <AgreementsStyled>
+        <>
             <div
-                className={'agreement__icon'}
+                className={'top-icon__wrapper'}
             >
                 <Icon
-                    image={'document'}
+                    image={'folderOrange'}
+                />
+                <Icon
+                    image={'folder'}
                 />
             </div>
-            <div
-                className={'agreement__links'}
+            <span
+                className={'card__title'}
             >
-                <div>
-                    <Agreement
-                        agreement={GuardianAgreement}
-                        text={'Zgoda rodzica / opiekuna'}
-                        filename={'Zgoda-rodzica-opiekuna.pdf'}
-                    />
-                </div>
-                <div>
-                    <Agreement
-                        agreement={GroupAgreement}
-                        text={'Oświadczenie opiekuna grupy'}
-                        filename={'Oswiadczenie-opiekuna-grupy.pdf'}
-                    />
-                </div>
-            </div>
+                {text}
+            </span>
             <div
-                className={'agreement__asterixs'}
+                className={'bottom-icon__wrapper'}
             >
-                <p>
-                    *Osoby niepełnoletnie, przy pierwszej wizycie, 
-                    muszą dostarczyć nam podpisaną zgodę rodzica
-                </p>
-                <p>
-                    *Zgodę wystarczy przynieść tylko za pierwszym razem
-                </p>
-                <p>
-                    *Zgodę wystarczy przynieść tylko za pierwszym razem
-                </p>
+                <Icon
+                    image={'downloadGrey'}
+                />
+                <Icon
+                    image={'download'}
+                />
             </div>
-        </AgreementsStyled>
+            <span
+                className={'card__text'}
+            >
+                Pobierz
+            </span>
+        </>
     )
 }
 
-// Statues component
+const CardAgreementStyled = styled.a`
+    ${CardBase};
+    width: 247px;
+    height: 185px;
+    grid-template-rows: auto 1fr auto auto;
 
-const StatuesStyled = styled.div`
-    gap: 15px;
-    display: flex;
-    justify-content: space-between;
-
-    div {
-        height: 38px;
-
-        @media only screen and (min-width: 1000px) {
-            height: 50px;
-        }
-    }
-
-    @media only screen and (min-width: 1000px) {
-        gap: 25px;
-        flex-direction: column;
+    .card__title {
+        margin-top: 15px;
     }
 `
 
-const Statues = () => {
+const CardAgreement = ({
+    text,
+    ...rest
+}: PropsCard) => {
     return (
-        <StatuesStyled>
-                <Statue
-                    statue={MainStatue}
-                    text={'Regulamin ogólny'}
-                />
-                <Statue
-                    statue={TrampolinesStatue}
-                    text={'Regulamin korzystania z trampolin'}
-                />
-                <Statue
-                    statue={EventsStatue}
-                    text={'Regulamin organizacji imprez'}
-                />
-        </StatuesStyled>
+        <CardAgreementStyled
+            {...rest}
+        >
+            <Card
+                text={text}
+            />
+        </CardAgreementStyled>
     )
 }
 
-// Main component
+const CardStatueStyled = styled.a`
+    ${CardBase};
+    width: 247px;
+    height: 185px;
+    grid-template-rows: auto 1fr auto auto;
 
-const Wrapper = styled.div`
-    width: 92%;
-    max-width: 1200px;
-    box-shadow: 0 3px 8px var(--shadow-color);
+    .card__title {
+        margin-top: 15px;
+    }
 
-    > div {
-        gap: 20px;
-        display: flex;
-        padding: 15px;
-        flex-direction: column;
+    @media only screen and (min-width: 928px) {
+        width: 192px;
+        height: 157px;
 
-        @media only screen and (min-width: 600px) {
-            padding: 25px;
+        .top-icon__wrapper {
+            height: 25px;
         }
 
-        @media only screen and (min-width: 1000px) {
-            flex-direction: row;
-            justify-content: space-between;
+        .card__title {
+            margin-top: 10px;
+        }
+
+        .bottom-icon__wrapper {
+            height: 20px;
         }
     }
+`
+
+const CardStatue = ({
+    text,
+    ...rest
+}: PropsCard) => {
+    return (
+        <CardStatueStyled
+            {...rest}
+        >
+            <Card
+                text={text}
+            />
+        </CardStatueStyled>
+    )
+}
+
+// Main
+
+const AgreementsWrapper = styled.div`
+    row-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    justify-content: center;
+`
+
+const StatuesWrapper = styled.div`
+    row-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    column-gap: 40px;
+    justify-content: center;
+
+    @media only screen and (min-width: 928px) {
+        margin-top: 55px;
+    }
+`
+
+const AsterixWrapper = styled.div`
+    margin: auto;
+    row-gap: 8px;
+    display: grid;
+    margin-top: 60px;
+    width: fit-content;
+
+    > p {
+        font-weight: 400;
+        font-size: 1.6rem;
+        font-style: italic;
+    }
+
+    @media only screen and (min-width: 920px) {
+        margin-left: 0;
+    }
+`
+
+const Wrapper = styled.div`
+    margin: auto;
+    width: fit-content;
 `
 
 export default () => {
@@ -181,10 +234,55 @@ export default () => {
             text={'Dokumenty'}
         >
             <Wrapper>
-                <div>
-                    <Agreements/>
-                    <Statues/>
-                </div>
+                <AgreementsWrapper>
+                    <CardAgreement
+                        href={GuardianAgreement}
+                        text={'Zgoda rodzica/opiekuna'}
+                        download={'Zgoda rodzica/opiekuna'}
+                    />
+                    <CardAgreement
+                        href={GroupAgreement}
+                        text={'Oświadczenie opiekuna grupy'}
+                        download={'Oświadczenie opiekuna grupy'}
+                    />
+                </AgreementsWrapper>
+                <StatuesWrapper>
+                    <CardStatue
+                        rel={'noopener'}
+                        target={'_blank'}
+                        href={MainStatue}
+                        text={'Regulamin ogólny'}
+                    />
+                    <CardStatue
+                        rel={'noopener'}
+                        target={'_blank'}
+                        href={TrampolinesStatue}
+                        text={'Regulamin korzystania z trampolin'}
+                    />
+                    <CardStatue
+                        rel={'noopener'}
+                        target={'_blank'}
+                        href={EventsStatue}
+                        text={'Regulamin organizacji imprez'}
+                    />
+                    <CardStatue
+                        rel={'noopener'}
+                        target={'_blank'}
+                        href={PrivacyPolicy}
+                        text={'Polityka prywatności'}
+                    />
+                </StatuesWrapper>
+                <AsterixWrapper>
+                    <p>
+                        *Osoby niepełnoletnie, przy pierwszej wizycie, muszą dostarczyć nam podpisaną zgodę rodzica
+                    </p>
+                    <p>
+                        *Zgodę wystarczy przynieść tylko za pierwszym razem
+                    </p>
+                    <p>
+                        *Wszystkich formalności można dokonać również na miejscu
+                    </p>
+                </AsterixWrapper>
             </Wrapper>
         </Section>
     )

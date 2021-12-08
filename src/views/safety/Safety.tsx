@@ -12,17 +12,21 @@ import DownloadSection from './download-section/DownloadSection'
 // Main
 
 const Wrapper = styled.div`
-    margin: 25px 0;
+    display: grid;
+    gap: var(--section-default-gap);
+    margin: var(--section-default-gap) 0;
 `
 
 export default () => {
     // Context
-    const { setEntered } = useContext(LoaderContext)
+    const { entered, setEntered } = useContext(LoaderContext)
 
     // Effect
     useEffect(() => {
-        setEntered(false)
-    }, [])
+        if (entered) {
+            setEntered(false)
+        }
+    }, [entered])
 
     return (
         <>
