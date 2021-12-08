@@ -72,4 +72,9 @@ export default createGlobalStyle`
         appearance: none;
         background: none;
     }
+
+    fieldset {
+        padding: 0;
+        border: none;
+    }
 `
