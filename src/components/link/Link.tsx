@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
@@ -134,5 +135,26 @@ export const Fitted = ({
         >
             { text }
         </FittedStyled>
+    )
+}
+
+interface PropsLinkContent extends Props {
+    children: ReactNode
+}
+
+const LinkContentStyled = styled(NavLink)`
+    
+`
+
+export const LinkContent = ({
+    to,
+    children
+}: PropsLinkContent) => {
+    return (
+        <LinkContentStyled
+            to={to}
+        >
+            {children}
+        </LinkContentStyled>
     )
 }
