@@ -55,3 +55,22 @@ export const Document = (args: Props) => {
 Document.args = {
     image: 'document'
 }
+
+export const Done = (args: Props) => {
+    return (
+        <div
+            style={{
+                height: '30px',
+                backgroundColor: 'black'
+            }}
+        >
+            <Icon
+                {...args}
+            />
+        </div>
+    )
+}
+
+Done.args = {
+    image: 'done'
+}
