@@ -72,7 +72,7 @@ const StepsWrapper = styled.div<PropsSteps>`
 
 const WrapperStyled = styled.div`
     position: relative;
-    padding: 20px 10px 50px 10px;
+    padding: 20px 15px 50px 15px;
 `
 
 const Wrapper = () => {

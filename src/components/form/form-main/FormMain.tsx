@@ -1,11 +1,18 @@
 import * as Yup from 'yup'
-import { useCallback } from 'react'
-import { Form, Formik } from 'formik'
+import { send } from 'emailjs-com'
 import styled from 'styled-components'
+import { ElementRef, useRef, useState } from 'react'
+import { Form, Formik, useFormikContext } from 'formik'
 
 // Components
+import Error from '../atoms/error/Error'
+import Label from '../atoms/label/Label'
 import FormWrapper from '../FormWrapper'
-import Select from '../../input/select/Select'
+import Button from '../atoms/button/Button'
+import { Input } from '../atoms/input/Input'
+import Select from '../organisms/select/Select'
+import TextArea from '../atoms/text-area/TextArea'
+import Modal, { errorParagraphs, successParagraph } from '../atoms/modal/Modal'
 
 // Data
 
@@ -18,14 +25,14 @@ const topics = [
     'Zakup biletu'
 ]
 
-const init = {
+const initialValues = {
     name: '',
     email: '',
     message: '',
     topic: topics[0]
 }
 
-const validation = Yup.object({
+const validationSchema = Yup.object({
     topic: Yup.string().oneOf(topics),
     email: Yup.string().email().required(),
     name: Yup.string().max(100).required(),
@@ -35,55 +42,73 @@ const validation = Yup.object({
 // Main
 
 const Wrapper = styled.div`
-    gap: 20px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
+    margin: auto;
+    max-width: 910px;
+    position: relative;
+    padding: 30px 15px 50px 15px;
+`
 
-    @media only screen and (min-width: 700px) {
-        flex-direction: row;
+const InputsWrapper = styled.div`
+    gap: 10px;
+    display: grid;
+    margin-bottom: 10px;
+    grid-auto-rows: 53px;
+
+    @media only screen and (min-width: 1010px) {
+        column-gap: 20px;
+        margin-bottom: 30px;
+        grid-auto-flow: column;
     }
 `
 
-const MessageWrapper = styled.div`
-    height: 200px;
-    margin-top: 20px;
-
-    @media only screen and (min-width: 700px) {
-        height: 300px;
-        margin-top: 40px;
-    }
+const ButtonWrapperStyled = styled.div`
+    height: 45px;
+    margin: auto;
+    max-width: 144px;
 `
 
-const ButtonWrapper = styled.div`
-    margin-top: 20px;
+const ButtonWrapper = () => {
+    // Formik
+    const formikProps = useFormikContext()
 
-    > button {
-        border: 4px solid var(--yellow-darker);
-        display: flex;
-        height: 45px;
-        width: 140px;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1.6rem;
-        margin: auto;
+    return (
+        <ButtonWrapperStyled>
+            <Button
+                picked={true}
+                type={'submit'}
+                text={'Wyślij'}
+                disabled={formikProps.isSubmitting}
+            />
+        </ButtonWrapperStyled>
+    )
+}
 
-        &:hover {
-            background-color: var(--yellow-darker);
-        }
-    }
-
-    @media only screen and (min-width: 700px) {
-        margin-top: 40px;
-    }
+const TextAreaWrapper = styled.div`
+    height: 280px;
+    margin-bottom: 40px;
 `
 
 export default () => {
+    // State
+    const [refresh, setRefresh] = useState<number>(0)
+
+    // Ref
+    const modalRef = useRef<ElementRef<typeof Modal>>(null)
+
     // Method
-    const sendForm = useCallback((fields: Object) => {
-        console.log(fields)
-    }, [])
+    const sendForm = async (fields: typeof initialValues, { resetForm }: any) => {
+        if (!modalRef.current) {
+            return
+        }
+        try {
+            await send('service_71a41c6', 'template_zwitdd6', fields)
+            await modalRef.current.openModal('success', successParagraph)
+            setRefresh(refresh + 1)
+            resetForm({})
+        } catch (error) {
+            await modalRef.current.openModal('error', errorParagraphs)
+        }
+    }
 
     return (
         <FormWrapper
@@ -92,26 +117,48 @@ export default () => {
         >
             <Formik
                 onSubmit={sendForm}
-                initialValues={init}
                 validateOnBlur={false}
                 validateOnMount={false}
                 validateOnChange={false}
-                validationSchema={validation}
+                initialValues={initialValues}
+                validationSchema={validationSchema}
             >
                 <Form>
-                    <Wrapper>
-
+                    <Modal
+                        ref={modalRef}
+                    />
+                    <Wrapper
+                        key={refresh}
+                    >
+                        <Label
+                            text={'Twoje dane'}
+                        />
+                        <Error
+                            message={'Nie uzupełniono poprawnie danych'}
+                        />
+                        <InputsWrapper>
+                            <Input
+                                fieldName={'name'}
+                                placeholder={'Imię'}
+                            />
+                            <Input
+                                fieldName={'email'}
+                                placeholder={'Adres e-mail'}
+                            />
+                            <Select
+                                options={topics}
+                                fieldName={'topic'}
+                                placeholder={'Temat'}
+                            />
+                        </InputsWrapper>
+                        <TextAreaWrapper>
+                            <TextArea
+                                fieldName={'message'}
+                                placeholder={'Wiadomość'}
+                            />
+                        </TextAreaWrapper>
+                        <ButtonWrapper/>
                     </Wrapper>
-                    <MessageWrapper>
-
-                    </MessageWrapper>
-                    <ButtonWrapper>
-                        <button
-                            type={'submit'}
-                        >
-                            Wyślij
-                        </button>
-                    </ButtonWrapper>
                 </Form>
             </Formik>
         </FormWrapper>

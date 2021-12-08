@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useFormikContext } from 'formik'
-import { FocusEvent, InputHTMLAttributes, useRef } from 'react'
+import { FocusEvent, forwardRef, InputHTMLAttributes, Ref, useRef } from 'react'
 
 // Input
 
@@ -27,10 +27,10 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
     fieldName: string
 }
 
-export const Input = ({
+export const Input = forwardRef(({
     fieldName,
     ...rest
-}: Props) => {
+}: Props, ref: Ref<HTMLInputElement>) => {
     // Formik
     const formikProps = useFormikContext()
 
@@ -43,9 +43,10 @@ export const Input = ({
         <InputStyled
             onBlur={onBlur}
             {...rest}
+            ref={ref}
         />
     )
-}
+})
 
 // InputDate
 
