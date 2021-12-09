@@ -89,7 +89,7 @@ const Address = () => {
                 Adres:
             </h4>
             <p>
-                ul. gen. J. Bema 6, 15-369 Białystok
+                ul. Wiadukt 8, 15-327 Białystok
             </p>
         </div>
     )

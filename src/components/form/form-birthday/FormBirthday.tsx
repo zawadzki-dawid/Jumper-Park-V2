@@ -95,7 +95,6 @@ const Wrapper = () => {
             setCurrentStep(1)
             resetForm({})
         } catch (error) {
-            console.log(error)
             await modalRef.current.openModal('error', errorParagraphs)
         }
     }
