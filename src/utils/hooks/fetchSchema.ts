@@ -1,6 +1,5 @@
 import firebase from '../../flamelink'
-import { LoaderContext } from '../../components/loader/Loader'
-import { useReducer, useEffect, Reducer, useContext } from 'react'
+import { useReducer, useEffect, Reducer } from 'react'
 import { query, where, getDocs, collection, getDocsFromCache } from 'firebase/firestore'
 
 type Cache = string[]
@@ -75,6 +74,9 @@ const getDataArray = async <T,>(schemaName: string): Promise<T[]> => {
         docsSnap = await getDocsFromCache(q)
     } else {
         docsSnap = await getDocs(q)
+        if (firebase.isCacheEnabled) {
+            cache.push(schemaName)
+        }
     }
 
     docsSnap.forEach((snap) => data.push(snap.data() as T))
@@ -82,19 +84,13 @@ const getDataArray = async <T,>(schemaName: string): Promise<T[]> => {
 }
 
 export const useFetchContents = <T extends Object,>(schemaName: string) => {
-    // Context 
-    const { entered } = useContext(LoaderContext)
-
     // Reducer
     const [state, dispatch] = useReducer<Reducer<State<T[]>, StateAction<T[]>>>(stateReducer, initState)
 
     // Effect
     useEffect(() => {
-        if (!entered) {
-            return
-        }
         fetchContent()
-    }, [entered])
+    }, [])
 
     // Method
     const fetchContent = async () => {

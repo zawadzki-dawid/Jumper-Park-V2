@@ -1,7 +1,6 @@
 import firebase from '../../flamelink'
-import { LoaderContext } from '../../components/loader/Loader'
+import { useReducer, useEffect, Reducer } from 'react'
 import { doc, getDoc, getDocFromCache } from 'firebase/firestore'
-import { useReducer, useEffect, Reducer, useContext } from 'react'
 
 type Cache = string[]
 
@@ -74,32 +73,26 @@ const getData = async <T,>(documentId: string): Promise<T> => {
         docSnap = await getDocFromCache(docRef)
     } else {
         docSnap = await getDoc(docRef)
+        if (firebase.isCacheEnabled) {
+            cache.push(documentId)
+        }
     }
 
     if (!docSnap.exists()) {
         throw new Error(`${documentId} doesn't exists in collection!`)
-    }
-    if (firebase.isCacheEnabled) {
-        cache.push(documentId)
     }
 
     return docSnap.data() as T
 }
 
 export const useFetchContent = <T extends Object,>(documentId: string) => {
-    // Context 
-    const { entered } = useContext(LoaderContext)
-
     // Reducer
     const [state, dispatch] = useReducer<Reducer<State<T>, StateAction<T>>>(stateReducer, initState)
 
     // Effect
     useEffect(() => {
-        if (!entered) {
-            return
-        }
         fetchContent()
-    }, [entered])
+    }, [])
 
     // Method
     const fetchContent = async () => {

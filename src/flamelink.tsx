@@ -11,7 +11,7 @@ const firebase = initializeApp({
     measurementId: 'G-W3SV1H7P0X'
 })
 
-const firestore = getFirestore()
+const firestore = getFirestore(firebase)
 let isCacheEnabled = true
 
 enableMultiTabIndexedDbPersistence(firestore).catch((error) => {
