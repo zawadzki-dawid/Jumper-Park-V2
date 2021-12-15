@@ -306,6 +306,15 @@ const DesktopLinkStyled = styled.li<PropsDesktopLink>`
     }
 
     ${
+        props => !props.active && css`
+            &:hover::before {
+                ${ActiveStyle};
+                top: -1px;
+            }
+        `
+    }
+
+    ${
         props => props.neighbourActive && css`
             border-right: none;
         `
@@ -317,10 +326,6 @@ const DesktopLinkStyled = styled.li<PropsDesktopLink>`
                 border-left: none;
             }
         `
-    }
-
-    &:hover::before {
-        ${ActiveStyle};
     }
 `
 
