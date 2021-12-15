@@ -267,6 +267,7 @@ const Mobile = <T,>({
 
 interface PropsDesktopLink {
     active: boolean
+    neighbourActive: boolean
 }
 
 // Desktop Link component
@@ -304,6 +305,20 @@ const DesktopLinkStyled = styled.li<PropsDesktopLink>`
         `
     }
 
+    ${
+        props => props.neighbourActive && css`
+            border-right: none;
+        `
+    }
+
+    ${
+        props => !props.neighbourActive && css`
+            & + li {
+                border-left: none;
+            }
+        `
+    }
+
     &:hover::before {
         ${ActiveStyle};
     }
@@ -315,6 +330,7 @@ const DesktopLink = <T,>({
 }: PropsSection<T>) => {
     // State
     const [isActive, setIsActive] = useState<boolean>(false)
+    const [isNeighbourActive, setIsNeighbourActive] = useState<boolean>(false)
 
     // Location
     const location = useLocation()
@@ -325,6 +341,7 @@ const DesktopLink = <T,>({
     // Effect
     useEffect(() => {
         setIsActive(checkIfActive())
+        setIsNeighbourActive(checkIfNeighbourActive())
     }, [location.pathname])
 
     // Method
@@ -333,10 +350,19 @@ const DesktopLink = <T,>({
         return (childEl as HTMLElement).classList.contains('active')
     }
 
+    const checkIfNeighbourActive = (): boolean => {
+        const neighbourEl = (elementRef.current as HTMLLIElement).nextElementSibling
+        if (!neighbourEl) {
+            return false
+        }
+        return (neighbourEl.firstChild as HTMLElement).classList.contains('active')
+    }
+
     return (
         <DesktopLinkStyled
             ref={elementRef}
             active={isActive}
+            neighbourActive={isNeighbourActive}
         >
             <Fitted
                 to={path}
