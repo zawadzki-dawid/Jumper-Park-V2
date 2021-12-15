@@ -155,7 +155,7 @@ const MobileSectionStyled = styled.li<PropsMobileLink>`
     position: relative;
     border: var(--border-width) solid var(--grey);
     border-bottom: none;
-
+    
     &:last-child {
         border-bottom: var(--border-width) solid var(--grey);
     }
@@ -280,16 +280,26 @@ const DesktopLinkStyled = styled.li<PropsDesktopLink>`
     border-bottom-color: var(--black);
     background-color: var(--grey-light);
     border-bottom-width: var(--border-width);
+    border-bottom: none;
 
     ${
         props => props.active && css`
-            border-bottom: none;
             border-color: var(--black);
             background-color: var(--white);
             border-width: var(--border-width);
 
             &::before {
                 ${ActiveStyle};
+            }
+
+            &::after {
+                width: 100%;
+                content: '';
+                display: block;
+                top: calc(100%);
+                position: absolute;
+                height: var(--border-width);
+                background-color: var(--white);
             }
         `
     }
@@ -344,6 +354,7 @@ const DesktopLinksStyled = styled.ul`
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
+    border-bottom: var(--border-width) solid var(--black);
 `
 
 const DesktopLinks = <T,>({
