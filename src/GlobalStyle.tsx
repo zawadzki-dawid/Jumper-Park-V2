@@ -1,4 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import { css, createGlobalStyle } from 'styled-components'
+
+const fontFamily = css`
+    font-family: 'Roboto', sans-serif;
+`
 
 export default createGlobalStyle`
     * {
@@ -7,7 +11,7 @@ export default createGlobalStyle`
     }
 
     html {
-        font-family: 'Roboto', sans-serif;
+        ${fontFamily};
         font-size: 62.5%;
         --white: rgb( 255, 255, 255);
         --black: rgb(0, 0, 0);
@@ -76,5 +80,9 @@ export default createGlobalStyle`
     fieldset {
         padding: 0;
         border: none;
+    }
+
+    input, textarea {
+        ${fontFamily};
     }
 `
