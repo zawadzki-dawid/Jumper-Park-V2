@@ -27,15 +27,14 @@ export default () => {
     const { data, error } = useFetchContent<State>('aY9ZXtrIZ9yYS78Rl6ne')
 
     // Context
-    const { setEntered } = useContext(LoaderContext)
+    const { entered, setEntered } = useContext(LoaderContext)
 
     // Effect
     useEffect(() => {
-        if (!data) {
-            return
+        if (data && entered) {
+            setEntered(false)
         }
-        setEntered(false)
-    }, [data])
+    }, [data, entered])
 
     return (
         <>

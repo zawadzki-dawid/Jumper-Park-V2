@@ -23,14 +23,14 @@ export default () => {
     const [isReserviseLoaded, setIsReserviseLoaded] = useState<boolean>(false)
 
     // Context
-    const { setEntered } = useContext(LoaderContext)
+    const { entered, setEntered } = useContext(LoaderContext)
 
     // Effect
     useEffect(() => {
-        if (isReserviseLoaded) {
+        if (entered && isReserviseLoaded) {
             setEntered(false)
         }
-    }, [isReserviseLoaded])
+    }, [entered, isReserviseLoaded])
 
     return (
         <>
