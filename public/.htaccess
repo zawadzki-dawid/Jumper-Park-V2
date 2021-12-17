@@ -1,0 +1,13 @@
+# Przekierowanie na HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://jumperpark.pl%{REQUEST_URI} [L,NE,R=301]
+
+# Przekierowanie nie istniejących plików do index.html
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
