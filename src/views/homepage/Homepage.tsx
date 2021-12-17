@@ -8,9 +8,7 @@ import { Props as CardProps } from '../../components/card/Card'
 
 // Sections
 import FeedSection from './feed-section/FeedSection'
-import SafetySection from './safety-section/SafetySection'
 import ShortcutsSection from './shortcuts-section/ShortcutsSection'
-import AttractionsSection from './attractions-section/AttractionsSection'
 
 // Main
 
@@ -48,7 +46,6 @@ export default () => {
                         feed={data.feed}
                     />
                     <ShortcutsSection/>
-                    <AttractionsSection/>
                 </Wrapper>
             )
         }
