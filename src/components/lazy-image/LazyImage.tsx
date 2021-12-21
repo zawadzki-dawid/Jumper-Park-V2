@@ -16,6 +16,7 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
     height: 100%;
+    max-width: 100%;
 `
 
 const Loader = styled.div`

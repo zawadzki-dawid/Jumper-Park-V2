@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Section from '../../../components/section/Section'
 
 // Components
-import Card, { Props as CardProps } from '../../../components/card/Card'
+import Card, { Feed as CardProps } from '../../../components/card/Card'
 
 interface Props {
     feed: CardProps[]
@@ -26,8 +26,15 @@ export default ({
             {
                 feed.map((card, index) =>
                     <Card
-                        {...card}
+                        feed={card}
                         key={index}
+                    />
+                )
+            }
+            {
+                feed.length === 0 && (
+                    <Card
+                        feed={null}
                     />
                 )
             }

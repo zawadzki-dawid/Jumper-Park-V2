@@ -4,7 +4,7 @@ import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
 
 // Components
-import { Props as CardProps } from '../../components/card/Card'
+import { Feed as CardProps } from '../../components/card/Card'
 
 // Sections
 import FeedSection from './feed-section/FeedSection'

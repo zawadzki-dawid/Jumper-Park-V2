@@ -3,19 +3,23 @@ import { CSSTransition } from 'react-transition-group'
 import { useMemo, useEffect, useRef, useState } from 'react'
 
 // Assets
-import DefaultImage from '../../assets/icons/icon-document.svg'
+import DefaultImage from '../../assets/logo/logo-text.png'
 
 // Components
 import LazyImage from '../lazy-image/LazyImage'
 
 const CARD_HEIGHT = 100
 
-export interface Props {
+export type Feed = {
     alt: string
     url: string
     date: string
     title: string
-    content: string
+    content: string 
+}
+
+export interface Props {
+    feed: Feed | null
 }
 
 interface TextProps {
@@ -23,21 +27,8 @@ interface TextProps {
 }
 
 const Card = styled.div`
+    padding: 50px 25px;
     box-shadow: 0 3px 8px var(--shadow-color);
-
-    > div {
-        display: grid;
-        padding: 25px;
-        grid-template-columns: 1fr;
-    }
-
-    @media only screen and (min-width: 1000px) {
-        > div {
-            column-gap: 25px;
-            padding: 30px 200px 30px 30px;
-            grid-template-columns: minmax(150px, auto) 1fr;
-        }
-    }
 `
 
 const Image = styled.div`
@@ -98,6 +89,12 @@ const Text = styled.div<TextProps>`
         height: ${ CARD_HEIGHT }px;
         transition: height 300ms ease;
     }
+
+    @media only screen and (min-width: 1000px) {
+        p {
+            max-width: 600px;
+        }
+    }
 `
 
 const Button = styled.button`
@@ -117,13 +114,23 @@ const Button = styled.button`
     }
 `
 
-export default ({
-    url,
+const FeedWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media only screen and (min-width: 1000px) {
+        column-gap: 50px;
+        grid-template-columns: 250px 1fr;
+    }
+`
+
+const Feed = ({
     alt,
+    url,
     date,
     title,
     content
-}: Props) => {
+}: Feed) => {
     // State
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [overflow, setOverflow] = useState<boolean>(false)
@@ -188,56 +195,89 @@ export default ({
     }, [date])
 
     return (
-        <Card>
-            <div>
-                <Image
-                    ref={imageRef}
+        <FeedWrapper>
+            <Image
+                ref={imageRef}
+            >
+                <LazyImage
+                    alt={alt}
+                    image={url || DefaultImage}
+                />
+            </Image>
+            <Wrapper>
+                <Content
+                    ref={contentRef}
                 >
-                    <LazyImage
-                        alt={alt}
-                        image={url || DefaultImage}
-                    />
-                </Image>
-                <Wrapper>
-                    <Content
-                        ref={contentRef}
+                    <p>
+                        { cutDate }
+                    </p>
+                    <h3>
+                        { title }
+                    </h3>
+                    <CSSTransition
+                        in={isOpen}
+                        timeout={300}
+                        classNames={'card'}
                     >
-                        <p>
-                            { cutDate }
-                        </p>
-                        <h3>
-                            { title }
-                        </h3>
-                        <CSSTransition
-                            in={isOpen}
-                            timeout={300}
-                            classNames={'card'}
+                        <Text
+                            contentHeight={contentHeight}
                         >
-                            <Text
-                                contentHeight={contentHeight}
+                            <p
+                                ref={textRef}
                             >
-                                <p
-                                    ref={textRef}
-                                >
-                                    { content }
-                                </p>
-                            </Text>
-                        </CSSTransition>
-                    </Content>
-                    {
-                        overflow && (
-                            <Button
-                                type={'button'}
-                                onClick={onButton}
-                            >
-                                {
-                                    isOpen ? 'Zwiń' : 'Rozwiń'
-                                }
-                            </Button>
-                        )
-                    }
-                </Wrapper>
-            </div>
+                                { content }
+                            </p>
+                        </Text>
+                    </CSSTransition>
+                </Content>
+                {
+                    overflow && (
+                        <Button
+                            type={'button'}
+                            onClick={onButton}
+                        >
+                            {
+                                isOpen ? 'Zwiń' : 'Rozwiń'
+                            }
+                        </Button>
+                    )
+                }
+            </Wrapper>
+        </FeedWrapper>
+    )
+}
+
+const EmptyWrapper = styled.p`
+    margin: auto;
+    padding: 30px 0;
+    font-weight: 500;
+    font-size: 1.6rem;
+    width: fit-content;
+    justify-self: center;
+`
+
+const Empty = () => {
+    return (
+        <EmptyWrapper>
+            Brak nowych aktualności
+        </EmptyWrapper>
+    )
+}
+
+export default ({
+    feed
+}: Props) => {
+    return (
+        <Card>
+        {
+            feed ? (
+                <Feed
+                    {...feed}
+                />
+            ) : (
+                <Empty/>
+            )
+        }
         </Card>
     )
 }
