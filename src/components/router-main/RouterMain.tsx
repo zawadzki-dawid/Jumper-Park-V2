@@ -3,6 +3,7 @@ import { Switch, Route, RouteProps } from 'react-router-dom'
 
 // Views
 import Homepage from '../../views/homepage/Homepage'
+import PostBooking from '../../views/post-booking/PostBooking'
 
 type ViewRoute = {
     path: string
@@ -26,6 +27,13 @@ export default ({
                     path={'/'}
                     render={() => 
                         <Homepage/>
+                    }
+                />
+                <Route
+                    exact
+                    path={'/dziekujemy'}
+                    render={() => 
+                        <PostBooking/>
                     }
                 />
                 {
