@@ -1,144 +1,52 @@
 import styled from 'styled-components'
 
 // Components
-import Icon from '../../../components/icon/Icon'
 import Section from '../../../components/section/Section'
 
+// Atoms
+import Dot from './atoms/dot/Dot'
+import Scenario from './atoms/scenario/Scenario'
+
 // Data
-const firstScenario = ['Przywitanie gości.', 'Rozdanie skarpetek.', 'Film instruktażowy.']
-const secondScenario = ['Aktywność na trampolinach.']
-const thirdScenario = ['Poczęstunek.', 'Wspólne sto lat.', 'Tort.']
 
-// Scenario
-
-interface PropsEntry {
-    entry: string
-}
-
-const ScenarioEntryStyled = styled.li`
-    font-weight: 500;
-    font-size: 1.6rem;
-    position: relative;
-
-    > img {
-        right: 100%;
-        position: absolute;
-        transform: rotate(-90deg);
+const scenariosData = [
+    {
+        title: 'Pierwsze 10 minut',
+        entries: ['Przywitanie gości.', 'Rozdanie skarpetek.', 'Film instruktażowy.']
+    },
+    {
+        title: 'Kolejne 90 minut',
+        entries: ['Aktywność na trampolinach.']
+    },
+    {
+        title: 'Ostatnie 20 minut',
+        entries: ['Poczęstunek.', 'Wspólne sto lat.', 'Tort.']
     }
-`
-
-const ScenarioEntry = ({
-    entry
-}: PropsEntry) => {
-    return (
-        <ScenarioEntryStyled>
-                <Icon
-                    image={'arrow'}
-                />
-            {entry}
-        </ScenarioEntryStyled>
-    )
-}
-
-const ScenarioStyled = styled.div`
-    width: 100%;
-    height: 100%;
-    max-width: 400px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 5px 5px 40px #00000029;
-
-    > div {
-        padding: 12px 0;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border: 1px solid var(--black);
-        background-color: var(--yellow-darker);
-    }
-
-    h4 {
-        font-weight: 700;
-        font-size: 1.8rem;
-        text-align: center;
-    }
-
-    ul {
-        gap: 20px;
-        display: grid;
-        padding: 20px 50px;
-        width: fit-content;
-        grid-template-columns: auto;
-
-        @media only screen and (min-width: 1000px) {
-            margin: auto;
-        }
-    }
-`
-
-const ArrowStyled = styled.div`
-    width: fit-content;
-    height: fit-content;
-    transform: rotateZ(90deg);
-
-    @media only screen and (min-width: 1000px) {
-        transform: none;
-    }
-`
-
-const Arrow = () => {
-    return (
-        <ArrowStyled>
-            <Icon
-                image={'east'}
-            />
-        </ArrowStyled>
-    )
-}
-
-interface PropsScenario {
-    title: string
-    entries: string[]
-}
-
-const Scenario = ({
-    title,
-    entries
-}: PropsScenario) => {
-    return (
-        <ScenarioStyled>
-            <div>
-                <h4>
-                    {title}
-                </h4>
-            </div>
-            <ul>
-            {
-                entries.map((entry, index) =>
-                    <ScenarioEntry
-                        key={index}
-                        entry={entry}
-                    />
-                )
-            }
-            </ul>
-        </ScenarioStyled>
-    )
-}
+]
 
 // Main
 
+const ScenarioWrapper = styled.div`
+    width: 100%;
+    row-gap: 17px;
+    display: grid;
+    max-width: 300px;
+    justify-items: center;
+    grid-template-rows: auto 1fr;
+`
+
 const Wrapper = styled.div`
-    gap: 25px;
     margin: auto;
     display: grid;
-    max-width: 1100px;
-    align-items: center;
+    row-gap: 25px;
+    width: fit-content;
+    grid-rows-auto: auto;
     justify-items: center;
-    grid-template-rows: auto 25px auto 25px auto;
 
-    @media only screen and (min-width: 1000px) {
-        grid-template-rows: auto;
-        grid-template-columns: 1fr 25px 1fr 25px 1fr;
+    @media only screen and (min-width: 1160px) {
+        column-gap: 70px;
+        grid-auto-flow: column;
+        grid-auto-columns: 300px;
     }
 `
 
@@ -148,20 +56,22 @@ export default () => {
             text={'Scenariusz urodzin'}
         >
             <Wrapper>
-                <Scenario
-                    entries={firstScenario}
-                    title={'Pierwsze 10 minut'}
-                />
-                <Arrow/>
-                <Scenario
-                    entries={secondScenario}
-                    title={'Kolejne 90 minut'}
-                />
-                <Arrow/>
-                <Scenario
-                    entries={thirdScenario}
-                    title={'Ostatnie 20 minut'}
-                />
+            {
+                scenariosData.map((scenario, index) =>
+                    <ScenarioWrapper
+                        key={index}
+                    >
+                        <Dot
+                            index={index + 1}
+                        />
+                        <Scenario
+                            key={index}
+                            title={scenario.title}
+                            entries={scenario.entries}
+                        />
+                    </ScenarioWrapper>
+                )
+            }
             </Wrapper>
         </Section>
     )
