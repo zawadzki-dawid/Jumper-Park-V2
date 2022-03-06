@@ -3,6 +3,9 @@ import { CSSTransition } from 'react-transition-group'
 import { useCurrentPath } from '../../utils/hooks/path'
 import { createContext, ReactNode, useLayoutEffect, useState, useCallback } from 'react'
 
+// Assets
+import LogoImage from '../../assets/logo/logo-text.png'
+
 // Components
 import Icon from '../icon/Icon'
 
@@ -30,6 +33,19 @@ const Loader = styled.div`
     z-index: 99999;
     position: fixed;
     background-color: var(--grey-light);
+
+    > div {
+        height: 100%;
+        display: grid;
+        row-gap: 20px;
+        align-content: center;
+        justify-items: center;
+        grid-template-rows: 100px 50px;
+    }
+
+    .logo {
+        height: 100%;
+    }
 
     &.menu-exit,
     &.loader-enter, 
@@ -84,7 +100,15 @@ export default ({
                 onEntered={onEntered}
             >
                 <Loader>
-
+                    <div>
+                        <img
+                            src={LogoImage}
+                            className={'logo'}
+                        />
+                        <Icon
+                            image={'loader'}
+                        />
+                    </div>
                 </Loader>
             </CSSTransition>
             <LoaderContext.Provider

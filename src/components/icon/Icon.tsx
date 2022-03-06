@@ -9,6 +9,7 @@ import Group from '../../assets/icons/icon-group.svg'
 import Error from '../../assets/icons/icon-error.svg'
 import Arrow from '../../assets/icons/icon-arrow.svg'
 import Close from '../../assets/icons/icon-close.svg'
+import Loader from '../../assets/icons/icon-loader.svg'
 import Folder from '../../assets/icons/icon-folder.svg'
 import Success from '../../assets/icons/icon-success.svg'
 import LogoNav from '../../assets/icons/icon-logo-nav.png'
@@ -29,6 +30,7 @@ export const icon = {
     error: Error,
     arrow: Arrow,
     close: Close,
+    loader: Loader,
     folder: Folder,
     logoNav: LogoNav,
     success: Success,
