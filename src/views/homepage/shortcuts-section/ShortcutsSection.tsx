@@ -7,12 +7,16 @@ import Section from '../../../components/section/Section'
 
 // Shortcut
 
+type PropsShortcutStyled = {
+    iconHeight?: number
+}
+
 type PropsSchortcut = {
     title: string
     description: string
-} & ComponentProps<typeof Icon>
+} & ComponentProps<typeof Icon> & PropsShortcutStyled
 
-const ShortcutStyled = styled.div`
+const ShortcutStyled = styled.div<PropsShortcutStyled>`
     flex: 1;
     gap: 8px;
     display: grid;
@@ -21,8 +25,8 @@ const ShortcutStyled = styled.div`
     grid-template-rows: auto auto 1fr auto;
 
     > div {
-        height: 40px;
         width: fit-content;
+        height: ${ props => props.iconHeight ?? 40 }px;
     }
 
     > h4 {
@@ -37,10 +41,13 @@ const ShortcutStyled = styled.div`
 const Shortcut = ({
     image,
     title,
+    iconHeight,
     description
 }: PropsSchortcut) => {
     return (
-        <ShortcutStyled>
+        <ShortcutStyled
+            iconHeight={iconHeight}
+        >
             <div>
                 <Icon
                     image={image}
@@ -82,17 +89,19 @@ const Shortcuts = () => {
     return (
         <ShortcutsStyled>
             <Shortcut
-                image={'document'}
+                image={'group'}
                 title={'Zajęcia grupowe'}
                 description={'Już od 13zł za 60 minut szaleństwa. Z nami spędzicie czas aktywnie i z uśmiechem.'}
             />
             <Shortcut
-                image={'document'}
+                image={'cake'}
+                iconHeight={50}
                 title={'Imprezy Urodzinowe'}
                 description={'Chciałbyś zorganizować niezapomniane i wyjątkowe urodziny? Świetnie trafiłeś!'}
             />
             <Shortcut
-                image={'document'}
+                iconHeight={50}
+                image={'acrobatics'}
                 title={'Zajęcia akrobatyczne'}
                 description={'Pod okiem naszych trenerów zapomnisz o grawitacji. Sprawdź naszą ofertę!'}
             />
