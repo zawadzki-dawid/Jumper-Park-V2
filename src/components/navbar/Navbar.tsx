@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { useMemo, useRef, useState } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
 // Components
-import Logo from '../logo/Logo'
 import Icon from '../icon/Icon'
 import { Type, Link, Button } from '../link/Link'
 
@@ -31,8 +31,13 @@ const Header = styled.header`
     > div {
         width: 100%;
         display: flex;
+        align-items: center;
         padding: 0 20px 0 15px;
         justify-content: space-between;
+    }
+
+    .nav__logo-wrapper {
+        height: 55px;
     }
 `
 
@@ -157,7 +162,14 @@ export default ({
             ref={headerRef}
         >
             <div>
-                <Logo/>
+                <RouterLink
+                    to={'/'}
+                    className={'nav__logo-wrapper'}
+                >
+                    <Icon
+                        image={'logoNav'}
+                    />
+                </RouterLink>
                 <Hamburger
                     type={'button'}
                     onClick={onHamburgerClick}

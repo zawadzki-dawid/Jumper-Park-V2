@@ -11,6 +11,7 @@ import Arrow from '../../assets/icons/icon-arrow.svg'
 import Close from '../../assets/icons/icon-close.svg'
 import Folder from '../../assets/icons/icon-folder.svg'
 import Success from '../../assets/icons/icon-success.svg'
+import LogoNav from '../../assets/icons/icon-logo-nav.png'
 import Document from '../../assets/icons/icon-document.svg'
 import Download from '../../assets/icons/icon-download.svg'
 import Hamburger from '../../assets/icons/icon-hamburger.svg'
@@ -29,6 +30,7 @@ export const icon = {
     arrow: Arrow,
     close: Close,
     folder: Folder,
+    logoNav: LogoNav,
     success: Success,
     document: Document,
     download: Download,
