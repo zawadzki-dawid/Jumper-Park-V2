@@ -12,7 +12,6 @@ import Close from '../../assets/icons/icon-close.svg'
 import Loader from '../../assets/icons/icon-loader.svg'
 import Folder from '../../assets/icons/icon-folder.svg'
 import Success from '../../assets/icons/icon-success.svg'
-import LogoNav from '../../assets/icons/icon-logo-nav.png'
 import Document from '../../assets/icons/icon-document.svg'
 import Download from '../../assets/icons/icon-download.svg'
 import Hamburger from '../../assets/icons/icon-hamburger.svg'
@@ -32,7 +31,6 @@ export const icon = {
     close: Close,
     loader: Loader,
     folder: Folder,
-    logoNav: LogoNav,
     success: Success,
     document: Document,
     download: Download,

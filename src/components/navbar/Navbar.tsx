@@ -3,6 +3,9 @@ import { useMemo, useRef, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 
+// Assets
+import LogoImage from '../../assets/logo/icon-logo-nav.png'
+
 // Components
 import Icon from '../icon/Icon'
 import { Type, Link, Button } from '../link/Link'
@@ -38,6 +41,10 @@ const Header = styled.header`
 
     .nav__logo-wrapper {
         height: 55px;
+
+        img {
+            height: 100%;
+        }
     }
 `
 
@@ -166,8 +173,8 @@ export default ({
                     to={'/'}
                     className={'nav__logo-wrapper'}
                 >
-                    <Icon
-                        image={'logoNav'}
+                    <img
+                        src={LogoImage}
                     />
                 </RouterLink>
                 <Hamburger
