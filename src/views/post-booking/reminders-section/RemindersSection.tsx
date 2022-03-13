@@ -75,7 +75,7 @@ const ReminderStyled = styled.div`
     }
 
     li::before {
-        top: 3px;
+        top: 6px;
         left: -7px;
         width: 2px;
         content: '';
