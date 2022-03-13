@@ -115,8 +115,8 @@ const Card = ({
 
 const CardAgreementStyled = styled.a`
     ${CardBase};
-    width: 247px;
-    height: 185px;
+    width: 270px;
+    height: 200px;
     grid-template-rows: auto 1fr auto auto;
 
     .card__title {
@@ -141,8 +141,8 @@ const CardAgreement = ({
 
 const CardStatueStyled = styled.a`
     ${CardBase};
-    width: 247px;
-    height: 185px;
+    width: 270px;
+    height: 200px;
     grid-template-rows: auto 1fr auto auto;
 
     .card__title {
@@ -150,8 +150,8 @@ const CardStatueStyled = styled.a`
     }
 
     @media only screen and (min-width: 928px) {
-        width: 192px;
-        height: 157px;
+        width: 220px;
+        height: 175px;
 
         .top-icon__wrapper {
             height: 25px;
