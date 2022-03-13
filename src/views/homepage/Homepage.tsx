@@ -7,6 +7,7 @@ import { LoaderContext } from '../../components/loader/Loader'
 import { Feed as CardProps } from '../../components/card/Card'
 
 // Sections
+import Hero from '../../components/hero/Hero'
 import FeedSection from './feed-section/FeedSection'
 import ShortcutsSection from './shortcuts-section/ShortcutsSection'
 
@@ -38,16 +39,17 @@ export default () => {
 
     return (
         <>
-        {
-            !error && data && (
-                <Wrapper>
-                    <FeedSection
-                        feed={data.feed}
-                    />
-                    <ShortcutsSection/>
-                </Wrapper>
-            )
-        }
+            <Hero/>
+            {
+                !error && data && (
+                    <Wrapper>
+                        <FeedSection
+                            feed={data.feed}
+                        />
+                        <ShortcutsSection/>
+                    </Wrapper>
+                )
+            }
         </>
     )
 }
