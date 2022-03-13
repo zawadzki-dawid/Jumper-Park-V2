@@ -31,6 +31,11 @@ const Button = styled.button<ButtonProps>`
     justify-content: space-between;
     border-bottom: var(--border-width) solid var(--black);
 
+    h3 {
+        font-weight: 700;
+        font-size: 1.6rem;
+    }
+
     div {
         height: 26px;
         transition: transform 300ms;
@@ -54,8 +59,15 @@ const Dropdown = styled.div<DropdownProps>`
         }
     }
 
+    h4 {
+        font-weight: 700;
+        font-size: 1.6rem;
+    }
+
     p {
         margin-top: 5px;
+        font-weight: 400;
+        font-size: 1.6rem;
     }
 
     &.dropdown-enter, &.dropdown-exit-done {

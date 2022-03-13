@@ -52,6 +52,7 @@ export default createGlobalStyle`
     button {
         border: none;
         background: none;
+        font-family: inherit;
 
         &:hover {
             cursor: pointer;
@@ -82,7 +83,7 @@ export default createGlobalStyle`
         border: none;
     }
 
-    input, textarea {
-        ${fontFamily};
+    input, textarea, select {
+        font-family: inherit;
     }
 `
