@@ -1,7 +1,7 @@
 import { css, createGlobalStyle } from 'styled-components'
 
 const fontFamily = css`
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif;
 `
 
 export default createGlobalStyle`

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="11.028892mm"
+   height="11.529752mm"
+   viewBox="0 0 11.028892 11.529752"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (76b9e6a115, 2022-02-25)"
+   sodipodi:docname="drawing.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="2.9259416"
+     inkscape:cx="-69.379376"
+     inkscape:cy="-5.8100956"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-100.21818,-137.79862)">
+    <g
+       id="Group_9"
+       data-name="Group 9"
+       transform="matrix(0.26458333,0,0,0.26457734,43.234867,19.985245)">
+      <rect
+         id="Rectangle_44"
+         data-name="Rectangle 44"
+         width="51.518002"
+         height="53.542"
+         transform="translate(210.452,440.367)"
+         fill="none"
+         x="0"
+         y="0" />
+      <ellipse
+         id="Ellipse_4"
+         data-name="Ellipse 4"
+         cx="13.194"
+         cy="22.245001"
+         rx="13.194"
+         ry="22.245001"
+         transform="translate(223.017,445.049)"
+         fill="#ffffff" />
+      <path
+         id="Path_14"
+         data-name="Path 14"
+         d="m 256.387,466.464 c 0,-12.066 -9.335,-21.845 -20.847,-21.842 -11.512,0.003 -20.84,9.785 -20.837,21.851 0,10.38 6.972,19.325 16.674,21.4 v -14.855 h -4.168 v -6.554 h 4.168 V 461 a 7.486,7.486 0 0 1 7.3,-7.647 h 5.21 v 6.554 h -4.168 a 2.143,2.143 0 0 0 -2.084,2.185 v 4.369 h 6.253 v 6.554 h -6.253 V 488.2 c 10.644,-1.119 18.753,-10.515 18.752,-21.736 z"
+         transform="translate(0.667,0.667)"
+         fill="#040405" />
+    </g>
+  </g>
+</svg>

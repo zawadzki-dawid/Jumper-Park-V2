@@ -9,11 +9,15 @@ import Group from '../../assets/icons/icon-group.svg'
 import Error from '../../assets/icons/icon-error.svg'
 import Arrow from '../../assets/icons/icon-arrow.svg'
 import Close from '../../assets/icons/icon-close.svg'
+import Scroll from '../../assets/icons/icon-scroll.svg'
 import Loader from '../../assets/icons/icon-loader.svg'
 import Folder from '../../assets/icons/icon-folder.svg'
 import Success from '../../assets/icons/icon-success.svg'
+import Youtube from '../../assets/icons/icon-youtube.svg'
 import Document from '../../assets/icons/icon-document.svg'
 import Download from '../../assets/icons/icon-download.svg'
+import Facebook from '../../assets/icons/icon-facebook.svg'
+import Instagram from '../../assets/icons/icon-instagram.svg'
 import Hamburger from '../../assets/icons/icon-hamburger.svg'
 import Acrobatics from '../../assets/icons/icon-acrobatics.svg'
 import ArrowYellow from '../../assets/icons/icon-arrow-yellow.svg'
@@ -29,11 +33,15 @@ export const icon = {
     error: Error,
     arrow: Arrow,
     close: Close,
+    scroll: Scroll,
     loader: Loader,
     folder: Folder,
     success: Success,
+    youtube: Youtube,
     document: Document,
     download: Download,
+    facebook: Facebook,
+    instagram: Instagram,
     hamburger: Hamburger,
     acrobatics: Acrobatics,
     arrowYellow: ArrowYellow,
