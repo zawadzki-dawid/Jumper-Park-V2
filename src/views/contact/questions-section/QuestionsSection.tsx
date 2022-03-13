@@ -9,13 +9,13 @@ type Question = {
     question: string
 }
 
-export type Section = {
+export type PropsSection = {
     title: string
     questions: Question[]
 }
 
 interface Props {
-    questions: Section[]
+    questions: PropsSection[]
 }
 
 // Questions components

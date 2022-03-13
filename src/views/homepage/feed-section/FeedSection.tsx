@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Section from '../../../components/section/Section'
 
 // Components
-import Card, { Feed as CardProps } from '../../../components/card/Card'
+import Card, { PropsFeed as CardProps } from '../../../components/card/Card'
 
 interface Props {
     feed: CardProps[]

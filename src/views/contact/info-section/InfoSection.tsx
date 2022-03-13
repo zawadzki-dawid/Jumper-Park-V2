@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import Phone from '../../../components/phone/Phone'
 import Section from '../../../components/section/Section'
 
-export type Schedule = {
+export type PropsSchedule = {
     openingDays: string
     openingHours: string
 }
 
 interface Props {
-    schedule: Schedule[]
+    schedule: PropsSchedule[]
 }
 
 // Map component
@@ -32,6 +32,7 @@ const Map = () => {
     return (
         <MapStyled>
             <iframe
+                title={'map'}
                 loading={'lazy'}
                 src={'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2394.127772621832!2d23.144965416199422!3d53.12585187993341!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ffc07d9ac98dd%3A0xb9822a8db78a3ffb!2sJumper%20Park%20Trampolin!5e0!3m2!1spl!2spl!4v1635632494574!5m2!1spl!2spl'}
             />

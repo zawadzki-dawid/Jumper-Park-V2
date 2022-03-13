@@ -8,8 +8,8 @@ import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import InfoSection, { Schedule as InfoType } from './info-section/InfoSection'
-import QuestionsSection, { Section as QuestionsType } from './questions-section/QuestionsSection'
+import InfoSection, { PropsSchedule as InfoType } from './info-section/InfoSection'
+import QuestionsSection, { PropsSection as QuestionsType } from './questions-section/QuestionsSection'
 
 interface State {
     schedule: InfoType[]

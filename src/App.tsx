@@ -16,7 +16,7 @@ const Contact = lazy(() => import('./views/contact/Contact'))
 const Birthday = lazy(() => import('./views/birthday/Birthday'))
 const PriceList = lazy(() => import('./views/price-list/PriceList'))
 const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
-const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
+// const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
 
 const routes = [
   {

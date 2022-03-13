@@ -174,6 +174,7 @@ export default ({
                     className={'nav__logo-wrapper'}
                 >
                     <img
+                        alt={'Logo'}
                         src={LogoImage}
                     />
                 </RouterLink>

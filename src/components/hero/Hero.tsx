@@ -187,6 +187,7 @@ export default () => {
         >
             <img
                 src={Hero}
+                alt={'Baner'}
                 ref={imageRef}
                 onLoad={onImageLoad}
             />

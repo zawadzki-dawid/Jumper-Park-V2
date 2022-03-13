@@ -10,7 +10,7 @@ import LazyImage from '../lazy-image/LazyImage'
 
 const CARD_HEIGHT = 100
 
-export type Feed = {
+export type PropsFeed = {
     alt: string
     url: string
     date: string
@@ -19,7 +19,7 @@ export type Feed = {
 }
 
 export interface Props {
-    feed: Feed | null
+    feed: PropsFeed | null
 }
 
 interface TextProps {
@@ -130,7 +130,7 @@ const Feed = ({
     date,
     title,
     content
-}: Feed) => {
+}: PropsFeed) => {
     // State
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [overflow, setOverflow] = useState<boolean>(false)
@@ -167,9 +167,7 @@ const Feed = ({
 
     // Method
     const onResize = (entries: ResizeObserverEntry[]) => {
-        entries.map(() => {
-            setOverflow(doesOverflow())
-        })
+        entries.map(() => setOverflow(doesOverflow()))
     }
 
     const doesOverflow = (): boolean => {

@@ -8,7 +8,7 @@ type Column = {
     offer: string
 }
 
-type Offer = {
+type PropsOffer = {
     title: string
     columns: Column[]
 }
@@ -68,7 +68,7 @@ const OfferStyled = styled.div`
 const Offer = ({
     title,
     columns
-}: Offer) => {
+}: PropsOffer) => {
     return (
         <OfferStyled>
             <h4>
@@ -105,7 +105,7 @@ const Offer = ({
 // Main
 
 export interface Props {
-    offers: Offer[]
+    offers: PropsOffer[]
 }
 
 const Wrapper = styled.div`

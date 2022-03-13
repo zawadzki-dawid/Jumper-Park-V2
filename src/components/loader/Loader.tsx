@@ -102,6 +102,7 @@ export default ({
                 <Loader>
                     <div>
                         <img
+                            alt={'Logo'}
                             src={LogoImage}
                             className={'logo'}
                         />
