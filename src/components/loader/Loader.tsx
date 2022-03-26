@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { sendPageView } from '../../utils/analytics'
 import { CSSTransition } from 'react-transition-group'
 import { useCurrentPath } from '../../utils/hooks/path'
 import { createContext, ReactNode, useLayoutEffect, useState, useCallback } from 'react'
@@ -73,6 +74,7 @@ export default ({
 
     // Effect
     useLayoutEffect(() => {
+        sendPageView(currentPath)
         setLoaderVisibility(true)
     }, [currentPath])
 

@@ -158,7 +158,6 @@ const Additions = ({
 export default ({
     additionals
 }: Props) => {
-    console.log(additionals)
     return (
         <Section>
             <Additions

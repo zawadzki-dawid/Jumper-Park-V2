@@ -31,8 +31,9 @@ const Questions = ({
     return (
         <QuestionsStyled>
         {
-            questions.map((question) => 
+            questions.map((question, index) => 
                 <QuestionDropdown
+                    key={index}
                     section={question.title}
                     questions={question.questions}
                 /> 

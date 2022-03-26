@@ -76,8 +76,9 @@ const SocialMedia = () => {
             className={'social-media'}
         >
         {
-            socialMedia.map(({ link, image }) => 
+            socialMedia.map(({ link, image }, index) => 
                 <a
+                    key={index}
                     href={link}
                     target={'_blank'}
                     rel={'noreferrer'}

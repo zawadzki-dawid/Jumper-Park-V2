@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+/* import styled from 'styled-components'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
 
 // Components
@@ -82,4 +82,6 @@ export default () => {
             </Wrapper>
         </Section>
     )
-}
+} */
+
+export default 6

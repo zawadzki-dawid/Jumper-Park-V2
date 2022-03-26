@@ -45,8 +45,13 @@ const Map = () => {
 const ScheduleStyled = styled.div`
     row-gap: 5px;
     display: grid;
-    column-gap: 15px;
-    grid-template-columns: min-content min-content;
+
+    .wrapper {
+        width: 100%;
+        display: flex;
+        column-gap: 15px;
+        justify-content: space-between;
+    }
 
     > p, > span {
         white-space: nowrap;
@@ -63,8 +68,11 @@ const Schedule = ({
             </h4>
             <ScheduleStyled>
             {
-                schedule.map((entry) => 
-                    <>
+                schedule.map((entry, index) => 
+                    <div
+                        key={index}
+                        className={'wrapper'}
+                    >
                         <p>
                         {
                             entry.openingDays
@@ -75,7 +83,7 @@ const Schedule = ({
                             entry.openingHours
                         }
                         </span>
-                    </>
+                    </div>
                 )
             }
             </ScheduleStyled>
