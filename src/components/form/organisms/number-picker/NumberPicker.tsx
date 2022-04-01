@@ -149,6 +149,7 @@ export default ({
                     onBlur={onBlur}
                     fieldName={fieldName}
                     onKeyDown={onKeyDown}
+                    onChange={() => {} /* Supress warning */}
                     className={isFocused ? 'input--focused' : ''}
                 />
             </div>

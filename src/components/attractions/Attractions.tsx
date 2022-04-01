@@ -70,8 +70,9 @@ export default () => {
         >
             <Wrapper>
             {
-                attractions.map((attraction) => 
+                attractions.map((attraction, index) => 
                     <Attraction
+                        key={index}
                         {...attraction}
                     />
                 )

@@ -38,19 +38,25 @@ export default ({
 }: Props) => {
     // Method
     const dots = useMemo((): ReactElement[] => {
+        let index = 0
         const result: ReactElement[] = []
         for (let number = 1; number <= numberOfSteps; number++) {
             if (number !== 1) {
                 result.push(
-                    <span/>
+                    <span
+                        key={index}
+                    />
                 )
+                index = index + 1
             }
             result.push(
                 <Dot
+                    key={index}
                     dotIndex={number}
                     currentIndex={currentIndex}
                 />
             )
+            index = index + 1
         }
         return result
     }, [currentIndex, numberOfSteps])

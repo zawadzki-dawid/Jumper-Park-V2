@@ -21,8 +21,8 @@ const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
 const routes = [
   {
     View: SchoolTrip,
-    path: '/wycieczkaszkolna',
-    text: 'Wycieczka szkolna',
+    path: '/grupyzorganizowane',
+    text: 'Grupy zorganizowane',
     type: Type.Link
   },
   {

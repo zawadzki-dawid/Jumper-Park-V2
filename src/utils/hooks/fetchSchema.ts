@@ -1,8 +1,5 @@
-import firebase from '../../flamelink'
+import flamelinkApp from '../../flamelink'
 import { useReducer, useEffect, Reducer } from 'react'
-import { query, where, getDocs, collection, getDocsFromCache } from 'firebase/firestore'
-
-type Cache = string[]
 
 type State<T> =
 {
@@ -63,24 +60,18 @@ const initState = {
     loading: false
 }
 
-const cache: Cache = []
-
 const getDataArray = async <T,>(schemaName: string): Promise<T[]> => {
-    let docsSnap
-    const data: T[] = []
-    const q = query(collection(firebase.firestoreApp, 'fl_content'), where('_fl_meta_.schema', '==', schemaName))
-
-    if (cache.includes(schemaName)) {
-        docsSnap = await getDocsFromCache(q)
-    } else {
-        docsSnap = await getDocs(q)
-        if (firebase.isCacheEnabled) {
-            cache.push(schemaName)
-        }
+    const cacheData = sessionStorage.getItem(schemaName)
+    if (cacheData) {
+        return JSON.parse(cacheData) as T[]
     }
-
-    docsSnap.forEach((snap) => data.push(snap.data() as T))
-    return data
+    const data = await flamelinkApp.content.get({ schemaKey: schemaName })
+    if(data === null) {
+        throw new Error(`${schemaName} doesn't exists in collection!`)
+    }
+    const dataArray = Object.values(data)
+    sessionStorage.setItem(schemaName, JSON.stringify(dataArray))
+    return dataArray as T[]
 }
 
 export const useFetchContents = <T extends Object,>(schemaName: string) => {

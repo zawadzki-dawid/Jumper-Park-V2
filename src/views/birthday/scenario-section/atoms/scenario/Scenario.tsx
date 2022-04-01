@@ -12,6 +12,7 @@ interface PropsEntry {
 const ScenarioEntryStyled = styled.li`
     font-weight: 500;
     font-size: 1.6rem;
+    line-height: 1.25;
     position: relative;
 
     > img {

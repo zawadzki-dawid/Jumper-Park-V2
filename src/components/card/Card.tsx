@@ -131,6 +131,9 @@ const Feed = ({
     title,
     content
 }: PropsFeed) => {
+    // Ref
+    const nodeRef = useRef<HTMLDivElement | null>(null)
+
     // State
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [overflow, setOverflow] = useState<boolean>(false)
@@ -215,9 +218,11 @@ const Feed = ({
                     <CSSTransition
                         in={isOpen}
                         timeout={300}
+                        nodeRef={nodeRef}
                         classNames={'card'}
                     >
                         <Text
+                            ref={nodeRef}
                             contentHeight={contentHeight}
                         >
                             <p

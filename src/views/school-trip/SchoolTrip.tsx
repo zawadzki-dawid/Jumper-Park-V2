@@ -8,7 +8,6 @@ import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import TextSection from '../../components/text-section/TextSection'
 import OfferSection, { Props as PropsOffer } from './offer-section/OfferSection'
 
 // Main
@@ -44,16 +43,11 @@ export default () => {
     return (
         <>
             <Baner 
-                content={'Wycieczka szkolna'}
+                content={'Grupy zorganizowane'}
             />
             {
                 !error && data && (
                     <Wrapper>
-                        <TextSection>
-                            Dbamy o Wasze bezpieczeństwo! 
-                            Na prośbę grupy min. 30 osób możemy udostępnić Park na wyłączność. 
-                            Wystarczy, że ustalimy dogodny termin, a będziecie mieć Jumper Park tylko dla siebie!
-                        </TextSection>
                         <OfferWrapper>
                             <OfferSection
                                 offers={data.offers}

@@ -1,7 +1,11 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore, enableMultiTabIndexedDbPersistence } from 'firebase/firestore'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/storage'
+import flamelink from 'flamelink/app'
+import 'flamelink/cf/content'
+import 'flamelink/cf/storage'
 
-const firebase = initializeApp({
+const firebaseApp = firebase.initializeApp({
     apiKey: 'AIzaSyBL2VMc9NfWNTGaffzCX1qnVkhfNiatGuo',
     authDomain: 'jumper-park.firebaseapp.com',
     projectId: 'jumper-park',
@@ -11,21 +15,9 @@ const firebase = initializeApp({
     measurementId: 'G-W3SV1H7P0X'
 })
 
-const firestore = getFirestore(firebase)
-let isCacheEnabled = true
-
-enableMultiTabIndexedDbPersistence(firestore).catch((error) => {
-    if (error.code === 'unimplemented') {
-        isCacheEnabled = false
-    }
-    if (error.code === 'failed-precondition') {
-        isCacheEnabled = false
-    }
+const flamelinkApp = flamelink({ 
+    firebaseApp,
+    dbType: 'cf'
 })
 
-
-export default {
-    firebaseApp: firebase,
-    firestoreApp: firestore,
-    isCacheEnabled
-}
+export default flamelinkApp

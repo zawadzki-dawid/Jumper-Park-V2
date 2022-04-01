@@ -1,8 +1,5 @@
-import firebase from '../../flamelink'
+import flamelinkApp from '../../flamelink'
 import { useReducer, useEffect, Reducer } from 'react'
-import { doc, getDoc, getDocFromCache } from 'firebase/firestore'
-
-type Cache = string[]
 
 type State<T> =
 {
@@ -63,26 +60,18 @@ const initState = {
     loading: false
 }
 
-const cache: Cache = []
-
 const getData = async <T,>(documentId: string): Promise<T> => {
-    let docSnap
-    const docRef = doc(firebase.firestoreApp, 'fl_content', documentId)
-
-    if (cache.includes(documentId)) {
-        docSnap = await getDocFromCache(docRef)
-    } else {
-        docSnap = await getDoc(docRef)
-        if (firebase.isCacheEnabled) {
-            cache.push(documentId)
-        }
+    const cacheData = sessionStorage.getItem(documentId)
+    if (cacheData) {
+        return JSON.parse(cacheData) as T
     }
 
-    if (!docSnap.exists()) {
+    const data = await flamelinkApp.content.get({ entryId: documentId })
+    if(data === null) {
         throw new Error(`${documentId} doesn't exists in collection!`)
     }
-
-    return docSnap.data() as T
+    sessionStorage.setItem(documentId, JSON.stringify(data))
+    return data as T
 }
 
 export const useFetchContent = <T extends Object,>(documentId: string) => {

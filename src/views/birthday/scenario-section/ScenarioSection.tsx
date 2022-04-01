@@ -16,7 +16,7 @@ const scenariosData = [
     },
     {
         title: 'Kolejne 90 minut',
-        entries: ['Aktywność na trampolinach.']
+        entries: ['Zabawa na terenie atrakcji.']
     },
     {
         title: 'Ostatnie 20 minut',

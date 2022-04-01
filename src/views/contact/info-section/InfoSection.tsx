@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 // Components
+import Mail from '../../../components/mail/Mail'
 import Phone from '../../../components/phone/Phone'
 import Section from '../../../components/section/Section'
 
@@ -115,6 +116,18 @@ const Contact = () => {
     )
 }
 
+const MailAddress = () => {
+    return (
+        <div>
+            <h4>
+                Adres e-mail:
+            </h4>
+            <Mail/>
+        </div>
+    )
+}
+
+
 const RemindersStyled = styled.div`
     row-gap: 8px;
     display: grid;
@@ -185,31 +198,13 @@ const Info = ({
             />
             <Address/>
             <Contact/>
+            <MailAddress/>
             <Reminders/>
         </InfoStyled>
     )
 }
 
 // Main component
-
-/* const Wrapper = styled.div`
-    gap: 20px;
-    width: 90%;
-    margin: auto;
-    display: grid;
-    max-width: 1200px;
-    grid-template-rows: auto 300px;
-
-    @media only screen and (min-width: 850px) {
-        gap: 50px;
-        grid-template-rows: auto;
-        grid-template-columns: auto 1fr;
-    }
-
-    @media only screen and (min-width: 1000px) {
-        gap: 70px;
-    }
-` */
 
 const Wrapper = styled.div`
     gap: 25px;

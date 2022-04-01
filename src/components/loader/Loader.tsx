@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { sendPageView } from '../../utils/analytics'
 import { CSSTransition } from 'react-transition-group'
 import { useCurrentPath } from '../../utils/hooks/path'
-import { createContext, ReactNode, useLayoutEffect, useState, useCallback } from 'react'
+import { createContext, ReactNode, useRef, useLayoutEffect, useState, useCallback } from 'react'
 
 // Assets
 import LogoImage from '../../assets/logo/logo-text.png'
@@ -65,6 +65,9 @@ const Loader = styled.div`
 export default ({
     children
 }: Props) => {
+    // Ref
+    const nodeRef = useRef<HTMLDivElement | null>(null)
+
     // State
     const [isVisible, setIsVisible] = useState<boolean>(false)
     const [isEntered, setIsEntered] = useState<boolean>(false)
@@ -97,11 +100,14 @@ export default ({
             <CSSTransition
                 timeout={300}
                 in={isVisible}
+                nodeRef={nodeRef}
                 unmountOnExit={true}
                 classNames={'loader'}
                 onEntered={onEntered}
             >
-                <Loader>
+                <Loader
+                    ref={nodeRef}
+                >
                     <div>
                         <img
                             alt={'Logo'}

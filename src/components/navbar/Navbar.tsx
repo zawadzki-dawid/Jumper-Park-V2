@@ -33,9 +33,11 @@ const Header = styled.header`
 
     > div {
         width: 100%;
+        margin: auto;
         display: flex;
+        max-width: 1280px;
         align-items: center;
-        padding: 0 20px 0 15px;
+        padding: 0 30px;
         justify-content: space-between;
     }
 
@@ -58,7 +60,7 @@ const Hamburger = styled.button`
         height: 30px;
     }
 
-    @media only screen and (min-width: 1000px) {
+    @media only screen and (min-width: 1200px) {
         display: none;
     }
 `
@@ -97,7 +99,7 @@ const MenuMobile = styled.nav<PropsMobile>`
         }
     }
 
-    @media only screen and (min-width: 1000px) {
+    @media only screen and (min-width: 1200px) {
         display: none;
     }
 `
@@ -111,11 +113,11 @@ const MenuDesktop = styled.nav`
         align-items: center;
 
         li:not(:last-of-type) {
-            margin-right: 20px;
+            margin-right: 40px;
         }
     }
 
-    @media only screen and (min-width: 1000px) {
+    @media only screen and (min-width: 1200px) {
         display: block;
     }
 `
@@ -128,6 +130,7 @@ export default ({
     const [headerHeight, setHeaderHeight] = useState<number>(0)
 
     // Ref
+    const nodeRef = useRef<HTMLElement | null>(null)
     const headerRef = useRef<HTMLElement | null>(null)
 
     // Method
@@ -198,10 +201,12 @@ export default ({
             <CSSTransition
                 in={isOpen}
                 timeout={300}
+                nodeRef={nodeRef}
                 classNames={'menu'}
                 unmountOnExit={true}
             >
                 <MenuMobile
+                    ref={nodeRef}
                     headerHeight={headerHeight}
                 >
                     <ul>
