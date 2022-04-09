@@ -102,6 +102,7 @@ export default ({
     const [dropdownHeight, setDropdownHeight] = useState<number>(0)
 
     // Ref
+    const nodeRef = useRef<HTMLDivElement | null>(null)
     const dropdownRef = useRef<HTMLUListElement | null>(null)
 
     // Method
@@ -132,9 +133,11 @@ export default ({
             <CSSTransition
                 in={isOpen}
                 timeout={300}
+                nodeRef={nodeRef}
                 classNames={'dropdown'}
             >
                 <Dropdown
+                    ref={nodeRef}
                     dropdownHeight={dropdownHeight}
                 >
                     <ul
