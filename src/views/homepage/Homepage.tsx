@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useContext, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
 
@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 
 export default () => {
     // State
+    const [isHeroLoaded, setIsHeroLoaded] = useState<boolean>(false)
     const { data, error } = useFetchContent<State>('aY9ZXtrIZ9yYS78Rl6ne')
 
     // Context
@@ -32,14 +33,16 @@ export default () => {
 
     // Effect
     useEffect(() => {
-        if (data && entered) {
+        if (data && entered && isHeroLoaded) {
             setEntered(false)
         }
-    }, [data, entered])
+    }, [data, entered, isHeroLoaded])
 
     return (
         <>
-            <Hero/>
+            <Hero
+                setLoaded={setIsHeroLoaded}
+            />
             {
                 !error && data && (
                     <Wrapper>

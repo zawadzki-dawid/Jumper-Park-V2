@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 // Assets
 import Add from '../../assets/icons/icon-add.svg'
+import Call from '../../assets/icons/icon-call.svg'
+import Mail from '../../assets/icons/icon-mail.svg'
 import Done from '../../assets/icons/icon-done.svg'
 import East from '../../assets/icons/icon-east.svg'
 import Cake from '../../assets/icons/icon-cake.svg'
@@ -19,6 +21,7 @@ import Download from '../../assets/icons/icon-download.svg'
 import Facebook from '../../assets/icons/icon-facebook.svg'
 import Instagram from '../../assets/icons/icon-instagram.svg'
 import Hamburger from '../../assets/icons/icon-hamburger.svg'
+import DoneBlack from '../../assets/icons/icon-done-black.svg'
 import Acrobatics from '../../assets/icons/icon-acrobatics.svg'
 import ArrowYellow from '../../assets/icons/icon-arrow-yellow.svg'
 import DownloadGrey from '../../assets/icons/icon-download-grey.svg'
@@ -26,6 +29,8 @@ import FolderOrange from '../../assets/icons/icon-folder-orange.svg'
 
 export const icon = {
     add: Add,
+    call: Call,
+    mail: Mail,
     done: Done,
     east: East,
     cake: Cake,
@@ -41,6 +46,7 @@ export const icon = {
     document: Document,
     download: Download,
     facebook: Facebook,
+    doneBlack: DoneBlack,
     instagram: Instagram,
     hamburger: Hamburger,
     acrobatics: Acrobatics,

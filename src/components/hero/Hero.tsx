@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { useRef, useEffect } from 'react'
 import { ButtonHTMLAttributes } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
 // Assets
 import Icon from '../icon/Icon'
@@ -191,7 +191,13 @@ const Wrapper = styled.div`
     }
 `
 
-export default () => {
+interface Props {
+    setLoaded: Dispatch<SetStateAction<boolean>>
+}
+
+export default ({
+    setLoaded
+}: Props) => {
     // Ref
     const imageRef = useRef<HTMLImageElement | null>(null)
     const wrapperRef = useRef<HTMLDivElement | null>(null)
@@ -222,6 +228,7 @@ export default () => {
     })
 
     const onImageLoad = () => {
+        setLoaded(true)
         toggleImageClass()
     }
 

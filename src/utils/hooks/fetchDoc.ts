@@ -62,10 +62,10 @@ const initState = {
 
 const getData = async <T,>(documentId: string): Promise<T> => {
     const cacheData = sessionStorage.getItem(documentId)
+    
     if (cacheData) {
         return JSON.parse(cacheData) as T
     }
-
     const data = await flamelinkApp.content.get({ entryId: documentId })
     if(data === null) {
         throw new Error(`${documentId} doesn't exists in collection!`)

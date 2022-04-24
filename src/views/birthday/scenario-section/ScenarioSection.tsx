@@ -12,15 +12,15 @@ import Scenario from './atoms/scenario/Scenario'
 const scenariosData = [
     {
         title: 'Pierwsze 10 minut',
-        entries: ['Przywitanie gości.', 'Rozdanie skarpetek.', 'Film instruktażowy.']
+        entries: ['Przywitanie gości', 'Rozdanie skarpetek', 'Film instruktażowy']
     },
     {
         title: 'Kolejne 90 minut',
-        entries: ['Zabawa na terenie atrakcji.']
+        entries: ['Zabawa na terenie atrakcji']
     },
     {
         title: 'Ostatnie 20 minut',
-        entries: ['Poczęstunek.', 'Wspólne sto lat.', 'Tort.']
+        entries: ['Poczęstunek', 'Wspólne sto lat', 'Tort']
     }
 ]
 

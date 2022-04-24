@@ -14,7 +14,6 @@ export type PropsFeed = {
     alt: string
     url: string
     date: string
-    title: string
     content: string 
 }
 
@@ -49,6 +48,7 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
     > p {
+        margin-bottom: 10px;
         font-size: var(--small-font-size);
     }
 
@@ -62,10 +62,11 @@ const Text = styled.div<TextProps>`
     overflow-y: hidden;
     height: ${ CARD_HEIGHT }px;
 
-    p {
-        margin-top: 10px;
-        word-break: break-all;
-        font-size: var(--default-font-size);
+    > div {
+        * {
+            font-family: 'Poppins', sans-serif;
+            font-size: var(--default-font-size);
+        }
     }
 
     &.card-enter, &.card-exit-done {
@@ -128,7 +129,6 @@ const Feed = ({
     alt,
     url,
     date,
-    title,
     content
 }: PropsFeed) => {
     // Ref
@@ -212,9 +212,6 @@ const Feed = ({
                     <p>
                         { cutDate }
                     </p>
-                    <h3>
-                        { title }
-                    </h3>
                     <CSSTransition
                         in={isOpen}
                         timeout={300}
@@ -225,11 +222,10 @@ const Feed = ({
                             ref={nodeRef}
                             contentHeight={contentHeight}
                         >
-                            <p
+                            <div
                                 ref={textRef}
-                            >
-                                { content }
-                            </p>
+                                dangerouslySetInnerHTML={{__html: content }}
+                            />
                         </Text>
                     </CSSTransition>
                 </Content>

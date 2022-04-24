@@ -13441,6 +13441,11 @@ rollup@^1.31.1:
     "@types/node" "*"
     acorn "^7.1.0"
 
+romans@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/romans/-/romans-2.0.7.tgz#07694c7923ca304a831a60da1f3a2dc032a8cb67"
+  integrity sha512-CdePLY/O9H3HAgt/o97QbIcRxM3q5xFvyclam17Y4bLTiYFVtcW7Yfyr5gnTZNQcLGwdAp//3ro01eOe+x3Buw==
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"

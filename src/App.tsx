@@ -16,25 +16,19 @@ const Contact = lazy(() => import('./views/contact/Contact'))
 const Birthday = lazy(() => import('./views/birthday/Birthday'))
 const PriceList = lazy(() => import('./views/price-list/PriceList'))
 const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
-// const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
+const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
 
 const routes = [
+  {
+    View: SummerClasses,
+    path: '/wakacje',
+    text: `Półkolonie`,
+    type: Type.Link
+  },
   {
     View: SchoolTrip,
     path: '/grupyzorganizowane',
     text: 'Grupy zorganizowane',
-    type: Type.Link
-  },
-  {
-    View: PriceList,
-    path: '/cennik',
-    text: 'Cennik',
-    type: Type.Link
-  },
-  {
-    View: Classes,
-    path: '/zajecia',
-    text: 'Zajęcia',
     type: Type.Link
   },
   {
@@ -44,9 +38,21 @@ const routes = [
     type: Type.Link
   },
   {
+    View: Classes,
+    path: '/zajecia',
+    text: 'Zajęcia',
+    type: Type.Link
+  },
+  {
     View: Safety,
     path: '/bezpieczenstwo',
     text: 'Bezpieczeństwo',
+    type: Type.Link
+  },
+  {
+    View: PriceList,
+    path: '/cennik',
+    text: 'Cennik',
     type: Type.Link
   },
   {
