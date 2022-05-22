@@ -8,6 +8,7 @@ import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
+import GallerySection from './gallery-section/GallerySection'
 import ClassesSection, { SectionData as PropsClasses } from './classes-section/ClassesSection'
 
 // Data
@@ -51,6 +52,7 @@ export default () => {
                             subpath={SECTION_SUBPATH}
                         />
                         <FormMain/>
+                        <GallerySection/>
                     </Wrapper>
                 )
             }

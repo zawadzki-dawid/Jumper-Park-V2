@@ -5,9 +5,12 @@ import { LoaderContext } from '../../components/loader/Loader'
 
 // Components
 import Baner from '../../components/baner/Baner'
-import ScenarioSection from './scenario-section/ScenarioSection'
 import TextSection from '../../components/text-section/TextSection'
 import FormBirthday from '../../components/form/form-birthday/FormBirthday'
+
+// Sections
+import GallerySection from './gallery-section/GallerySection'
+import ScenarioSection from './scenario-section/ScenarioSection'
 import PricelistSection, { Props as PropsPricelist } from './pricelist-section/PricelistSection'
 import AdditionsSection, { Props as PropsAdditions } from './additions-section/AdditionsSection'
 
@@ -64,6 +67,7 @@ export default () => {
                             />
                         </CardsWrapper>
                         <FormBirthday/>
+                        <GallerySection/>
                     </Wrapper>
                 )
             }

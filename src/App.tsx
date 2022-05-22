@@ -1,6 +1,7 @@
-import { lazy } from 'react'
 import styled from 'styled-components'
+import { lazy, useLayoutEffect } from 'react'
 import { Type } from './components/link/Link'
+import { setScrollbarWidth } from './utils/functions/scrollbarWidth'
 
 // Components
 import Navbar from './components/navbar/Navbar'
@@ -90,6 +91,13 @@ const Wrapper = styled.div`
 `
 
 export default () => {
+  // Effect
+  /* useLayoutEffect(() => {
+    setScrollbarWidth()
+    window.addEventListener('resize', setScrollbarWidth)
+    return () => window.removeEventListener('resize', setScrollbarWidth)
+  }, []) */
+
   return (
     <Loader>
       <Wrapper>
