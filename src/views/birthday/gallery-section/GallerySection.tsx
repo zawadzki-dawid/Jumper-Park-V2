@@ -1,13 +1,24 @@
 // Components
 import Section from '../../../components/section/Section'
-import Gallery from '../../../components/gallery/Gallery'
+import Gallery, { Props as GalleryProps } from '../../../components/gallery/Gallery'
 
-export default () => {
+// Main
+
+export type Props = {
+    gallery: GalleryProps['gallery']
+}
+
+export default ({
+    gallery
+}: Props) => {
     return (
         <Section
             text={'Galeria'}
         >
-            <Gallery options={{ folderName: 'Birthday' }}/>
+            <Gallery
+                gallery={gallery}
+                options={{}}
+            />
         </Section>
     )
 }

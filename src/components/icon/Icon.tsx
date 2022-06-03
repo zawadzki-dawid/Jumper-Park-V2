@@ -23,6 +23,7 @@ import Instagram from '../../assets/icons/icon-instagram.svg'
 import Hamburger from '../../assets/icons/icon-hamburger.svg'
 import DoneBlack from '../../assets/icons/icon-done-black.svg'
 import Acrobatics from '../../assets/icons/icon-acrobatics.svg'
+import ArrowWhite from '../../assets/icons/icon-arrow-white.svg'
 import ArrowYellow from '../../assets/icons/icon-arrow-yellow.svg'
 import DownloadGrey from '../../assets/icons/icon-download-grey.svg'
 import FolderOrange from '../../assets/icons/icon-folder-orange.svg'
@@ -50,6 +51,7 @@ export const icon = {
     instagram: Instagram,
     hamburger: Hamburger,
     acrobatics: Acrobatics,
+    arrowWhite: ArrowWhite,
     arrowYellow: ArrowYellow,
     folderOrange: FolderOrange,
     downloadGrey: DownloadGrey

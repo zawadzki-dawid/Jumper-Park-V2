@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { lazy, useLayoutEffect } from 'react'
 import { Type } from './components/link/Link'
+import { useRef, lazy, useLayoutEffect } from 'react'
 import { setScrollbarWidth } from './utils/functions/scrollbarWidth'
 
 // Components
@@ -91,16 +91,31 @@ const Wrapper = styled.div`
 `
 
 export default () => {
+  // Ref
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
+
   // Effect
-  /* useLayoutEffect(() => {
+  useLayoutEffect(() => {
     setScrollbarWidth()
-    window.addEventListener('resize', setScrollbarWidth)
-    return () => window.removeEventListener('resize', setScrollbarWidth)
-  }, []) */
+    const observer = new ResizeObserver(resizeCb)
+    if (wrapperRef.current) {
+      observer.observe(wrapperRef.current)
+    }
+    return () => observer.disconnect()
+  }, [wrapperRef.current])
+
+  // Method
+  function resizeCb (entries: ResizeObserverEntry[]) {
+    entries.forEach(() => {
+      setScrollbarWidth()
+    })
+  }
 
   return (
     <Loader>
-      <Wrapper>
+      <Wrapper
+        ref={wrapperRef}
+      >
         <Navbar
           links={routes}
         />

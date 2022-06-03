@@ -9,14 +9,14 @@ import TextSection from '../../components/text-section/TextSection'
 import FormBirthday from '../../components/form/form-birthday/FormBirthday'
 
 // Sections
-import GallerySection from './gallery-section/GallerySection'
 import ScenarioSection from './scenario-section/ScenarioSection'
+import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
 import PricelistSection, { Props as PropsPricelist } from './pricelist-section/PricelistSection'
 import AdditionsSection, { Props as PropsAdditions } from './additions-section/AdditionsSection'
 
 // Main component
 
-type State = PropsPricelist & PropsAdditions
+type State = PropsPricelist & PropsAdditions & PropsGallery
 
 const Wrapper = styled.div`
     display: grid;
@@ -67,7 +67,9 @@ export default () => {
                             />
                         </CardsWrapper>
                         <FormBirthday/>
-                        <GallerySection/>
+                        <GallerySection
+                            gallery={data.gallery}
+                        />
                     </Wrapper>
                 )
             }

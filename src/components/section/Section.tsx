@@ -19,8 +19,8 @@ const Section = styled.section`
     font-size: var(--heading-font-size);
 
     > div {
-        width: 100%;
         max-width: 1280px;
+        width: calc(100vw - 40px - var(--scrollbar-width));
     }
 
     .heading__wrapper {
@@ -29,6 +29,10 @@ const Section = styled.section`
 
     @media only screen and (min-width: 1000px) {
         margin: 0 60px;
+
+        > div {
+            width: calc(100vw - 120px - var(--scrollbar-width));
+        }
 
         .heading__wrapper {
             margin-bottom: 40px;
