@@ -9,10 +9,11 @@ import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
 import OfferSection, { Props as PropsOffer } from './offer-section/OfferSection'
+import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
 
 // Main
 
-type State = PropsOffer
+type State = PropsOffer & PropsGallery
 
 const Wrapper = styled.div`
     display: grid;
@@ -54,6 +55,9 @@ export default () => {
                             />
                         </OfferWrapper>
                         <FormMain/>
+                        <GallerySection
+                            gallery={data.gallery}
+                        />
                     </Wrapper>
                 )
             }

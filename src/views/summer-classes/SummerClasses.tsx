@@ -7,7 +7,6 @@ import Baner from '../../components/baner/Baner'
 
 // Sections
 import HeadingSection from './heading-section/HeadingSection'
-import GallerySection from './gallery-section/GallerySection'
 import InfoSection, { Props as PropsInfo } from './info-section/InfoSection'
 import BatchSection, { Props as PropsBatch } from './batch-section/BatchSection'
 
@@ -53,7 +52,6 @@ export default () => {
                     </>
                 )
             }
-                <GallerySection/>
             </main>
         </>
     )

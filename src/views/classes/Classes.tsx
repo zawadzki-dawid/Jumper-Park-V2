@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useContext, useEffect } from 'react'
+import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
 import { useFetchContents } from '../../utils/hooks/fetchSchema'
 
@@ -8,7 +9,7 @@ import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import GallerySection from './gallery-section/GallerySection'
+import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
 import ClassesSection, { SectionData as PropsClasses } from './classes-section/ClassesSection'
 
 // Data
@@ -28,6 +29,7 @@ const Wrapper = styled.div`
 export default () => {
     // State
     const { data, error } = useFetchContents<State>('zajecia')
+    const { data: galleryData, error: galleryError } = useFetchContent<PropsGallery>('aQagIBRfNDAW26giBiSk')
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)
@@ -44,18 +46,26 @@ export default () => {
             <Baner
                 content={'Zajęcia'}
             />
-            {
-                !error && data && (
-                    <Wrapper>
-                        <ClassesSection
-                            sections={data}
-                            subpath={SECTION_SUBPATH}
+                <Wrapper>
+                {
+                    !error && data && (
+                        <>
+                            <ClassesSection
+                                sections={data}
+                                subpath={SECTION_SUBPATH}
+                            />
+                            <FormMain/>
+                        </>
+                    )
+                }
+                {
+                    !galleryError && galleryData && (
+                        <GallerySection
+                            gallery={galleryData.gallery}
                         />
-                        <FormMain/>
-                        <GallerySection/>
-                    </Wrapper>
-                )
-            }
+                    )
+                }
+                </Wrapper>
         </>
     )
 }

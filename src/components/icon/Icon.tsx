@@ -14,8 +14,8 @@ import Close from '../../assets/icons/icon-close.svg'
 import Scroll from '../../assets/icons/icon-scroll.svg'
 import Loader from '../../assets/icons/icon-loader.svg'
 import Folder from '../../assets/icons/icon-folder.svg'
+import Tiktok from '../../assets/icons/icon-tiktok.svg'
 import Success from '../../assets/icons/icon-success.svg'
-import Youtube from '../../assets/icons/icon-youtube.svg'
 import Document from '../../assets/icons/icon-document.svg'
 import Download from '../../assets/icons/icon-download.svg'
 import Facebook from '../../assets/icons/icon-facebook.svg'
@@ -42,8 +42,8 @@ export const icon = {
     scroll: Scroll,
     loader: Loader,
     folder: Folder,
+    tiktok: Tiktok,
     success: Success,
-    youtube: Youtube,
     document: Document,
     download: Download,
     facebook: Facebook,

@@ -1,3 +1,4 @@
+// Components
 import Section from '../../../components/section/Section'
 import Gallery, { Props as GalleryProps } from '../../../components/gallery/Gallery'
 

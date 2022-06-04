@@ -48,12 +48,12 @@ const socialMedia: SocialMediaType[] = [
         image: 'facebook'
     },
     {
-        link: 'https://www.instagram.com/ekipa.jumpera/',
+        link: 'https://www.instagram.com/jumperpark/',
         image: 'instagram'
     },
     {
-        link: 'https://www.youtube.com/channel/UC4t0CKHU0xfuqNeVyhsWD5A',
-        image: 'youtube'
+        link: 'https://vm.tiktok.com/ZMLKh6Nmf/',
+        image: 'tiktok'
     }
 ]
 

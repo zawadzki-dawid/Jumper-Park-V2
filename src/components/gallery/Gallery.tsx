@@ -176,6 +176,7 @@ const PrevArrowStyled = styled.div`
         transform: rotate(90deg);
     }
 
+
     @media only screen and (max-width: 1000px) {
         &.slick-prev {
             display: none !important;
@@ -216,7 +217,7 @@ export default ({
                                 image={'arrowWhite'}
                             />
                         </PrevArrowStyled>
-                    }             
+                    }           
                 >
                 {
                     imagesURLs.map((url, index) =>
