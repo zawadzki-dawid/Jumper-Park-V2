@@ -84,6 +84,10 @@ const DescriptionStyled = styled.div`
         letter-spacing: 0.26px;
     }
 
+    section > div {
+        width: 100%;
+    }
+
     .content__wrapper {
         row-gap: 40px;
         display: grid;
