@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import { useContext, useEffect } from 'react'
+import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
-import { useFetchContents } from '../../utils/hooks/fetchSchema'
 
 // Components
 import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import PricelistSection, { SectionData as PropsPriceList } from './price-list-section/PriceListSection'
+import PricelistSection, { Props as PropsPriceList } from './price-list-section/PriceListSection'
 
 // Data
 
@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 
 export default () => {
     // State
-    const { data, error } = useFetchContents<State>('cennik')
+    const { data, error } = useFetchContent<State>('czfcTJsmRa8oDM33ULSv')
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)
@@ -47,7 +47,7 @@ export default () => {
                 !error && data && (
                     <Wrapper>
                         <PricelistSection
-                            sections={data}
+                            sections={data.sections}
                             subpath={SECTION_SUBPATH}
                         />
                         <FormMain/>

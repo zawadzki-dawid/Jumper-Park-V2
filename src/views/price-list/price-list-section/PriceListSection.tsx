@@ -298,7 +298,7 @@ type Header = {
     title: string
 }
 
-export type SectionData = {
+type SectionData = {
     rows: Row[]
     name: string
     path: string
@@ -336,7 +336,7 @@ const Child = ({
 
 // Main
 
-interface Props {
+export interface Props {
     subpath: string
     sections: SectionData[]
 }
