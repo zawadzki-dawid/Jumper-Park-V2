@@ -10,7 +10,7 @@ import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
 import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
-import ClassesSection, { SectionData as PropsClasses } from './classes-section/ClassesSection'
+import ClassesSection, { Props as PropsClasses } from './classes-section/ClassesSection'
 
 // Data
 
@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 export default () => {
     // State
-    const { data, error } = useFetchContents<State>('zajecia')
+    const { data, error } = useFetchContent<State>('nH7h0l8GrDoQvmhFIHth')
     const { data: galleryData, error: galleryError } = useFetchContent<PropsGallery>('aQagIBRfNDAW26giBiSk')
 
     // Context
@@ -51,7 +51,7 @@ export default () => {
                     !error && data && (
                         <>
                             <ClassesSection
-                                sections={data}
+                                sections={data.sections}
                                 subpath={SECTION_SUBPATH}
                             />
                             <FormMain/>

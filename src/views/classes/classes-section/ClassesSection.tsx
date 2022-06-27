@@ -38,7 +38,7 @@ type Subsection = {
     entries: Entry[]
 }
 
-export type SectionData = {
+type SectionData = {
     name: string
     path: string
     title: string
@@ -48,7 +48,7 @@ export type SectionData = {
     subsections: Subsection[]
 }
 
-interface Props {
+export interface Props {
     subpath: string
     sections: SectionData[]
 }
