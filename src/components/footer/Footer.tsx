@@ -52,7 +52,7 @@ const socialMedia: SocialMediaType[] = [
         image: 'instagram'
     },
     {
-        link: 'https://vm.tiktok.com/ZMLKh6Nmf/',
+        link: 'https://vm.tiktok.com/ZMN6Loa5p/',
         image: 'tiktok'
     }
 ]
