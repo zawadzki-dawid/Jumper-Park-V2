@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { useContext, useEffect } from 'react'
 import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
-import { useFetchContents } from '../../utils/hooks/fetchSchema'
 
 // Components
 import Baner from '../../components/baner/Baner'
