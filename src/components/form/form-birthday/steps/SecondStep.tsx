@@ -6,7 +6,7 @@ import Error from '../../atoms/error/Error'
 import { Input, InputDate } from '../../atoms/input/Input'
 import NumberPicker from '../../organisms/number-picker/NumberPicker'
 import AgeSpanPicker from '../../organisms/age-span-picker/AgeSpanPicker'
-import AdditionsPicker, { Addition } from '../../organisms/additions-picker/AdditionsPicker'
+import AdditionsPicker, { AdditionType as Addition } from '../../organisms/additions-picker/AdditionsPicker'
 
 export interface Props {
     additions: Addition[]

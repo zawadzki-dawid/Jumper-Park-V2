@@ -11,13 +11,13 @@ type PropsAddition = PropsButton & {
     setValue?: (isPicked: boolean, addition: string) => void
 } 
 
-export type Addition = {
+export type AdditionType = {
     addition: string
 }
 
 export interface Props {
     fieldName: string,
-    additions: Addition[]
+    additions: AdditionType[]
 }
 
 const AdditionStyled = styled.div`

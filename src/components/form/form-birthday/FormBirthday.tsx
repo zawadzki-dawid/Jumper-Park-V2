@@ -8,14 +8,12 @@ import { useRef, useState, ElementRef } from 'react'
 // Components
 import FormWrapper from '../FormWrapper'
 import Dots from '../organisms/dots/Dots'
-import { bundles } from '../organisms/bundle-picker/BundlePicker'
 import { spans } from '../organisms/age-span-picker/AgeSpanPicker'
 import Modal, { errorParagraphs, successParagraph } from '../atoms/modal/Modal'
 import NavigationButtons from '../organisms/navigation-buttons/NavigationButtons'
 
 // Steps
 import ThirdStep from './steps/ThirdStep'
-import FirstStep from './steps/FirstStep'
 import SecondStep, { Props as PropsSecondStep } from './steps/SecondStep'
 import FourthStep from './steps/FourthStep'
 
@@ -28,7 +26,6 @@ const initialValues = {
     name: '', 
     number: '', 
     email: '',
-    bundle: '',
     ageSpan: '',
     message: '',
     additions: '',
@@ -38,9 +35,6 @@ const initialValues = {
 }
 
 const validationSchema = [
-    Yup.object({
-        bundle: Yup.string().required().oneOf(bundles)
-    }),
     Yup.object({
         additions: Yup.string(),
         numberOfGuests: Yup.number().min(1),
@@ -116,7 +110,7 @@ const Wrapper = ({
                 key={refresh}
             >
                 <Dots
-                    numberOfSteps={4}
+                    numberOfSteps={3}
                     currentIndex={currentStep}
                 />
                 <Formik
@@ -131,7 +125,6 @@ const Wrapper = ({
                         <StepsWrapper
                             currentStep={currentStep}
                         >
-                            <FirstStep/>
                             <SecondStep
                                 additions={additions}
                             />
@@ -139,7 +132,7 @@ const Wrapper = ({
                             <FourthStep/>
                         </StepsWrapper>
                         <NavigationButtons
-                            numberOfSteps={4}
+                            numberOfSteps={3}
                             currentStep={currentStep}
                             setCurrentStep={setCurrentStep}
                         />
