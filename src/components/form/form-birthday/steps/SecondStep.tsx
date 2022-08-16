@@ -6,6 +6,11 @@ import Error from '../../atoms/error/Error'
 import { Input, InputDate } from '../../atoms/input/Input'
 import NumberPicker from '../../organisms/number-picker/NumberPicker'
 import AgeSpanPicker from '../../organisms/age-span-picker/AgeSpanPicker'
+import AdditionsPicker, { Addition } from '../../organisms/additions-picker/AdditionsPicker'
+
+export interface Props {
+    additions: Addition[]
+}
 
 const TopWrapper = styled.div`
     margin: auto;
@@ -22,16 +27,19 @@ const TopWrapper = styled.div`
     }
 `
 
-const BottomWrapper = styled.div`
+const MiddleWrapper = styled.div`
     display: grid;
     row-gap: 20px;
+    margin-bottom: 40px;
 `
 
-export default () => {
+export default ({
+    additions
+}: Props) => {
     return (
         <fieldset>
             <Label
-                text={'Imię i data urodzenia solenizanta'}
+                text={'Imię, nazwisko i data urodzenia solenizanta'}
             />
             <Error
                 message={'Nie uzupełniono poprawnie danych'}
@@ -40,7 +48,7 @@ export default () => {
             <TopWrapper>
                 <Input
                     fieldName={'birthdayPersonName'}
-                    placeholder={'Imię'}
+                    placeholder={'Imię i Nazwisko'}
                 />
                 <InputDate
                     fieldName={'birthdayPersonDate'}
@@ -54,14 +62,21 @@ export default () => {
                 message={'Nie wybrano przedziału'}
                 fields={['ageSpan', 'numberOfGuests']}
             />
-            <BottomWrapper>
+            <MiddleWrapper>
                 <NumberPicker
                     fieldName={'numberOfGuests'}
                 />
                 <AgeSpanPicker
                     fieldName={'ageSpan'}
                 />
-            </BottomWrapper>
+            </MiddleWrapper>
+            <Label
+                text={'Dodatki'}
+            />
+            <AdditionsPicker
+                additions={additions}
+                fieldName={'additions'}
+            />
         </fieldset>
     )
 }

@@ -6,7 +6,7 @@ import { LoaderContext } from '../../components/loader/Loader'
 // Components
 import Baner from '../../components/baner/Baner'
 import TextSection from '../../components/text-section/TextSection'
-import FormBirthday from '../../components/form/form-birthday/FormBirthday'
+import FormBirthday, { Props as PropsForm } from '../../components/form/form-birthday/FormBirthday'
 
 // Sections
 import ScenarioSection from './scenario-section/ScenarioSection'
@@ -16,7 +16,7 @@ import AdditionsSection, { Props as PropsAdditions } from './additions-section/A
 
 // Main component
 
-type State = PropsPricelist & PropsAdditions & PropsGallery
+type State = PropsPricelist & PropsAdditions & PropsGallery & PropsForm
 
 const Wrapper = styled.div`
     display: grid;
@@ -66,7 +66,9 @@ export default () => {
                                 additionals={data.additionals}
                             />
                         </CardsWrapper>
-                        <FormBirthday/>
+                        <FormBirthday
+                            form={data.form}
+                        />
                         <GallerySection
                             gallery={data.gallery}
                         />

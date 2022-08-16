@@ -16,8 +16,12 @@ import NavigationButtons from '../organisms/navigation-buttons/NavigationButtons
 // Steps
 import ThirdStep from './steps/ThirdStep'
 import FirstStep from './steps/FirstStep'
-import SecondStep from './steps/SecondStep'
+import SecondStep, { Props as PropsSecondStep } from './steps/SecondStep'
 import FourthStep from './steps/FourthStep'
+
+export interface Props {
+    form: PropsSecondStep
+}
 
 const initialValues = {
     date: '',
@@ -27,6 +31,7 @@ const initialValues = {
     bundle: '',
     ageSpan: '',
     message: '',
+    additions: '',
     numberOfGuests: 0,
     birthdayPersonName: '', 
     birthdayPersonDate: '',
@@ -37,6 +42,7 @@ const validationSchema = [
         bundle: Yup.string().required().oneOf(bundles)
     }),
     Yup.object({
+        additions: Yup.string(),
         numberOfGuests: Yup.number().min(1),
         birthdayPersonName: Yup.string().required(),
         birthdayPersonDate: Yup.string().required(),
@@ -75,7 +81,9 @@ const WrapperStyled = styled.div`
     padding: 20px 15px 50px 15px;
 `
 
-const Wrapper = () => {
+const Wrapper = ({
+    additions
+}: Props['form']) => {
     // State
     const [refresh, setRefresh] = useState<number>(0)
     const [currentStep, setCurrentStep] = useState<number>(1)
@@ -124,7 +132,9 @@ const Wrapper = () => {
                             currentStep={currentStep}
                         >
                             <FirstStep/>
-                            <SecondStep/>
+                            <SecondStep
+                                additions={additions}
+                            />
                             <ThirdStep/>
                             <FourthStep/>
                         </StepsWrapper>
@@ -140,12 +150,16 @@ const Wrapper = () => {
     )
 }
 
-export default () => {
+export default ({
+    form
+}: Props) => {
     return (
         <FormWrapper
             heading={'Wyślij zapytanie o rezerwacje urodzin!'}
         >
-            <Wrapper/>
+            <Wrapper
+                additions={form.additions}
+            />
         </FormWrapper>
     )
 }
