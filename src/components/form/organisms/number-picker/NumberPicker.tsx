@@ -49,7 +49,7 @@ export interface Props {
     fieldName: string
 }
 
-const lowerLimit = '1'
+const lowerLimit = '10'
 const enabledKeys = ['Tab', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown']
 
 const Wrapper = styled.div`
@@ -104,7 +104,7 @@ export default ({
     }
 
     const onBlur = () => {
-        if (value.length > 0) {
+        if (value.length > 0 && Number(value) >= Number(lowerLimit)) {
             return
         }
         setValue(lowerLimit)
@@ -140,8 +140,8 @@ export default ({
                 type={'button'}
                 onBlur={onButtonBlur}
                 onFocus={onButtonFocus}
-                className={value === lowerLimit || value.length === 0 ? 'disabled' : ''}
-                onClick={value === lowerLimit || value.length === 0 ? () => {} : decreaseValue}
+                className={Number(value) <= Number(lowerLimit) || value.length === 0 ? 'disabled' : ''}
+                onClick={Number(value) <= Number(lowerLimit) || value.length === 0 ? () => {} : decreaseValue}
             />
             <div>
                 <Input

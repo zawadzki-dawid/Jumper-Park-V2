@@ -29,7 +29,7 @@ const initialValues = {
     ageSpan: '',
     message: '',
     additions: '',
-    numberOfGuests: 0,
+    numberOfGuests: 10,
     birthdayPersonName: '', 
     birthdayPersonDate: '',
 }
