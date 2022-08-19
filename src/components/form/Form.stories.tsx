@@ -1,5 +1,5 @@
 import FormMain from './form-main/FormMain'
-import FormBirthday from './form-birthday/FormBirthday'
+import FormBirthday, { Props as PropsBirthday } from './form-birthday/FormBirthday'
 
 export default {
     title: 'Components/Form'
@@ -11,8 +11,16 @@ export const Main = () => {
     )
 }
 
-export const Birthday = () => {
+export const Birthday = (args: PropsBirthday) => {
     return (
-        <FormBirthday/>
+        <FormBirthday
+            {...args}
+        />
     )
+}
+
+Birthday.args = {
+    form: {
+        additions: ['Poczęstunek', 'Napoje']
+    }
 }

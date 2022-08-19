@@ -3,11 +3,12 @@ import styled, { css } from 'styled-components'
 
 export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     text: string
+    hover?: boolean,
     picked?: boolean
     rounded?: boolean
 }
 
-type PropsStyled = Required<Pick<Props, 'picked' | 'rounded'>>
+type PropsStyled = Required<Pick<Props, 'picked' | 'rounded' | 'hover'>>
 
 // Filled
 
@@ -36,8 +37,12 @@ const ButtonStyled = styled.button<PropsStyled>`
         `
     }
 
-    &:hover {
-        background-color: rgb(249, 187, 29);
+    ${
+        props => props.hover && css`
+            &:hover {
+                background-color: rgb(249, 187, 29);
+            }
+        `
     }
 
     &:disabled {
@@ -49,6 +54,7 @@ const ButtonStyled = styled.button<PropsStyled>`
 
 export default ({
     text,
+    hover = true,
     picked = false,
     rounded = false,
     ...rest
@@ -56,6 +62,7 @@ export default ({
     return (
         <ButtonStyled
             {...rest}
+            hover={hover}
             picked={picked}
             rounded={rounded}
         >
