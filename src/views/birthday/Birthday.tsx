@@ -13,10 +13,11 @@ import ScenarioSection from './scenario-section/ScenarioSection'
 import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
 import PricelistSection, { Props as PropsPricelist } from './pricelist-section/PricelistSection'
 import AdditionsSection, { Props as PropsAdditions } from './additions-section/AdditionsSection'
+import AsterixesSection, { Props as PropsAsterixes } from './asterixes-section/AsterixesSection'
 
 // Main component
 
-type State = PropsPricelist & PropsAdditions & PropsGallery & PropsForm
+type State = PropsPricelist & PropsAdditions & PropsAsterixes & PropsGallery & PropsForm
 
 const Wrapper = styled.div`
     display: grid;
@@ -66,6 +67,9 @@ export default () => {
                                 additionals={data.additionals}
                             />
                         </CardsWrapper>
+                        <AsterixesSection
+                            asterixes={data?.asterixes ?? []}
+                        />
                         <FormBirthday
                             form={data.form}
                         />

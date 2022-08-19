@@ -142,7 +142,7 @@ const Additions = ({
     return (
         <AdditionsStyled>
             <h4>
-                Opcje dodatkowe
+                Dodatki
             </h4>
             <div>
                 <Entries
