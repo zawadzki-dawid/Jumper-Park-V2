@@ -8,7 +8,7 @@ type Asterix = {
 }
 
 export type Props = {
-    asterixes: Asterix[]
+    asterixes?: Asterix[]
 }
 
 const AsterixWrapper = styled.div`
@@ -30,7 +30,7 @@ export default ({
         <Section>
             <AsterixWrapper>
             {
-                asterixes.map((asterix, key) => {
+                asterixes?.map((asterix, key) => {
                     return (
                         <p
                             key={key}

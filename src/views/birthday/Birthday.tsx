@@ -64,11 +64,11 @@ export default () => {
                                 bundles={data.bundles}
                             />
                             <AdditionsSection
-                                additionals={data.additionals}
+                                additions={data.additions}
                             />
                         </CardsWrapper>
                         <AsterixesSection
-                            asterixes={data?.asterixes ?? []}
+                            asterixes={data.asterixes}
                         />
                         <FormBirthday
                             form={data.form}

@@ -8,14 +8,27 @@ type Option = {
     option: string
 }
 
-type Addition = {
+type Entry = {
+    entry: string
     price?: string
     options?: Option[]
-    additional: string
+}
+
+type Addition = {
+    title: string
+    entries?: Entry[]
 }
 
 export interface Props {
-    additionals: Addition[]
+    additions?: Addition[]
+}
+
+interface PropsEntry {
+    entries?: Entry[]
+}
+
+interface PropsInfo {
+    addition: Addition
 }
 
 // Additions
@@ -64,30 +77,30 @@ const EntriesStyled = styled.ul`
 `
 
 const Entries = ({
-    additionals
-}: Props) => {
+    entries
+}: PropsEntry) => {
     return (
         <EntriesStyled>
         {
-            additionals.map((addition, additionIndex) =>
+            entries?.map((entry, infoIndex) =>
                 <li
-                    key={additionIndex}
+                    key={infoIndex}
                 >
-                    {addition.additional}
+                    {entry.entry}
                     {
-                        addition.price && (
+                        entry.price && (
                             <span>
-                                {addition.price}
+                                {entry.price}
                             </span>
                         )
                     }
                     {
-                        addition.options && (
+                        entry.options && (
                             <ul
                                 className={'options__list'}
                             >
                             {
-                                addition.options.map((option, optionIndex) =>
+                                entry.options.map((option, optionIndex) =>
                                     <li
                                         key={optionIndex}
                                     >
@@ -112,9 +125,8 @@ const Entries = ({
     )
 }
 
-const AdditionsStyled = styled.div`
-    margin: auto;
-    max-width: 550px;
+const InfoStyled = styled.div`
+    width: 100%;
 
     h4 {
         padding: 12px 0;
@@ -136,33 +148,50 @@ const AdditionsStyled = styled.div`
     }
 `
 
-const Additions = ({
-    additionals
-}: Props) => {
+const Info = ({
+    addition
+}: PropsInfo) => {
     return (
-        <AdditionsStyled>
+        <InfoStyled>
             <h4>
-                Dodatki
+                { addition.title }
             </h4>
             <div>
                 <Entries
-                    additionals={additionals}
+                    entries={addition.entries}
                 />
             </div>
-        </AdditionsStyled>
+        </InfoStyled>
     )
 }
 
 // Main
 
+const Wrapper = styled.div`
+    margin: auto;
+    row-gap: 30px;
+    display: grid;
+    max-width: 550px;
+    grid-template-rows: auto auto;
+`
+
 export default ({
-    additionals
+    additions
 }: Props) => {
     return (
         <Section>
-            <Additions
-                additionals={additionals}
-            />
+            <Wrapper>
+            {
+                additions?.map((addition, index) => {
+                    return (
+                        <Info
+                            key={index}
+                            addition={addition}
+                        />
+                    )
+                })
+            }
+            </Wrapper>
         </Section>
     )
 }
