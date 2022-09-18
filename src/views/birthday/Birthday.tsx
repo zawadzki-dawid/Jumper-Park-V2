@@ -35,7 +35,7 @@ const CardsWrapper = styled.div`
 
 export default () => {
     // State
-    const {data, error} = useFetchContent<State>('NvSWotCmtbNUEEeKpVvq')
+    const {data, error} = useFetchContent<State>({ entryId: 'NvSWotCmtbNUEEeKpVvq' })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)

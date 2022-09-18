@@ -27,8 +27,8 @@ const Wrapper = styled.div`
 
 export default () => {
     // State
-    const { data, error } = useFetchContent<State>('nH7h0l8GrDoQvmhFIHth')
-    const { data: galleryData, error: galleryError } = useFetchContent<PropsGallery>('aQagIBRfNDAW26giBiSk')
+    const { data, error } = useFetchContent<State>({ entryId: 'nH7h0l8GrDoQvmhFIHth' })
+    const { data: galleryData, error: galleryError } = useFetchContent<PropsGallery>({ entryId: 'aQagIBRfNDAW26giBiSk' })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)

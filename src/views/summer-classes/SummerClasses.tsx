@@ -17,7 +17,7 @@ type State =
 export default () => {
     // State
     const [isHeroLoaded, setIsHeroLoaded] = useState<boolean>(false)
-    const { data, error } = useFetchContent<State>('GY82xHAG7eANQtHmVjpi')
+    const { data, error } = useFetchContent<State>({ entryId: 'GY82xHAG7eANQtHmVjpi' })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)

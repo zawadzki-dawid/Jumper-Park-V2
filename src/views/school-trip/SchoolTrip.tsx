@@ -29,7 +29,7 @@ const OfferWrapper = styled.div`
 
 export default () => {
     // State
-    const { data, error } = useFetchContent<State>('aDK73iLRiayBvU3MudgK')
+    const { data, error } = useFetchContent<State>({ entryId: 'aDK73iLRiayBvU3MudgK' })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)

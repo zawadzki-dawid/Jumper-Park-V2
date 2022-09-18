@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { useContext, useEffect } from 'react'
-import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
 
 // Components
@@ -8,13 +7,9 @@ import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import DownloadSection from './download-section/DownloadSection'
-import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
+import AttractionsSection from './attractions-section/AttractionsSection'
 
 // Main
-
-type Props = PropsGallery
-
 const Wrapper = styled.div`
     display: grid;
     gap: var(--section-default-gap);
@@ -22,9 +17,6 @@ const Wrapper = styled.div`
 `
 
 export default () => {
-    // State
-    const { data, error } = useFetchContent<Props>({ entryId: '0e1UtavmTxxXTwem5BJb' })
-
     // Context
     const { entered, setEntered } = useContext(LoaderContext)
 
@@ -38,18 +30,13 @@ export default () => {
     return (
         <>
             <Baner
-                content={'Bezpieczeństwo'}
+                content={'Atrakcje'}
             />
             <Wrapper>
-                <DownloadSection/>
+                <AttractionsSection
+                    attractions={[{ name: 'Zbijak' }]}
+                />
                 <FormMain/>
-                {
-                    !error && data && (
-                        <GallerySection
-                            gallery={data.gallery}
-                        />
-                    )
-                }
             </Wrapper>
         </>
     )

@@ -1,6 +1,8 @@
 import flamelinkApp from '../../flamelink'
 import { useReducer, useEffect, Reducer } from 'react'
 
+type Params = Parameters<typeof flamelinkApp.content.get>
+
 type State<T> =
 {
     data: null
@@ -60,21 +62,21 @@ const initState = {
     loading: false
 }
 
-const getData = async <T,>(documentId: string): Promise<T> => {
-    const cacheData = sessionStorage.getItem(documentId)
+const getData = async <T,>(...params: Params): Promise<T> => {
+    const cacheData = sessionStorage.getItem(JSON.stringify(...params))
     
     if (cacheData) {
         return JSON.parse(cacheData) as T
     }
-    const data = await flamelinkApp.content.get({ entryId: documentId })
+    const data = await flamelinkApp.content.get(...params)
     if(data === null) {
-        throw new Error(`${documentId} doesn't exists in collection!`)
+        throw new Error('Error while fetching data!')
     }
-    sessionStorage.setItem(documentId, JSON.stringify(data))
+    sessionStorage.setItem(JSON.stringify(...params), JSON.stringify(data))
     return data as T
 }
 
-export const useFetchContent = <T extends Object,>(documentId: string) => {
+export const useFetchContent = <T extends Object,>(...params: Params) => {
     // Reducer
     const [state, dispatch] = useReducer<Reducer<State<T>, StateAction<T>>>(stateReducer, initState)
 
@@ -87,7 +89,7 @@ export const useFetchContent = <T extends Object,>(documentId: string) => {
     const fetchContent = async () => {
         try {
             dispatch({ type: 'loading' })
-            const data = await getData<T>(documentId)
+            const data = await getData<T>(...params)
             dispatch({ type: 'data', data: data })
         } catch (error) {
             dispatch({ type: 'error', error: error as Error })

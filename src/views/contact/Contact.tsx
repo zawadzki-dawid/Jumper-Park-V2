@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 
 export default () => {
     // Data
-    const { data, error } = useFetchContent<State>('R56NvX4zjDW3VQF3s0SD')
+    const { data, error } = useFetchContent<State>({ entryId: 'R56NvX4zjDW3VQF3s0SD' })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)
