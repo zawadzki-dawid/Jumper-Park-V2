@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 import { Type } from './components/link/Link'
-import { useRef, lazy, useLayoutEffect } from 'react'
+import { useRef, lazy, useLayoutEffect, useMemo } from 'react'
 import { setScrollbarWidth } from './utils/functions/scrollbarWidth'
 
 // Components
-import Navbar from './components/navbar/Navbar'
 import Footer from './components/footer/Footer'
 import Loader from './components/loader/Loader'
-import RouterMain from './components/router-main/RouterMain'
+import RouterMain, { ViewRoute } from './components/router-main/RouterMain'
+import Navbar, { MenuLink } from './components/navbar/Navbar'
 
 // Views
 const Safety = lazy(() => import('./views/safety/Safety'))
@@ -17,9 +17,22 @@ const Contact = lazy(() => import('./views/contact/Contact'))
 const Birthday = lazy(() => import('./views/birthday/Birthday'))
 const PriceList = lazy(() => import('./views/price-list/PriceList'))
 const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
+const Attraction = lazy(() => import('./views/attractions/Attraction'))
+const Attractions = lazy(() => import('./views/attractions/Attractions'))
 // const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
 
-const routes = [
+type IsNotInNavbar = ViewRoute & {
+  isInNavbar: false
+}
+
+type IsInNavbar = ViewRoute & MenuLink & {
+  isInNavbar: true
+}
+ 
+
+type RouteConfig = Array<IsInNavbar | IsNotInNavbar>
+
+const routes: RouteConfig = [
   /* {
     View: SummerClasses,
     path: '/wakacje',
@@ -27,46 +40,66 @@ const routes = [
     type: Type.Link
   }, */
   {
+    View: Attractions,
+    exact: true,
+    path: '/atrakcje',
+    text: 'Atrakcje',
+    type: Type.Link,
+    isInNavbar: true
+  },
+  {
+    View: Attraction,
+    path: '/atrakcje/:nazwa',
+    isInNavbar: false
+  },
+  {
     View: SchoolTrip,
     path: '/grupyzorganizowane',
     text: 'Grupy zorganizowane',
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   },
   {
     View: Birthday,
     path: '/urodziny',
     text: 'Urodziny',
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   },
   {
     View: Classes,
     path: '/zajecia',
     text: 'Zajęcia',
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   },
   {
     View: Safety,
     path: '/bezpieczenstwo',
     text: 'Bezpieczeństwo',
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   },
   {
     View: PriceList,
     path: '/cennik',
     text: 'Cennik',
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   },
   {
     View: Contact,
     path: '/kontakt',
     text: 'Kontakt',
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   },
   {
     View: Booking,
     path: '/kupbilet',
     text: 'Kup bilet',
-    type: Type.Button
+    type: Type.Button,
+    isInNavbar: true
   }
 ]
 
@@ -111,13 +144,18 @@ export default () => {
     })
   }
 
+  const navbarItems: IsInNavbar[] = useMemo(() => {
+    return routes.filter((item): item is IsInNavbar => item.isInNavbar)
+  }, [routes])
+  
+
   return (
     <Loader>
       <Wrapper
         ref={wrapperRef}
       >
         <Navbar
-          links={routes}
+          links={navbarItems}
         />
         <main>
           <RouterMain

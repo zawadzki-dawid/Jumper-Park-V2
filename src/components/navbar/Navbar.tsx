@@ -10,7 +10,7 @@ import LogoImage from '../../assets/logo/icon-logo-nav.png'
 import Icon from '../icon/Icon'
 import { Type, Link, Button } from '../link/Link'
 
-type MenuLink = {
+export type MenuLink = {
     path: string,
     text: string,
     type: Type

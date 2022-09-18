@@ -5,8 +5,9 @@ import { Switch, Route, RouteProps } from 'react-router-dom'
 import Homepage from '../../views/homepage/Homepage'
 import PostBooking from '../../views/post-booking/PostBooking'
 
-type ViewRoute = {
+export type ViewRoute = {
     path: string
+    exact?: boolean
     View: LazyExoticComponent<() => JSX.Element>
 }
 
@@ -38,11 +39,12 @@ export default ({
                 />
                 {
                     routes.map((route, index) => {
-                        const { path, View } = route
+                        const { path, View, exact } = route
                         return (
                             <Route
                                 key={index}
                                 path={path}
+                                exact={exact ?? false}
                                 render={() => 
                                     <View/>
                                 }
