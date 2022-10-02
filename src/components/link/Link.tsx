@@ -54,7 +54,7 @@ const Base = css<PropsBase>`
 // Link
 
 const LinkStyled = styled(NavLink)`
-    ${Base}
+    ${Base};
     white-space: nowrap;
     display: inline-block;
 `
@@ -79,7 +79,7 @@ export const Link = ({
 // Button
 
 const ButtonStyled = styled(NavLink)`
-    ${Base}
+    ${Base};
     padding: 10px 15px;
     display: inline-block;
     border: var(--border-width) solid ${ props => props.color === 'white' ? 'var(--white)' : 'var(--black)' };
@@ -109,7 +109,7 @@ export const Button = ({
 // Fitted
 
 const FittedStyled = styled(NavLink)`
-    ${Base}
+    ${Base};
     width: 100%;
     height: 100%;
     display: flex;

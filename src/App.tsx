@@ -37,7 +37,8 @@ const routes: RouteConfig = [
     View: SummerClasses,
     path: '/wakacje',
     text: `Półkolonie`,
-    type: Type.Link
+    type: Type.Link,
+    isInNavbar: true
   }, */
   {
     View: Attractions,
@@ -49,7 +50,7 @@ const routes: RouteConfig = [
   },
   {
     View: Attraction,
-    path: '/atrakcje/:nazwa',
+    path: '/atrakcje/:name',
     isInNavbar: false
   },
   {

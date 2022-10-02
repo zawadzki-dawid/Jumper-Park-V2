@@ -180,7 +180,7 @@ const Batch = ({
     batchNumber
 }: PropsBatch) => {
     // State
-    const url = useFetchURL(extractImageId(image) ?? '')
+    const { url } = useFetchURL(extractImageId(image) ?? '')
 
     return (
         <BatchStyled>

@@ -5,11 +5,17 @@ type Files = Record<string, {
     id: string
 }>
 
+type Return = {
+    url: string | null
+    isFetching: boolean
+}
+
 type GetURLFile = Parameters<typeof flamelinkApp.storage.getURL>[0]
 export type GetFilesParams = Parameters<typeof flamelinkApp.storage.getFiles>[0]
 
-export const useFetchURL = (id: string): string | null => {
+export const useFetchURL = (id: string, size?: GetURLFile['size']): Return => {
     // State
+    const [isFetching, setIsFetching] = useState<boolean>(false)
     const [url, setUrl] = useState<string | null>(null)
 
     // Effect
@@ -19,14 +25,20 @@ export const useFetchURL = (id: string): string | null => {
 
     const fetchUrl = async () => {
         try {
-            const url = await flamelinkApp.storage.getURL({ fileId: id })
+            setIsFetching(true)
+            const url = await flamelinkApp.storage.getURL({ fileId: id, ...size && { size } })
             setUrl(url)
         } catch {
             setUrl(null)
+        } finally {
+            setIsFetching(false)
         }
     }
 
-    return url
+    return {
+        url,
+        isFetching
+    }
 }
 
 export const useFetchURLs = (options: GetFilesParams, size: GetURLFile['size']): string[] => {
