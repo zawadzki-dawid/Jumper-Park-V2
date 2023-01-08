@@ -10,10 +10,11 @@ import FormMain from '../../components/form/form-main/FormMain'
 // Sections
 import OfferSection, { Props as PropsOffer } from './offer-section/OfferSection'
 import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
+import DescriptionSection, { Props as PropsDescription } from './description-section/DescriptionSection'
 
 // Main
 
-type State = PropsOffer & PropsGallery
+type State = PropsOffer & PropsGallery & PropsDescription
 
 const Wrapper = styled.div`
     display: grid;
@@ -29,7 +30,7 @@ const OfferWrapper = styled.div`
 
 export default () => {
     // State
-    const { data, error } = useFetchContent<State>({ entryId: 'aDK73iLRiayBvU3MudgK' })
+    const { data, error } = useFetchContent<State>({ entryId: 'aDK73iLRiayBvU3MudgK', populate: true })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)
@@ -49,15 +50,18 @@ export default () => {
             {
                 !error && data && (
                     <Wrapper>
+                        <DescriptionSection description={data.description}/>
                         <OfferWrapper>
                             <OfferSection
                                 offers={data.offers}
                             />
                         </OfferWrapper>
                         <FormMain/>
-                        <GallerySection
+                        {
+                            /* <GallerySection
                             gallery={data.gallery}
-                        />
+                        /> */
+                        }
                     </Wrapper>
                 )
             }
