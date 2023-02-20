@@ -14,7 +14,7 @@ interface PropsScroll extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const ScrollStyled = styled.button`
-    height: 60px;
+    height: 50px;
     display: flex;
     justify-content: center;
 
@@ -36,6 +36,10 @@ const ScrollStyled = styled.button`
         to {
             transform: translateY(-8px);
         }
+    }
+
+    @media only screen and (min-width: 1000px) {
+        height: 60px;
     }
 `
 
@@ -161,7 +165,15 @@ const Wrapper = styled.div`
             line-height: 1.4;
             font-weight: 400;
             text-align: center;
-            margin-bottom: 40px;
+            color: var(--white);
+            font-size: clamp(1.6rem, 1.4667rem + 0.4167vw, 2rem);
+        }
+
+        .bottom__description {
+            max-width: 720px;
+            line-height: 1.4;
+            font-weight: 400;
+            text-align: center;
             color: var(--white);
             font-size: clamp(1.6rem, 1.4667rem + 0.4167vw, 2rem);
         }
@@ -179,14 +191,21 @@ const Wrapper = styled.div`
         grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
     }
 
+    .description__wrapper {
+        display: flex;
+        row-gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+
     @media only screen and (min-width: 1000px) {
         .title {
             flex-direction: row;
             justify-content: center;
         }
 
-        .description {
-            margin-bottom: 60px;
+        .description__wrapper {
+            row-gap: 60px;
         }
     }
 `
@@ -260,22 +279,27 @@ export default ({
                     <h1 className={'title'}>
                         Jumper Park <span>&nbsp;Trampolin</span>
                     </h1>
-                    <p className={'description'}>
-                        Chcesz połączyć trening ze znakomitą zabawą?
-                        W takim razie nie mogłeś lepiej trafić! 
-                        Dzięki nam Ty i Twoi znajomi możecie odpocząć od codziennych trosk.
-                    </p>
-                    <div className={'actions__wrapper'}>
-                        <div className={'buttons__wrapper'}>
-                            <Button
-                                text={'Kup bilet'}
-                                onClick={openBookingView}
-                            />
-                            <Button
-                                text={'Poznaj nas'}
-                                onClick={scrollToContent}
-                            />
+                    <div className={'description__wrapper'}>
+                        <p className={'description'}>
+                            Chcesz połączyć trening ze znakomitą zabawą?
+                            W takim razie nie mogłeś lepiej trafić! 
+                            Dzięki nam Ty i Twoi znajomi możecie odpocząć od codziennych trosk.
+                        </p>
+                        <div className={'actions__wrapper'}>
+                            <div className={'buttons__wrapper'}>
+                                <Button
+                                    text={'Kup bilet'}
+                                    onClick={openBookingView}
+                                />
+                                <Button
+                                    text={'Poznaj nas'}
+                                    onClick={scrollToContent}
+                                />
+                            </div>
                         </div>
+                        <p className={'bottom__description'}>
+                            Wejście zaczyna się o pełnej godzinie
+                        </p>
                     </div>
                 </div>
                 <Scroll
