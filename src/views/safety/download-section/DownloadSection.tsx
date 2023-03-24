@@ -4,10 +4,10 @@ import styled, { css } from 'styled-components'
 // Assets
 import MainStatue from '../../../assets/documents/Regulamin-ogolny.pdf'
 import PrivacyPolicy from '../../../assets/documents/Polityka-prywatnosci.pdf'
-import EventsStatue from '../../../assets/documents/Regulamin-organizacji-imprez.pdf'
-import GuardianAgreement from '../../../assets/documents/Zgoda-rodzica-opiekuna.pdf'
+import EventsStatue from '../../../assets/documents/Regulamin-organizacji-imprezy-urodzinowej.pdf'
+import GuardianAgreement from '../../../assets/documents/Zgoda-rodzica-do-druku.pdf'
 import GroupAgreement from '../../../assets/documents/Oswiadczenie-opiekuna-grupy.pdf'
-import TrampolinesStatue from '../../../assets/documents/Regulamin-korzystania-z-trampolin.pdf' 
+import TrampolinesStatue from '../../../assets/documents/Regulamin-korzystania-z-infastruktury.pdf'
 
 // Components
 import Icon from '../../../components/icon/Icon'
