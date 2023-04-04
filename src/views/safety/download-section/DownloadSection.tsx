@@ -2,9 +2,9 @@ import { AnchorHTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
 // Assets
-import MainStatue from '../../../assets/documents/Regulamin-ogolny.pdf'
+import MainStatue from '../../../assets/documents/REGULAMIN-OGOLNY-JUMPER-PARK.pdf'
 import PrivacyPolicy from '../../../assets/documents/Polityka-prywatnosci.pdf'
-import EventsStatue from '../../../assets/documents/Regulamin-organizacji-imprezy-urodzinowej.pdf'
+import EventsStatue from '../../../assets/documents/REGULAMIN-ORGANIZACJI-IMPREZY-URODZINOWEJ.pdf'
 import GuardianAgreement from '../../../assets/documents/Zgoda-rodzica-do-druku.pdf'
 import GroupAgreement from '../../../assets/documents/Oswiadczenie-opiekuna-grupy.pdf'
 import TrampolinesStatue from '../../../assets/documents/Regulamin-korzystania-z-infastruktury.pdf'
