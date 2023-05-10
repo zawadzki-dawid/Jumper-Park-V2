@@ -115,7 +115,7 @@ const Hero = ({
                     <p>
                         Chcesz zapewnić swojemu dziecku niezapomniane przeżycia wakacyjne?
                         Ekipa Jumpera dołoży wszelkich starań, by właśnie tak się stało!
-                        Stawiamy na aktywność fizyczną, dobrą zabawę, wyjątkowe warsztaty, aktywny wypoczynek! A to wszystko za jedyne 690 zł! Zachęcamy do zapoznania się z naszą ofertą.
+                        Stawiamy na aktywność fizyczną, dobrą zabawę, wyjątkowe warsztaty, aktywny wypoczynek! A to wszystko za jedyne 750 zł! Zachęcamy do zapoznania się z naszą ofertą.
                     </p>
                 </div>
             </Section>
@@ -160,9 +160,7 @@ const Description = () => {
                         Znajdź turnus idealny dla siebie
                     </h3>
                     <p>
-                        Każdy turnus ma inny temat przewodni,
-                        jednak wszystkie łączy jedno =
-                        ciekawe zajęcia i warsztaty w połączeniu z dobrą zabawą
+                        Ciekawe zajęcia i warsztaty w połączeniu z dobrą zabawą
                         na terenie atrakcji Jumper Parku Trampolin (ul. Wiadukt 8, Białystok) pod czujnym okiem trenerów i animatorów!
                     </p>
                 </>

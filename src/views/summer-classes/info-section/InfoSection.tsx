@@ -16,16 +16,18 @@ interface Provision {
     text: string
 }
 
+type Info = {
+    description: string
+}
+
 export interface Props {
-    info: Infos[]
-    legalties: Legalty[]
-    provision: Provision[]
+    descriptions: Info[]
 }
 
 interface PropsInfo {
     heading: string
     isGrey?: boolean
-    elements: Infos[] | Legalty[] | Provision[]
+    descriptions: Info[]
 }
 
 // Main
@@ -38,8 +40,7 @@ const InfoStyled = styled.div<PropsInfoStyled>`
     padding: 100px 0 80px;
 
     ul {
-        row-gap: 30px;
-        display: grid;
+        list-style-type: circle;
     }
 
     li {
@@ -78,10 +79,23 @@ const InfoStyled = styled.div<PropsInfoStyled>`
     }
 `
 
+const StyledHTML = styled.div`
+    * {
+      font-family: 'Poppins', sans-serif !important;
+      background-color: transparent !important;
+    }
+`
+
+const StyledRow = styled.div`
+  &:not(:first-child) {
+    margin-top: 24px;
+  }
+`
+
 const Info = ({
     heading,
-    elements,
-    isGrey = false
+    descriptions,
+  isGrey = false
 }: PropsInfo) => {
     return (
         <InfoStyled
@@ -92,23 +106,13 @@ const Info = ({
                     <h4>
                         {heading}
                     </h4>
-                    <ul>
                     {
-                        elements.map((element, index) =>
-                            <li 
-                                key={index}
-                            >
-                                <Icon
-                                    image={'doneBlack'}
-                                />
-                                <div
-                                    className={'text__wrapper'} 
-                                    dangerouslySetInnerHTML={{__html: element.text}}
-                                />
-                            </li>
+                        descriptions.map(({ description }, index) =>
+                            <StyledRow key={index}>
+                                <StyledHTML dangerouslySetInnerHTML={{__html: description}}/>
+                            </StyledRow>
                         )
                     }
-                    </ul>
                 </div>
             </Section>
         </InfoStyled>
@@ -116,25 +120,14 @@ const Info = ({
 }
 
 export default ({
-    info,
-    legalties,
-    provision
+    descriptions
 }: Props) => {
     return (
         <>
             <Info
                 isGrey={true}
-                elements={info}
-                heading={'Dodatkowe informacje'}
-            />
-            <Info
-                elements={provision}
-                heading={'Co zapewniamy'}
-            />
-            <Info
-                isGrey={true}
-                elements={legalties}
-                heading={'Dodatkowe informacje'}
+                heading={'Informacje'}
+                descriptions={descriptions}
             />
         </>
     )

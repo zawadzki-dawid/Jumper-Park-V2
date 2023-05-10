@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useContext, useEffect, useState } from 'react'
 import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
@@ -13,6 +14,14 @@ import BatchSection, { Props as PropsBatch } from './batch-section/BatchSection'
 type State = 
 & PropsInfo
 & PropsBatch
+
+const StyledMain = styled.main`
+margin-bottom: 40px;
+  
+  @media only screen and (min-width: 768px) {
+    margin-bottom: 80px;
+  }
+`
 
 export default () => {
     // State
@@ -34,25 +43,23 @@ export default () => {
             <Baner 
                 content={'Półkolonie'}
             />
-            <main>
+            <StyledMain>
             {
                 !error && data && (
                     <>
                         <HeadingSection
                             setLoaded={setIsHeroLoaded}
                         />
+                        <InfoSection
+                            descriptions={data.descriptions}
+                        />
                         <BatchSection
                             batches={data.batches}
-                        />
-                        <InfoSection
-                            info={data.info}
-                            legalties={data.legalties}
-                            provision={data.provision}
                         />
                     </>
                 )
             }
-            </main>
+            </StyledMain>
         </>
     )
 }

@@ -191,10 +191,6 @@ const Batch = ({
                     alt={''}
                     src={url ?? ''}
                 />
-                 <Dot
-                    batchDate={batchDate}
-                    batchNumber={batchNumber}
-                />
             </div>
             <Description
                 batchName={batchName}

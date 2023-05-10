@@ -1,6 +1,8 @@
+import Modal from 'react-modal';
 import styled from 'styled-components'
+import Icon from './components/icon/Icon';
 import { Type } from './components/link/Link'
-import { useRef, lazy, useLayoutEffect, useMemo } from 'react'
+import {useRef, lazy, useLayoutEffect, useMemo, useState, useEffect} from 'react'
 import { setScrollbarWidth } from './utils/functions/scrollbarWidth'
 
 // Components
@@ -8,6 +10,7 @@ import Footer from './components/footer/Footer'
 import Loader from './components/loader/Loader'
 import RouterMain, { ViewRoute } from './components/router-main/RouterMain'
 import Navbar, { MenuLink } from './components/navbar/Navbar'
+import {useFetchContent} from "./utils/hooks/fetchDoc";
 
 // Views
 const Safety = lazy(() => import('./views/safety/Safety'))
@@ -19,7 +22,7 @@ const PriceList = lazy(() => import('./views/price-list/PriceList'))
 const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
 const Attraction = lazy(() => import('./views/attractions/Attraction'))
 const Attractions = lazy(() => import('./views/attractions/Attractions'))
-// const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
+const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
 
 type IsNotInNavbar = ViewRoute & {
   isInNavbar: false
@@ -32,14 +35,19 @@ type IsInNavbar = ViewRoute & MenuLink & {
 
 type RouteConfig = Array<IsInNavbar | IsNotInNavbar>
 
+interface State {
+  popUp: string
+  popUpVisible: boolean
+}
+
 const routes: RouteConfig = [
-  /* {
+  {
     View: SummerClasses,
     path: '/wakacje',
     text: `Półkolonie`,
     type: Type.Link,
     isInNavbar: true
-  }, */
+  },
   {
     View: Attractions,
     exact: true,
@@ -104,6 +112,24 @@ const routes: RouteConfig = [
   }
 ]
 
+const Close = styled.button`
+  display: block;
+  padding: 12px;
+  margin-left: auto;
+  margin-bottom: 16px;
+  
+  &>img {
+    width: 16px;
+    height: 16px;
+  }
+`
+
+const ModalContent = styled.div`
+  &>p:not(:first-child) {
+    margin-top: 16px;
+  }
+`
+
 const Wrapper = styled.div`
   display: flex;
   min-height: 100vh;
@@ -124,7 +150,20 @@ const Wrapper = styled.div`
   }
 `
 
+Modal.setAppElement('#root')
+
 export default () => {
+  // State
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Data
+  const { data, error } = useFetchContent<State>({ entryId: 'RAGhyGn3RbUG7knpo7Nh' })
+
+  // Effect
+  useEffect(() => {
+    setIsModalOpen(true)
+  }, [data])
+
   // Ref
   const wrapperRef = useRef<HTMLDivElement | null>(null)
 
@@ -152,6 +191,32 @@ export default () => {
 
   return (
     <Loader>
+      { data && !error && data.popUpVisible &&
+          <Modal
+          isOpen={isModalOpen}
+          shouldCloseOnEsc={true}
+          shouldCloseOnOverlayClick={true}
+          style={{
+            overlay: {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgb(0, 0, 0, 0.1)',
+            },
+            content: {
+              width: '80%',
+              inset: '0',
+              maxWidth: '576px',
+              zIndex: 2000,
+              position: 'static',
+              height: 'fit-content',
+              maxHeight: '80vh',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
+            }
+          }}>
+            <Close type={'button'} onClick={() => { setIsModalOpen(false) }}><Icon image={'close'}/></Close>
+        <ModalContent dangerouslySetInnerHTML={{ __html: data.popUp }}/>
+      </Modal> }
       <Wrapper
         ref={wrapperRef}
       >
