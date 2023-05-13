@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useContext, useEffect, useState } from 'react'
+import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
 
 // Components
@@ -8,9 +9,11 @@ import FormMain from '../../components/form/form-main/FormMain'
 import TextSection from '../../components/text-section/TextSection'
 
 // Sections
-import ReservationSection from './reservation-section/ReservationSection'
+import ReservationSection, { Props as PropsReservation } from './reservation-section/ReservationSection'
 
 // Main component
+
+type State = PropsReservation
 
 const Wrapper = styled.div`
     display: grid;
@@ -21,16 +24,23 @@ const Wrapper = styled.div`
 export default () => {
     // State
     const [isReserviseLoaded, setIsReserviseLoaded] = useState<boolean>(false)
+    const { data } = useFetchContent<State>({ entryId: '99ztlxaC8D6BI6T1acXd' })
 
     // Context
     const { entered, setEntered } = useContext(LoaderContext)
 
     // Effect
     useEffect(() => {
-        if (entered && isReserviseLoaded) {
-            setEntered(false)
+        if (data?.isBookingInactive === true) {
+            if (entered) {
+                setEntered(false)
+            }
+        } else {
+            if (entered && isReserviseLoaded) {
+                setEntered(false)
+            }
         }
-    }, [entered, isReserviseLoaded])
+    }, [entered, isReserviseLoaded, data])
 
     return (
         <>
@@ -45,6 +55,8 @@ export default () => {
                     </TextSection>
                     <ReservationSection
                         setLoaded={setIsReserviseLoaded}
+                        inactiveContent={data?.inactiveContent ?? ''}
+                        isBookingInactive={data?.isBookingInactive ?? false}
                     />
                     <FormMain/>
                 </Wrapper>
