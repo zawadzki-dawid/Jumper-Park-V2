@@ -44,6 +44,7 @@ export default () => {
         <>
             <Baner
                 content={'Zajęcia'}
+                subContent={'Nowe zajęcia już od września'}
             />
                 <Wrapper>
                 {
