@@ -47,6 +47,14 @@ interface PropsMobileSection<T> {
 const MobileLinkStyled = styled.div`
     height: 80px;
     background-color: var(--grey-light);
+  
+    > a {
+      color: var(--black) !important;
+    }
+  
+    > a.active {
+      color: var(--orange-light) !important;
+    }
 `
 
 const MobileLink = <T,>({
@@ -310,6 +318,10 @@ const DesktopLinkStyled = styled.li<PropsDesktopLink>`
             &:hover::before {
                 ${ActiveStyle};
                 top: -1px;
+            }
+
+            > a {
+              color: var(--black) !important;
             }
         `
     }
