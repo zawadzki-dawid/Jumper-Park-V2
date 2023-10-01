@@ -187,6 +187,11 @@ export default () => {
   const navbarItems: IsInNavbar[] = useMemo(() => {
     return routes.filter((item): item is IsInNavbar => item.isInNavbar)
   }, [routes])
+
+
+    const closeModal = () => {
+      setIsModalOpen(false)
+    }
   
 
   return (
@@ -195,6 +200,7 @@ export default () => {
           <Modal
           isOpen={isModalOpen}
           shouldCloseOnEsc={true}
+          onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
           style={{
             overlay: {
