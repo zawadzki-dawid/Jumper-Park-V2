@@ -41,13 +41,13 @@ interface State {
 }
 
 const routes: RouteConfig = [
-  {
-    View: SummerClasses,
-    path: '/wakacje',
-    text: `Półkolonie`,
-    type: Type.Link,
-    isInNavbar: true
-  },
+  // {
+  //   View: SummerClasses,
+  //   path: '/wakacje',
+  //   text: `Półkolonie`,
+  //   type: Type.Link,
+  //   isInNavbar: true
+  // },
   {
     View: Attractions,
     exact: true,
@@ -64,7 +64,7 @@ const routes: RouteConfig = [
   {
     View: SchoolTrip,
     path: '/grupyzorganizowane',
-    text: 'Grupy zorganizowane',
+    text: 'Grupy',
     type: Type.Link,
     isInNavbar: true
   },
@@ -114,9 +114,9 @@ const routes: RouteConfig = [
 
 const Close = styled.button`
   display: block;
-  padding: 12px;
+  padding: 10px;
   margin-left: auto;
-  margin-bottom: 16px;
+  height: fit-content;
   
   &>img {
     width: 16px;
@@ -125,6 +125,8 @@ const Close = styled.button`
 `
 
 const ModalContent = styled.div`
+  padding: 20px;
+  
   &>p:not(:first-child) {
     margin-top: 16px;
   }
@@ -147,6 +149,19 @@ const Wrapper = styled.div`
 
    > footer {
     flex: 0 1 80px;
+  }
+`
+
+const ModalHeaderWrapper = styled.div`
+  height: 80px;
+  display: flex;
+  padding: 0 10px 0 20px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--gradient-main);
+  
+  > h3 {
+    font-size: var(--heading-font-size);
   }
 `
 
@@ -212,6 +227,7 @@ export default () => {
             content: {
               width: '80%',
               inset: '0',
+                padding: 0,
               maxWidth: '576px',
               zIndex: 2000,
               position: 'static',
@@ -220,7 +236,10 @@ export default () => {
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
             }
           }}>
-            <Close type={'button'} onClick={() => { setIsModalOpen(false) }}><Icon image={'close'}/></Close>
+              <ModalHeaderWrapper>
+                  <h3>Aktualności</h3>
+                  <Close type={'button'} onClick={() => { setIsModalOpen(false) }}><Icon image={'close'}/></Close>
+              </ModalHeaderWrapper>
         <ModalContent dangerouslySetInnerHTML={{ __html: data.popUp }}/>
       </Modal> }
       <Wrapper
