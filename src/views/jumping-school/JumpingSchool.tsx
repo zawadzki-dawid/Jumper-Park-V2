@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useContext, useEffect } from 'react'
+import {useContext, useEffect } from 'react'
 import { useFetchContent } from '../../utils/hooks/fetchDoc'
 import { LoaderContext } from '../../components/loader/Loader'
 
@@ -8,13 +8,22 @@ import Baner from '../../components/baner/Baner'
 import FormMain from '../../components/form/form-main/FormMain'
 
 // Sections
-import OfferSection, { Props as PropsOffer } from './offer-section/OfferSection'
-import GallerySection, { Props as PropsGallery } from './gallery-section/GallerySection'
-import DescriptionSection, { Props as PropsDescription } from './description-section/DescriptionSection'
+import BannerSection from './banner-section/BannerSection'
+import OfferSection from '../school-trip/offer-section/OfferSection'
+
+type JumpingSchoolOffer = {
+    title: string
+    columns: Array<{
+        offer: string
+        price: string
+    }>
+}
 
 // Main
-
-type State = PropsOffer & PropsGallery & PropsDescription
+type State = {
+    jumpingSchoolBanner: Array<{ url: string }>
+    jumpingSchoolOffers: JumpingSchoolOffer[]
+}
 
 const Wrapper = styled.div`
     display: grid;
@@ -44,16 +53,16 @@ export default () => {
 
     return (
         <>
-            <Baner 
-                content={'Grupy zorganizowane'}
+            <Baner
+                content={'Skoczna szkoła'}
             />
             {
                 !error && data && (
                     <Wrapper>
-                        <DescriptionSection description={data.description}/>
+                        <BannerSection image={data.jumpingSchoolBanner[0]?.url ?? ''}/>
                         <OfferWrapper>
                             <OfferSection
-                                offers={data.offers}
+                                offers={data.jumpingSchoolOffers}
                             />
                         </OfferWrapper>
                         <FormMain/>

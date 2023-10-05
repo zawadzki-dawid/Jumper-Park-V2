@@ -22,6 +22,7 @@ const PriceList = lazy(() => import('./views/price-list/PriceList'))
 const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
 const Attraction = lazy(() => import('./views/attractions/Attraction'))
 const Attractions = lazy(() => import('./views/attractions/Attractions'))
+const JumpingSchool = lazy(() => import('./views/jumping-school/JumpingSchool'))
 const SummerClasses = lazy(() => import('./views/summer-classes/SummerClasses'))
 
 type IsNotInNavbar = ViewRoute & {
@@ -65,6 +66,13 @@ const routes: RouteConfig = [
     View: SchoolTrip,
     path: '/grupyzorganizowane',
     text: 'Grupy',
+    type: Type.Link,
+    isInNavbar: true
+  },
+  {
+    View: JumpingSchool,
+    path: '/skocznaszkola',
+    text: 'Skoczna szkoła',
     type: Type.Link,
     isInNavbar: true
   },
