@@ -21,8 +21,10 @@ type JumpingSchoolOffer = {
 
 // Main
 type State = {
-    jumpingSchoolBanner: Array<{ url: string }>
+    jumpingSchoolDesc: string
     jumpingSchoolOffers: JumpingSchoolOffer[]
+    jumpingSchoolBanner: Array<{ url: string }>
+    jumpingSchoolStatute: Array<{ url: string }>
 }
 
 const Wrapper = styled.div`
@@ -59,7 +61,7 @@ export default () => {
             {
                 !error && data && (
                     <Wrapper>
-                        <BannerSection image={data.jumpingSchoolBanner[0]?.url ?? ''}/>
+                        <BannerSection statute={data.jumpingSchoolStatute[0]?.url ?? ''} image={data.jumpingSchoolBanner[0]?.url ?? ''} content={data.jumpingSchoolDesc}/>
                         <OfferWrapper>
                             <OfferSection
                                 offers={data.jumpingSchoolOffers}
