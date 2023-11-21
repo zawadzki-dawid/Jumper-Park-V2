@@ -18,6 +18,7 @@ const Booking = lazy(() => import('./views/booking/Booking'))
 const Classes = lazy(() => import('./views/classes/Classes'))
 const Contact = lazy(() => import('./views/contact/Contact'))
 const Birthday = lazy(() => import('./views/birthday/Birthday'))
+const Christmas = lazy(() => import('./views/christmas/Christmas'))
 const PriceList = lazy(() => import('./views/price-list/PriceList'))
 const SchoolTrip = lazy(() => import('./views/school-trip/SchoolTrip'))
 const Attraction = lazy(() => import('./views/attractions/Attraction'))
@@ -49,6 +50,13 @@ const routes: RouteConfig = [
   //   type: Type.Link,
   //   isInNavbar: true
   // },
+  {
+    View: Christmas,
+    path: '/skoczna-choinka',
+    text: 'Skoczna choinka',
+    type: Type.Link,
+    isInNavbar: true
+  },
   {
     View: Attractions,
     exact: true,
