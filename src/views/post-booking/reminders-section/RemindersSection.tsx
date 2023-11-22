@@ -18,7 +18,7 @@ const remindersData = [
         title: 'Strój',
         entries: [
             `Weź ze sobą wygodny strój na zmianę. Pozwoli ci on na swobodne skakanie.`,
-            `Jeśli nie masz, lub nie zamówisz skarpetek antypoślizgowych będziesz je musiał kupić na miejscu. Są obowiązkowe dla Twojego bezpieczeństwa, a kosztują tylko 6 zł.`
+            `Jeśli nie masz, lub nie zamówisz skarpetek antypoślizgowych będziesz je musiał kupić na miejscu. Są obowiązkowe dla Twojego bezpieczeństwa, a kosztują tylko 7 zł.`
         ]
     },
     {

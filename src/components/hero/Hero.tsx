@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ButtonHTMLAttributes } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useRef, useEffect, Dispatch, SetStateAction } from 'react'
 
 // Assets
@@ -81,7 +81,26 @@ const ButtonStyled = styled.button`
         background-color: transparent;
         border: 3px solid rgb(249, 187, 29);
     }
+`
 
+const LinkStyled = styled(Link)`
+    width: 100%;
+    height: 45px;
+    display: flex;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: var(--black);
+    align-items: center;
+  text-decoration: none;
+    box-sizing: border-box;
+    justify-content: center;
+    background-color: rgb(249, 187, 29);
+
+    &:hover {
+        color: var(--white);
+        background-color: transparent;
+        border: 3px solid rgb(249, 187, 29);
+    }
 `
 
 const Button = ({
@@ -94,6 +113,19 @@ const Button = ({
         >
             {text}
         </ButtonStyled>
+    )
+}
+
+const SiteLink = ({
+                    text,
+                    to
+                }: PropsButton & { to: string }) => {
+    return (
+        <LinkStyled
+            to={to}
+        >
+            {text}
+        </LinkStyled>
     )
 }
 
@@ -281,9 +313,7 @@ export default ({
                     </h1>
                     <div className={'description__wrapper'}>
                         <p className={'description'}>
-                            Chcesz połączyć trening ze znakomitą zabawą?
-                            W takim razie nie mogłeś lepiej trafić! 
-                            Dzięki nam Ty i Twoi znajomi możecie odpocząć od codziennych trosk.
+                            Aktywny odpoczynek dla całej rodziny czy dobra zabawa ze znajomymi? W Jumperze mamy atrakcje dla dużych, małych, a nawet bardzo małych! Zapraszamy już od 2 roku życia!
                         </p>
                         <div className={'actions__wrapper'}>
                             <div className={'buttons__wrapper'}>
@@ -291,14 +321,14 @@ export default ({
                                     text={'Kup bilet'}
                                     onClick={openBookingView}
                                 />
-                                <Button
+                                <SiteLink
                                     text={'Poznaj nas'}
-                                    onClick={scrollToContent}
+                                    to={'/atrakcje'}
                                 />
                             </div>
                         </div>
                         <p className={'bottom__description'}>
-                            Wejście zaczyna się o pełnej godzinie
+                            Wejście rozpoczyna się o pełnej godzinie, wymagane są skarpetki antypoślizgowe.
                         </p>
                     </div>
                 </div>
