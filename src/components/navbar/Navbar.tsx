@@ -94,8 +94,12 @@ const MenuMobile = styled.nav<PropsMobile>`
     ul {
         li {
             display: flex;
-            margin-top: 30px;
+            margin-top: 24px;
             justify-content: center;
+          
+          > a {
+            font-size: 1.6rem;
+          }
         }
     }
 
@@ -112,8 +116,12 @@ const MenuDesktop = styled.nav`
         display: flex;
         align-items: center;
 
+       li > a{
+         font-size: 1.6rem;
+       }
+      
         li:not(:last-of-type) {
-            margin-right: 40px;
+            margin-right: 20px;
         }
     }
 
