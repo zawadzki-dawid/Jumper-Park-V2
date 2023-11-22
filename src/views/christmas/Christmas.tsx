@@ -691,7 +691,7 @@ const ProcessSection = styled.section`
 
       > .christmas-process-prices {
         > div {
-          gap: 48px;
+          gap: 24px;
           margin: auto;
           font-size: 1.6rem;
           padding-left: 24px;
