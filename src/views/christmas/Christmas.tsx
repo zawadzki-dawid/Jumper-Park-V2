@@ -19,6 +19,17 @@ import { ReactComponent as Semicircle } from './semicircle.svg'
 
 const FirstBallStyled = styled.div`
   position: relative;
+
+    @media only screen and (max-width: 1250px) {
+      margin-left: auto;
+
+      > svg {
+        height: 350px;
+        width: auto;
+        rotate: 180deg;
+        transform-origin: center;
+      }
+    }
   
     > div {
       left: 40px;
@@ -38,6 +49,22 @@ const FirstBallStyled = styled.div`
         letter-spacing: 0.02rem;
         font-family: 'Abril Fatface', serif;
       }
+
+      @media only screen and (max-width: 1250px) {
+        top: 50%;
+        left: 20px;
+        max-width: 250px;
+        transform: translateY(-50%);
+
+        > svg {
+          height: 50px;
+          width: auto;
+        }
+
+        > p {
+          font-size: 2.0rem;
+        }
+      }
     }
 `
 
@@ -55,13 +82,20 @@ const SecondBallStyled = styled.div`
   transform: translateY(60px);
   position: relative;
 
+  > svg {
+    @media only screen and (max-width: 1250px) {
+      height: 300px;
+      width: auto;
+    }
+  }
+  
   > div {
     top: 108px;
     gap: 16px;
     display: flex;
     position: absolute;
     align-items: center;
-
+    
     > p {
       color: #fff;
       font-weight: 400;
@@ -70,6 +104,27 @@ const SecondBallStyled = styled.div`
       letter-spacing: 0.02rem;
       font-family: 'Abril Fatface', serif;
     }
+
+    @media only screen and (max-width: 1250px) {
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      > svg {
+        height: 50px;
+        width: auto;
+      }
+
+      > p {
+        font-size: 2rem;
+        max-width: 210px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1250px) {
+    transform: translateY(0px);
+    margin-right: auto;
   }
 `
 
@@ -87,6 +142,13 @@ const ThirdBallStyled = styled.div`
   transform: translateY(72px);
   position: relative;
 
+  > svg {
+    @media only screen and (max-width: 1250px) {
+      height: 400px;
+      width: auto;
+    }
+  }
+  
   > div {
     left: -52px;
     top: 158px;
@@ -94,7 +156,7 @@ const ThirdBallStyled = styled.div`
     display: flex;
     position: absolute;
     align-items: center;
-
+    
     > p {
       color: #fff;
       font-weight: 400;
@@ -103,6 +165,27 @@ const ThirdBallStyled = styled.div`
       letter-spacing: 0.02rem;
       font-family: 'Abril Fatface', serif;
     }
+
+    @media only screen and (max-width: 1250px) {
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      > svg {
+        height: 50px;
+        width: auto;
+      }
+
+      > p {
+        font-size: 2rem;
+        max-width: 150px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1250px) {
+    transform: translateY(0px);
+    margin-left: auto;
   }
 `
 
@@ -119,6 +202,13 @@ const ThirdBall = () => {
 const FourthBallStyled = styled.div`
   position: relative;
 
+  > svg {
+    @media only screen and (max-width: 1250px) {
+      height: 350px;
+      width: auto;
+    }
+  }
+  
   > div {
     left: 87px;
     top: 126px;
@@ -127,7 +217,7 @@ const FourthBallStyled = styled.div`
     display: flex;
     position: absolute;
     align-items: center;
-
+    
     > p {
       width: 100%;
       color: #fff;
@@ -137,6 +227,26 @@ const FourthBallStyled = styled.div`
       letter-spacing: 0.02rem;
       font-family: 'Abril Fatface', serif;
     }
+
+    @media only screen and (max-width: 1250px) {
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      > svg {
+        height: 50px;
+        width: auto;
+      }
+
+      > p {
+        font-size: 2rem;
+        max-width: 200px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1250px) {
+    margin-right: auto;
   }
 `
 
@@ -154,12 +264,23 @@ const FifthBallStyled = styled.div`
     padding-top: 80px;
   position: relative;
 
+  > svg {
+    @media only screen and (max-width: 1250px) {
+      height: 300px;
+      width: auto;
+    }
+  }
+  
   > .star {
     top: 64px;
     right: 72px;
     height: 97px;
     width: auto;
     position: absolute;
+
+    @media only screen and (max-width: 1250px) {
+      top: 0;
+    }
   }
   
   > div {
@@ -169,7 +290,7 @@ const FifthBallStyled = styled.div`
     display: flex;
     position: absolute;
     align-items: center;
-
+    
     > p {
       color: #fff;
       font-weight: 400;
@@ -178,6 +299,27 @@ const FifthBallStyled = styled.div`
       letter-spacing: 0.02rem;
       font-family: 'Abril Fatface', serif;
     }
+
+    @media only screen and (max-width: 1250px) {
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      > svg {
+        height: 50px;
+        width: auto;
+      }
+
+      > p {
+        font-size: 2rem;
+        max-width: 200px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1250px) {
+    padding-top: 0;
+    margin-left: auto;
   }
 `
 
@@ -197,6 +339,10 @@ const Header = styled.section`
   padding-bottom: 120px;
   background-color: #15342B;
   position: relative;
+
+  @media only screen and (max-width: 750px) {
+    padding-bottom: 60px;
+  }
   
   > .christmas-header-start-top {
     left: 20%;
@@ -211,6 +357,10 @@ const Header = styled.section`
     rotate: 180deg;
     top: 152px;
     position: absolute;
+
+    @media only screen and (max-width: 1100px) {
+      display: none;
+    }
   }
 
   > .christmas-header-start-right {
@@ -219,6 +369,10 @@ const Header = styled.section`
     top: 512px;
     right: 0;
     position: absolute;
+
+    @media only screen and (max-width: 1100px) {
+      display: none;
+    }
   }
   
   > .christmas-header-tree-right {
@@ -230,6 +384,10 @@ const Header = styled.section`
     right: 0;
     top: 43px;
     position: absolute;
+
+    @media only screen and (max-width: 1100px) {
+      display: none;
+    }
   }
   
   > h1 {
@@ -244,6 +402,12 @@ const Header = styled.section`
     text-align: center;
     position: relative;
     font-family: 'Abril Fatface', serif;
+
+    @media only screen and (max-width: 750px) {
+      font-size: 4.8rem;
+      max-width: 400px;
+      padding-top: 164px;
+    }
   }
   
   > span {
@@ -261,15 +425,26 @@ const Header = styled.section`
     > span {
       color: #F4B860;
     }
+
+    @media only screen and (max-width: 750px) {
+      font-size: 6rem;
+      padding-bottom: 164px;
+    }
   }
   
   > .christmas-header-description {
-    margin: auto;
+    margin-left: auto;
     max-width: 900px;
+    margin-right: auto;
     position: relative;
     border-top: 1px solid rgba(255, 255, 255, 0.80);
     border-bottom: 1px solid rgba(255, 255, 255, 0.80);
 
+    @media only screen and (max-width: 900px) {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    
     > p {
       color: #fff;
       margin: auto;
@@ -282,6 +457,12 @@ const Header = styled.section`
       text-align: center;
       font-family: 'Abril Fatface', serif;
 
+      @media only screen and (max-width: 750px) {
+        font-size: 2.4rem;
+        padding-top: 32px;
+        padding-bottom: 32px;
+      }
+      
       > span {
         color: #F4B860;
       }
@@ -320,11 +501,16 @@ const Header = styled.section`
   }
   
   > .christmas-header-legend {
-    margin: auto;
+    margin-left: 16px;
+    margin-right: 16px;
     color: #F4B860;
-    width: fit-content;
+    text-align: center;
     font-size: 1.8rem;
     padding-top: 72px;
+
+    @media only screen and (max-width: 750px) {
+      font-size: 1.4rem;
+    }
   }
 `
 
@@ -340,6 +526,10 @@ const ProcessSection = styled.section`
     height: 131px;
     width: auto;
     position: absolute;
+
+    @media only screen and (max-width: 750px) {
+      display: none;
+    }
   }
   
   > h2 {
@@ -350,6 +540,11 @@ const ProcessSection = styled.section`
     margin: auto;
     text-align: center;
     font-family: 'Abril Fatface', serif;
+
+    @media only screen and (max-width: 750px) {
+      font-size: 3.2rem;
+      max-width: 340px;
+    }
     
     > span {
       color: #F4B860;
@@ -424,14 +619,26 @@ const ProcessSection = styled.section`
     display: flex;
     padding-top: 56px;
     justify-content: space-between;
+
+    @media only screen and (max-width: 1250px) {
+      gap: 32px;
+      flex-direction: column;
+    }
   }
   
   > .christmas-process-second-line {
     display: flex;
-    padding-left: 160px;
+    padding-left: 11%;
     padding-bottom: 40px;
-    padding-right: 238px;
+    padding-right: 16.5%;
     justify-content: space-between;
+
+    @media only screen and (max-width: 1250px) {
+      gap: 32px;
+      padding-left: 0;
+      padding-right: 0;
+      flex-direction: column;
+    }
   }
 `
 
@@ -459,6 +666,11 @@ const ContactSection = styled.section`
       width: fit-content;
       align-items: center;
       grid-auto-flow: column;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
       
       & > svg:last-child {
         rotate: 180deg;
@@ -587,8 +799,8 @@ export default () => {
             <Star className={'christmas-contact-start-top'}/>
             <h2>Zapraszamy do <span>kontaktu!</span></h2>
             <div className={'christmas-contact-info'}>
-                <a><Line/>+48 576 183 518<Line/></a>
-                <a><Line/>jumperpark@wp.pl<Line/></a>
+                <a href={'tel:+48576183518'}><Line/>+48 576 183 518<Line/></a>
+                <a href={'mailto:jumperpark@wp.pl'}><Line/>jumperpark@wp.pl<Line/></a>
             </div>
             <div className={'christmas-button-wrapper'}>
                 <Button to={'/kontakt'} text={'Skontaktuj się z nami'}/>
