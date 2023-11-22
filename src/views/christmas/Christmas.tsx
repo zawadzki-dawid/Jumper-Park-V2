@@ -8,6 +8,7 @@ import { ReactComponent as Three } from './three.svg'
 import { ReactComponent as Four } from './four.svg'
 import { ReactComponent as Five } from './five.svg'
 import { ReactComponent as Star } from './star.svg'
+import { ReactComponent as TreeLeft } from './tree-left.svg'
 import { ReactComponent as FirstBallImage } from './ball-first.svg'
 import { ReactComponent as SecondBallImage } from './ball-second.svg'
 import { ReactComponent as ThirdBallImage } from './ball-third.svg'
@@ -142,10 +143,21 @@ const ThirdBallStyled = styled.div`
   transform: translateY(72px);
   position: relative;
 
-  > svg {
+  > .third-ball-ball {
     @media only screen and (max-width: 1250px) {
       height: 400px;
       width: auto;
+    }
+  }
+  
+  > .third-ball-star {
+    left: 0;
+    top: 10px;
+    display: none;
+    position: absolute;
+
+    @media only screen and (max-width: 750px) {
+      display: block;
     }
   }
   
@@ -191,11 +203,12 @@ const ThirdBallStyled = styled.div`
 
 const ThirdBall = () => {
     return <ThirdBallStyled>
-        <ThirdBallImage/>
+        <ThirdBallImage className={'third-ball-ball'}/>
         <div>
             <Three/>
             <p>Sala na wyłączność</p>
         </div>
+        <Star className={'third-ball-star'}/>
     </ThirdBallStyled>
 }
 
@@ -461,6 +474,7 @@ const Header = styled.section`
         font-size: 2.4rem;
         padding-top: 32px;
         padding-bottom: 32px;
+        
       }
       
       > span {
@@ -470,33 +484,67 @@ const Header = styled.section`
   }
   
   > .christmas-header-prices-wrapper {
-    margin: auto;
-    display: flex;
+    margin-left: 16px;
+    margin-right: 16px;
     padding-top: 32px;
-    width: fit-content;
+    display: flex;
     
     > .christmas-header-days {
-      gap: 40px;
-      color: #fff;
-      display: flex;
-      font-size: 2.4rem;
-      padding-top: 20px;
-      padding-bottom: 56px;
-      flex-direction: column;
-      align-items: center;
-      padding-right: 78px;
+      width: 50%;
+      
+      > div {
+        gap: 40px;
+        color: #fff;
+        display: flex;
+        font-size: 2.4rem;
+        padding-top: 20px;
+        padding-bottom: 56px;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 78px;
+        width: fit-content;
+        margin-left: auto;
+      }
     }
 
     > .christmas-header-prices {
-      gap: 40px;
-      color: #fff;
-      display: flex;
-      font-size: 2.4rem;
-      padding-left: 170px;
-      flex-direction: column;
-      padding-top: 20px;
-      padding-bottom: 56px;
+      width: 50%;
       border-left: 1px solid rgba(255, 255, 255, 0.80);
+
+      > div {
+        gap: 40px;
+        color: #fff;
+        display: flex;
+        font-size: 2.4rem;
+        padding-left: 170px;
+        flex-direction: column;
+        padding-top: 20px;
+        padding-bottom: 56px;
+        width: fit-content;
+      }
+    }
+
+    @media only screen and (max-width: 750px) {
+
+      > .christmas-header-days {
+        > div {
+          gap: 20px;
+          font-size: 1.6rem;
+          padding-right: 24px;
+          padding-bottom: 24px;
+          max-width: 130px;
+        }
+      }
+
+      > .christmas-header-prices {
+        > div {
+          gap: 48px;
+          margin: auto;
+          font-size: 1.6rem;
+          padding-left: 24px;
+          padding-bottom: 24px;
+        }
+      }
     }
   }
   
@@ -588,33 +636,68 @@ const ProcessSection = styled.section`
   }
 
   > .christmas-process-prices-wrapper {
-    margin: auto;
-    display: flex;
+    margin-left: 16px;
+    margin-right: 16px;
     padding-top: 32px;
-    width: fit-content;
+    display: flex;
 
     > .christmas-process-things {
-      gap: 40px;
-      color: #fff;
-      display: flex;
-      font-size: 2.4rem;
-      padding-top: 20px;
-      padding-bottom: 56px;
-      flex-direction: column;
-      align-items: center;
-      padding-right: 78px;
+      width: 50%;
+
+      > div {
+        gap: 40px;
+        color: #fff;
+        display: flex;
+        font-size: 2.4rem;
+        padding-top: 20px;
+        padding-bottom: 56px;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 78px;
+        width: fit-content;
+        margin-left: auto;
+      }
     }
 
     > .christmas-process-prices {
-      gap: 40px;
-      color: #fff;
-      display: flex;
-      font-size: 2.4rem;
-      padding-left: 170px;
-      flex-direction: column;
-      padding-top: 20px;
-      padding-bottom: 56px;
+      width: 50%;
       border-left: 1px solid rgba(255, 255, 255, 0.80);
+
+      > div {
+        gap: 40px;
+        color: #fff;
+        display: flex;
+        font-size: 2.4rem;
+        padding-left: 170px;
+        flex-direction: column;
+        padding-top: 20px;
+        padding-bottom: 56px;
+        width: fit-content;
+      }
+    }
+
+    @media only screen and (max-width: 750px) {
+
+      > .christmas-process-things {
+        > div {
+          gap: 20px;
+          font-size: 1.6rem;
+          padding-right: 24px;
+          padding-bottom: 24px;
+          max-width: 130px;
+          align-items: start;
+        }
+      }
+
+      > .christmas-process-prices {
+        > div {
+          gap: 48px;
+          margin: auto;
+          font-size: 1.6rem;
+          padding-left: 24px;
+          padding-bottom: 24px;
+        }
+      }
     }
   }
 
@@ -678,6 +761,7 @@ const ContactSection = styled.section`
     flex-direction: column;
     gap: 16px;
     align-items: center;
+    position: relative;
     
     > a {
       gap: 32px;
@@ -714,6 +798,7 @@ const ContactSection = styled.section`
     font-size: 4.8rem;
     width: fit-content;
     margin: auto;
+    position: relative;
     font-family: 'Abril Fatface', serif;
 
     @media only screen and (max-width: 750px) {
@@ -728,6 +813,7 @@ const ContactSection = styled.section`
   }
   
   > p {
+    position: relative;
     color: #F4B860;
   }
   
@@ -746,6 +832,7 @@ const ContactSection = styled.section`
   > .christmas-button-wrapper {
     margin: auto;
     width: fit-content;
+    position: relative;
     > a {
       font-weight: 500;
       font-size: 1.8rem;
@@ -755,6 +842,18 @@ const ContactSection = styled.section`
         color: #F4B860;
         border-color: #F4B860;
       }
+    }
+  }
+  
+  > .christmas-contact-tree-right {
+    right: 0;
+    bottom: 98px;
+    position: absolute;
+
+    @media only screen and (max-width: 750px) {
+      height: 300px;
+      width: auto;
+      bottom: 180px;
     }
   }
 `
@@ -770,7 +869,7 @@ export default () => {
         }
     }, [entered])
 
-    return <div>
+    return <div style={{ overflowX: 'clip' }}>
         <Header>
             <Star className={'christmas-header-start-top'}/>
             <Star className={'christmas-header-start-left'}/>
@@ -792,12 +891,16 @@ export default () => {
             </div>
             <div className={'christmas-header-prices-wrapper'}>
                 <div className={'christmas-header-days'}>
-                    <span>Poniedziałek - Czwartek</span>
-                    <span>Piątek - Niedziela</span>
+                    <div>
+                        <span>Poniedziałek - Czwartek</span>
+                        <span>Piątek - Niedziela</span>
+                    </div>
                 </div>
                 <div className={'christmas-header-prices'}>
-                    <span>62 zł / os</span>
-                    <span>67 zł / os</span>
+                    <div>
+                        <span>62 zł / os</span>
+                        <span>67 zł / os</span>
+                    </div>
                 </div>
             </div>
             <p className={'christmas-header-legend'}>
@@ -823,12 +926,16 @@ export default () => {
             </div>
             <div className={'christmas-process-prices-wrapper'}>
                 <div className={'christmas-process-things'}>
+                    <div>
                     <span>Poczęstunek</span>
                     <span>Skarpetki antypoślizgowe</span>
+                    </div>
                 </div>
                 <div className={'christmas-process-prices'}>
+                    <div>
                     <span>16zł /os</span>
                     <span>7 zł / os</span>
+                    </div>
                 </div>
             </div>
             <p className={'christmas-process-legend'}>
@@ -836,6 +943,7 @@ export default () => {
             </p>
         </ProcessSection>
         <ContactSection>
+            <TreeLeft className={'christmas-contact-tree-right'}/>
             <Star className={'christmas-contact-start-top'}/>
             <h2>Zapraszamy do <span>kontaktu!</span></h2>
             <div className={'christmas-contact-info'}>
