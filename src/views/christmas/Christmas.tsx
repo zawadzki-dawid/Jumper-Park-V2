@@ -558,6 +558,11 @@ const ProcessSection = styled.section`
     border-top: 1px solid rgba(255, 255, 255, 0.80);
     border-bottom: 1px solid rgba(255, 255, 255, 0.80);
 
+    @media only screen and (max-width: 900px) {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    
     > p {
       color: #fff;
       margin: auto;
@@ -570,6 +575,12 @@ const ProcessSection = styled.section`
       text-align: center;
       font-family: 'Abril Fatface', serif;
 
+      @media only screen and (max-width: 750px) {
+        font-size: 2.4rem;
+        padding-top: 32px;
+        padding-bottom: 32px;
+      }
+      
       > span {
         color: #F4B860;
       }
@@ -608,11 +619,16 @@ const ProcessSection = styled.section`
   }
 
   > .christmas-process-legend {
-    margin: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+    text-align: center;
     color: #F4B860;
-    width: fit-content;
     font-size: 1.8rem;
     padding-top: 72px;
+
+    @media only screen and (max-width: 750px) {
+      font-size: 1.4rem;
+    }
   }
   
   > .christmas-process-first-line {
@@ -648,6 +664,11 @@ const ContactSection = styled.section`
   padding-bottom: 120px;
   background-color: #15342B;
 
+  @media only screen and (max-width: 750px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
   > .christmas-contact-info {
     margin: auto;
     padding-top: 40px;
@@ -676,6 +697,14 @@ const ContactSection = styled.section`
         rotate: 180deg;
         transform-origin: center;
       }
+
+      @media only screen and (max-width: 750px) {
+        font-size: 1.8rem;
+        
+        > svg {
+          display: none;  
+        }
+      }
     }
   }
   
@@ -687,6 +716,12 @@ const ContactSection = styled.section`
     margin: auto;
     font-family: 'Abril Fatface', serif;
 
+    @media only screen and (max-width: 750px) {
+      font-size: 3.2rem;
+      max-width: 340px;
+      text-align: center;
+    }
+    
     > span {
       color: #F4B860;
     }
@@ -701,6 +736,11 @@ const ContactSection = styled.section`
     height: 131px;
     width: auto;
     position: absolute;
+
+    @media only screen and (max-width: 750px) {
+      top: -54px;
+      height: 110px;
+    }
   }
   
   > .christmas-button-wrapper {
