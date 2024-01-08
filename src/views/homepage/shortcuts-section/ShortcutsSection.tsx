@@ -91,7 +91,7 @@ const Shortcuts = () => {
             <Shortcut
                 image={'group'}
                 title={'Zajęcia grupowe'}
-                description={'Już od 24zł za 60 minut szaleństwa. Z nami spędzicie czas aktywnie i z uśmiechem.'}
+                description={'Już od 25zł za 60 minut szaleństwa. Z nami spędzicie czas aktywnie i z uśmiechem.'}
             />
             <Shortcut
                 image={'cake'}

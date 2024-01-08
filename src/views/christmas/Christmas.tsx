@@ -883,7 +883,7 @@ export default () => {
             <h1>
                 Skoczna Choinka w Jumper Park
             </h1>
-            <span>20<span>23</span></span>
+            <span>2023<span>/2024</span></span>
             <div className={'christmas-header-description'}>
                 <p>
                     Zorganizuj imprezę choinkową dla swojej <span>klasy, szkoły, firmy!</span>
@@ -898,8 +898,8 @@ export default () => {
                 </div>
                 <div className={'christmas-header-prices'}>
                     <div>
-                        <span>62 zł / os</span>
                         <span>67 zł / os</span>
+                        <span>74 zł / os</span>
                     </div>
                 </div>
             </div>
@@ -933,7 +933,7 @@ export default () => {
                 </div>
                 <div className={'christmas-process-prices'}>
                     <div>
-                    <span>16zł /os</span>
+                    <span>20zł /os</span>
                     <span>7 zł / os</span>
                     </div>
                 </div>
