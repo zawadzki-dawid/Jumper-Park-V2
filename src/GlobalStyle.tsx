@@ -1,7 +1,7 @@
 import { css, createGlobalStyle } from 'styled-components'
 
 const fontFamily = css`
-    font-family: 'Poppins', sans-serif;
+	font-family: 'Poppins', sans-serif;
 `
 
 export default createGlobalStyle`
@@ -40,6 +40,10 @@ export default createGlobalStyle`
 
         @media only screen and (min-width: 1000px) {
             --section-default-gap: 80px;
+        }
+
+        @media only screen and (min-width: 1200px) {
+            --nav-mobile-height: 120px;
         }
     }
 
